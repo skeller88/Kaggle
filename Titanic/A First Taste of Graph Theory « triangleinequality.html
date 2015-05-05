@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<!-- saved from url=(0082)https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<title>A First Taste of Graph Theory « triangleinequality</title>
+
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://triangleinequality.wordpress.com/xmlrpc.php">
+
+<link rel="alternate" type="application/rss+xml" title="triangleinequality » Feed" href="https://triangleinequality.wordpress.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="triangleinequality » Comments Feed" href="https://triangleinequality.wordpress.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="triangleinequality » A First Taste of Graph Theory Comments Feed" href="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel="stylesheet" id="all-css-0" href="./A First Taste of Graph Theory « triangleinequality_files/saved_resource" type="text/css" media="all">
+<script type="text/javascript">
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./A First Taste of Graph Theory « triangleinequality_files/saved_resource(1)"></script>
+<link rel="stylesheet" id="all-css-0" href="./A First Taste of Graph Theory « triangleinequality_files/style.css" type="text/css" media="all">
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='https://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://triangleinequality.wordpress.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://s1.wp.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Plotting With Python" href="https://triangleinequality.wordpress.com/2013/05/25/plotting-with-python/">
+<link rel="next" title="A First Taste of Object Orientated Programming with Python" href="https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/">
+<meta name="generator" content="WordPress.com">
+<link rel="canonical" href="./A First Taste of Graph Theory « triangleinequality_files/A First Taste of Graph Theory « triangleinequality.html">
+<link rel="shortlink" href="http://wp.me/p3xjVg-12">
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=json&url=https%3A%2F%2Ftriangleinequality.wordpress.com%2F2013%2F06%2F01%2Fa-first-taste-of-graph-theory%2F&for=wpcom-auto-discovery"><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=xml&url=https%3A%2F%2Ftriangleinequality.wordpress.com%2F2013%2F06%2F01%2Fa-first-taste-of-graph-theory%2F&for=wpcom-auto-discovery">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="A First Taste of Graph Theory">
+<meta property="og:url" content="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/">
+<meta property="og:description" content="1. Motivation Welcome back. So far we&#39;ve learnt how to clean data, and do some basic plotting. Now we really want to move on to some machine learning proper and make some models. If you recall we w...">
+<meta property="article:published_time" content="2013-06-01T16:59:53+00:00">
+<meta property="article:modified_time" content="2013-09-07T08:13:21+00:00">
+<meta property="article:author" content="https://triangleinequality.wordpress.com/author/triangleinequality/">
+<meta property="og:site_name" content="triangleinequality">
+<meta property="og:image" content="https://triangleinequality.files.wordpress.com/2013/06/narytree.png">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:site" content="@wordpressdotcom">
+<meta name="twitter:image:src" content="https://triangleinequality.files.wordpress.com/2013/06/narytree.png?w=640">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="fb:app_id" content="249643311490">
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom">
+<link rel="shortcut icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="apple-touch-icon-precomposed" href="https://s0.wp.com/i/webclip.png">
+<link rel="openid.server" href="https://triangleinequality.wordpress.com/?openidserver=1">
+<link rel="openid.delegate" href="https://triangleinequality.wordpress.com/">
+<link rel="search" type="application/opensearchdescription+xml" href="https://triangleinequality.wordpress.com/osd.xml" title="triangleinequality">
+<link rel="search" type="application/opensearchdescription+xml" href="https://wordpress.com/opensearch.xml" title="WordPress.com">
+<meta name="application-name" content="triangleinequality"><meta name="msapplication-window" content="width=device-width;height=device-height"><meta name="msapplication-tooltip" content="for matters mathematical"><meta name="msapplication-task" content="name=Subscribe;action-uri=https://triangleinequality.wordpress.com/feed/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="title" content="A First Taste of Graph Theory | triangleinequality on WordPress.com">
+<meta name="description" content="1. Motivation Welcome back. So far we&#39;ve learnt how to clean data, and do some basic plotting. Now we really want to move on to some machine learning proper and make some models. If you recall we were looking at the titanic data, and trying to split the data using sex, class, age etc, and…">
+	<style type="text/css">
+			#site-title a,
+		#site-description {
+			color: #545454 !important;
+		}
+		</style>
+	<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #999999; }
+</style>
+<style type="text/css" id="syntaxhighlighteranchor"></style>
+<link rel="stylesheet" type="text/css" id="gravatar-card-css" href="./A First Taste of Graph Theory « triangleinequality_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="./A First Taste of Graph Theory « triangleinequality_files/services.css"><script type="text/javascript" async="" src="./A First Taste of Graph Theory « triangleinequality_files/saved_resource(2)"></script><script type="text/javascript" async="" src="./A First Taste of Graph Theory « triangleinequality_files/link"></script><script type="text/javascript" async="" src="./A First Taste of Graph Theory « triangleinequality_files/track.php"></script></head>
+<body class="single single-post postid-64 single-format-standard custom-background mp6 customizer-styles-applied column-full column-right highlander-enabled highlander-light">
+	<div id="wrap">
+		<div id="header" class="clearfix">
+
+			<div id="main-nav">
+				<div class="menu"><ul><li><a href="https://triangleinequality.wordpress.com/" sl-processed="1">Home</a></li><li class="page_item page-item-1"><a href="https://triangleinequality.wordpress.com/about/" sl-processed="1">About</a></li><li class="page_item page-item-233"><a href="https://triangleinequality.wordpress.com/contents/" sl-processed="1">Contents</a></li></ul></div>
+			</div><!-- end #main-nav -->
+
+			<div id="logo">
+				<h1 id="site-title">
+					<a href="https://triangleinequality.wordpress.com/" title="triangleinequality - for matters mathematical" rel="home" sl-processed="1">
+						triangleinequality					</a>
+				</h1>
+				<p id="site-description">for matters mathematical</p>
+			</div><!-- end #logo -->
+
+			<div id="search">
+				<form method="get" id="searchform" action="https://triangleinequality.wordpress.com/">
+	<label for="s" class="assistive-text hidden">Search</label>
+	<input id="s" type="text" name="s" placeholder="Search">
+	<button id="searchsubmit" name="submit" type="submit">Search</button>
+</form>			</div><!-- end #search -->
+
+			
+<div id="social">
+	<ul>
+			</ul>
+</div>
+		</div><!-- end #header -->
+
+		<hr class="sepinside">
+<div id="content" class="clearfix">
+
+	
+	<div class="column column-title">
+		<div id="crumbs">
+	<p><a href="https://triangleinequality.wordpress.com/" sl-processed="1">Home</a> » <a href="https://triangleinequality.wordpress.com/category/maths/" sl-processed="1">maths</a> » <a href="https://triangleinequality.wordpress.com/category/maths/graph-theory/" sl-processed="1">graph theory</a> » <span class="current">A First Taste of Graph&nbsp;Theory</span></p>
+</div><!-- end #crumbs -->		<h1 class="title-header">A First Taste of Graph&nbsp;Theory</h1>	</div><!-- end .column-title -->
+
+	
+	<div class="column column-content single">
+
+		
+<div id="post-64" class="post-64 post type-post status-publish format-standard has-post-thumbnail hentry category-graph-theory category-maths tag-complete-graph tag-cycle-graph tag-directed-graph tag-graph-theory tag-graphs">
+
+	<div class="entry-content clearfix">
+		<p><b>1. Motivation </b></p>
+<p>Welcome back. So far we’ve learnt how to <a href="https://triangleinequality.wordpress.com/2013/05/19/machine-learning-with-python-first-steps-munging/" sl-processed="1">clean data</a>, and do some <a href="https://triangleinequality.wordpress.com/2013/05/25/plotting-with-python/" sl-processed="1">basic plotting</a>. Now we really want to move on to some machine learning proper and make some models.</p>
+<p>If you recall we were looking at the titanic data, and trying to split the data using sex, class, age etc, and the name of the game is to have these splits consist of mostly survivors or non-survivors, that way when we predict that a particular group will survive, because the majority in that group do, we will be mostly right.</p>
+<p>Consider that if <img src="./A First Taste of Graph Theory « triangleinequality_files/latex.php" alt="{51 \% }" title="{51 \% }" class="latex" width="29" height="15" srcset="https://s0.wp.com/latex.php?latex=%7B51+%5C%25+%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2"> of women survived compared with <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(1).php" alt="{49 \% }" title="{49 \% }" class="latex" width="29" height="15" srcset="https://s0.wp.com/latex.php?latex=%7B49+%5C%25+%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2"> for men, when we make the prediction, reducing these probabilities to classes, we are throwing away a lot of information.</p>
+<p>What we have been groping towards is a kind of crude <a href="http://en.wikipedia.org/wiki/Decision_tree_learning" sl-processed="1">decision tree learning</a> and this, with some more advanced variations, is what I want to implement.</p>
+<p>But what is a decision tree? What is a tree? What is a graph? How are we to proceed if we know no graph theory? Well we could probably get away without any. But we’re better than that. So today I will give a primer on graph theory, will this eventual goal in mind. Once we know something about graphs, we can learn about making graphs with Python, and once we’ve done that, we can try them out on the titanic data.</p>
+<p><b>2. The Definition of a Graph </b></p>
+<p>Here is a picture of a graph:</p>
+<p align="center"><img alt="" src="./A First Taste of Graph Theory « triangleinequality_files/cyclegraph10.png" height="200" originalw="960" originalh="200" src-orig="https://triangleinequality.files.wordpress.com/2013/05/cyclegraph10.png?w=960&amp;h=200" scale="2"></p>
+<p>The red filled circles we call ‘vertices’ or sometimes ‘nodes’. The lines connecting the vertices we call ‘edges’.</p>
+<p>A graph is basically a way of showing relationships between things, for instance, imagine that the vertices above were people, and the edges represented the relationship of holding hands, awww.</p>
+<p>If you have come across the idea of relations before, you may be thinking of reflexivity, transitivity and symmetry.</p>
+<p>A ‘reflexive’ edge is what we call a loop, like this:</p>
+<p align="center"><img alt="" src="./A First Taste of Graph Theory « triangleinequality_files/loop2.png" width="50" height="54" originalw="50" originalh="54" src-orig="https://triangleinequality.files.wordpress.com/2013/05/loop2.png?w=50&amp;h=54" scale="2"></p>
+<p>A ‘symmetric’ edge is what we call undirected, and it just looks like a line, here’s what directed edges look like:</p>
+<p align="center"><img alt="" src="./A First Taste of Graph Theory « triangleinequality_files/directedpair.png" width="254" height="254" originalw="254" originalh="254" src-orig="https://triangleinequality.files.wordpress.com/2013/05/directedpair.png?w=254&amp;h=254" scale="2"></p>
+<p>The beginning vertex of a directed edge is called the source, and the ending vertex is called the target.</p>
+<p>Transitivity – Homer taller than Bart and Bart taller than Lisa implies Homer taller than Lisa – you could visualise as a triangle:</p>
+<p align="center"><a href="https://triangleinequality.files.wordpress.com/2013/06/transitive1.png" sl-processed="1"><img class="aligncenter size-medium wp-image-255" alt="transitive" src="./A First Taste of Graph Theory « triangleinequality_files/transitive1.png" width="300" height="300" originalw="300" originalh="300" src-orig="https://triangleinequality.files.wordpress.com/2013/06/transitive1.png?w=300&amp;h=300" scale="2"></a></p>
+<p>Now that we have a visual idea of graphs, let’s define them formally.</p>
+<blockquote><p><b>Definition 1</b> <em> An undirected graph <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(2).php" alt="{G}" title="{G}" class="latex" width="13" height="11" srcset="https://s0.wp.com/latex.php?latex=%7BG%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2"> is a triple <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(3).php" alt="{(V,E, ends)}" title="{(V,E, ends)}" class="latex" width="82" height="18" srcset="https://s0.wp.com/latex.php?latex=%7B%28V%2CE%2C+ends%29%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2">, where <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(4).php" alt="{V}" title="{V}" class="latex" width="13" height="11" srcset="https://s0.wp.com/latex.php?latex=%7BV%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2"> is a set of vertices, <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(5).php" alt="{E}" title="{E}" class="latex" width="13" height="11" srcset="https://s0.wp.com/latex.php?latex=%7BE%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2"> is a set of edges and <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(6).php" alt="{ends}" title="{ends}" class="latex" width="33" height="11" srcset="https://s0.wp.com/latex.php?latex=%7Bends%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2"> is a mapping from <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(5).php" alt="{E}" title="{E}" class="latex" width="13" height="11" srcset="https://s0.wp.com/latex.php?latex=%7BE%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2"> to subsets of <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(4).php" alt="{V}" title="{V}" class="latex" width="13" height="11" srcset="https://s0.wp.com/latex.php?latex=%7BV%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2"> of size <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(7).php" alt="{1}" title="{1}" class="latex" width="6" height="13" srcset="https://s0.wp.com/latex.php?latex=%7B1%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2"> or <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(8).php" alt="{2}" title="{2}" class="latex" width="8" height="12" srcset="https://s0.wp.com/latex.php?latex=%7B2%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2">. </em></p></blockquote>
+<p>And for directed graphs:</p>
+<blockquote><p><b>Definition 2</b> <em> A directed graph <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(9).php" alt="{G =(V,E, source, target)}" title="{G =(V,E, source, target)}" class="latex" width="183" height="18" srcset="https://s0.wp.com/latex.php?latex=%7BG+%3D%28V%2CE%2C+source%2C+target%29%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2">, where <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(10).php" alt="{V,E}" title="{V,E}" class="latex" width="31" height="14" srcset="https://s0.wp.com/latex.php?latex=%7BV%2CE%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2"> are sets of vertices and edges respectively, and <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(11).php" alt="{source, target: E \rightarrow V.}" title="{source, target: E \rightarrow V.}" class="latex" width="165" height="14" srcset="https://s0.wp.com/latex.php?latex=%7Bsource%2C+target%3A+E+%5Crightarrow+V.%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2"> </em></p></blockquote>
+<p>If you’ve studied maths, then you’ll know that one of the key questions to ask about a new mathematical object is: what are the morphisms? Meaning, what are the functions from graphs to graphs that preserve structure.</p>
+<p>A graph homomorphism is a function <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(12).php" alt="{f: G \rightarrow H}" title="{f: G \rightarrow H}" class="latex" width="77" height="14" srcset="https://s0.wp.com/latex.php?latex=%7Bf%3A+G+%5Crightarrow+H%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2"> between two graphs, taking vertices to vertices and edges, that ‘respects’ the structure of the graph, in symbols: <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(13).php" alt="{ends \circ f = f \circ ends}" title="{ends \circ f = f \circ ends}" class="latex" width="139" height="14" srcset="https://s0.wp.com/latex.php?latex=%7Bends+%5Ccirc+f+%3D+f+%5Ccirc+ends%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2">, the function commutes with the <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(6).php" alt="{ends}" title="{ends}" class="latex" width="33" height="11" srcset="https://s0.wp.com/latex.php?latex=%7Bends%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2"> maps.</p>
+<p>Notice that the notation suppresses the difference between the <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(6).php" alt="{ends}" title="{ends}" class="latex" width="33" height="11" srcset="https://s0.wp.com/latex.php?latex=%7Bends%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2"> mapping in <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(2).php" alt="{G}" title="{G}" class="latex" width="13" height="11" srcset="https://s0.wp.com/latex.php?latex=%7BG%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2"> and <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(14).php" alt="{H}" title="{H}" class="latex" width="15" height="11" srcset="https://s0.wp.com/latex.php?latex=%7BH%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2">, but we’re all grown-ups here, we get context.</p>
+<p>As you can probably guess, for directed graphs we require <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(15).php" alt="{f \circ source = source \circ f}" title="{f \circ source = source \circ f}" class="latex" width="167" height="14" srcset="https://s0.wp.com/latex.php?latex=%7Bf+%5Ccirc+source+%3D+source+%5Ccirc+f%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2"> and <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(16).php" alt="{f \circ target = target \circ f}" title="{f \circ target = target \circ f}" class="latex" width="161" height="14" srcset="https://s0.wp.com/latex.php?latex=%7Bf+%5Ccirc+target+%3D+target+%5Ccirc+f%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2"></p>
+<p>A subgraph of a graph is a subset of its vertices, a subset of its edges, with the same mappings but that it is still a graph.</p>
+<p>The degree of a vertex is the number of edges connected to it.</p>
+<p><b>3. Types of Graphs </b></p>
+<p>Now we’ll see some of the standard classes of graphs. These will all be <em>simple graphs</em>, meaning that there are no loops, finite numbers of vertices and edges, at most one edge between any two vertices and undirected.</p>
+<p><b> 3.1. Linear Graphs </b></p>
+<p>These just look like a line:</p>
+<p align="center"><img alt="" src="./A First Taste of Graph Theory « triangleinequality_files/linear5.png" height="150" originalw="960" originalh="150" src-orig="https://triangleinequality.files.wordpress.com/2013/06/linear5.png?w=960&amp;h=150" scale="2"></p>
+<p><b> 3.2. Cyclic Graphs </b></p>
+<p>We’ve already seen two of these, you walk around a cycle and come back to the beginning. We denote the cyclic graph with <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(17).php" alt="{n}" title="{n}" class="latex" width="10" height="7" srcset="https://s0.wp.com/latex.php?latex=%7Bn%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2"> vertices by <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(18).php" alt="{C_n}" title="{C_n}" class="latex" width="19" height="14" srcset="https://s0.wp.com/latex.php?latex=%7BC_n%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2">.</p>
+<p align="center"><img alt="" src="./A First Taste of Graph Theory « triangleinequality_files/cyclegraph10.png" height="150" originalw="960" originalh="150" src-orig="https://triangleinequality.files.wordpress.com/2013/05/cyclegraph10.png?w=960&amp;h=150" scale="2"></p>
+<p><b> 3.3. Complete Graphs </b></p>
+<p>This is the situation where everything is connected to everything else, the most edges possible. This is denoted <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(19).php" alt="{K_n}" title="{K_n}" class="latex" width="21" height="14" srcset="https://s0.wp.com/latex.php?latex=%7BK_n%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2"></p>
+<p align="center"><img alt="" src="./A First Taste of Graph Theory « triangleinequality_files/complete5.png" height="150" originalw="960" originalh="150" src-orig="https://triangleinequality.files.wordpress.com/2013/06/complete5.png?w=960&amp;h=150" scale="2"></p>
+<p><b> 3.4. Trees </b></p>
+<p>A tree is connected, meaning there is only one ‘piece’ of the graph, and has no cycles, meaning no parts that look a cyclic graph.</p>
+<p>The degree 1 vertices are called leaves, and an n-ary tree is one where each non-leaf has n ‘children’.</p>
+<p align="center"><img alt="" src="./A First Taste of Graph Theory « triangleinequality_files/narytree.png" height="150" originalw="960" originalh="150" src-orig="https://triangleinequality.files.wordpress.com/2013/06/narytree.png?w=960&amp;h=150" scale="2"></p>
+<p>If you want to learn more about trees, there is an excellent post about it <a href="http://jeremykun.com/2012/09/16/trees-a-primer/" sl-processed="1">here</a>.</p>
+<p><b>4. Representing Graphs </b></p>
+<p>One very natural way to encode the layout of a graph is an <em>adjacency matrix</em>. If <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(20).php" alt="{|V|=n}" title="{|V|=n}" class="latex" width="53" height="17" srcset="https://s0.wp.com/latex.php?latex=%7B%7CV%7C%3Dn%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2"> then the matrix will be <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(21).php" alt="{n \times n}" title="{n \times n}" class="latex" width="40" height="8" srcset="https://s0.wp.com/latex.php?latex=%7Bn+%5Ctimes+n%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2">, where each row represents a vertex as a source, and the columns are vertices as targets, and the entry is the number of edges with that source and target.</p>
+<p>So if there is a <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(8).php" alt="{2}" title="{2}" class="latex" width="8" height="12" srcset="https://s0.wp.com/latex.php?latex=%7B2%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2"> in row <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(7).php" alt="{1}" title="{1}" class="latex" width="6" height="13" srcset="https://s0.wp.com/latex.php?latex=%7B1%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2"> and column <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(22).php" alt="{5}" title="{5}" class="latex" width="8" height="13" srcset="https://s0.wp.com/latex.php?latex=%7B5%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2">, there are two edges from vertex <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(7).php" alt="{1}" title="{1}" class="latex" width="6" height="13" srcset="https://s0.wp.com/latex.php?latex=%7B1%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2"> to vertex <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(22).php" alt="{5}" title="{5}" class="latex" width="8" height="13" srcset="https://s0.wp.com/latex.php?latex=%7B5%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2">. Of course the matrix will depend on how you choose to order the vertices. For example, the adjacency matrix of <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(23).php" alt="{C_3 = \left ( \begin{array}{ccc} 0 &amp; 1 &amp; 1 \\ 1 &amp; 0 &amp; 1 \\ 1 &amp; 1&amp; 0 \end{array} \right )}" title="{C_3 = \left ( \begin{array}{ccc} 0 &amp; 1 &amp; 1 \\ 1 &amp; 0 &amp; 1 \\ 1 &amp; 1&amp; 0 \end{array} \right )}" class="latex" width="130" height="60" srcset="https://s0.wp.com/latex.php?latex=%7BC_3+%3D+%5Cleft+%28+%5Cbegin%7Barray%7D%7Bccc%7D+0+%26+1+%26+1+%5C%5C+1+%26+0+%26+1+%5C%5C+1+%26+1%26+0+%5Cend%7Barray%7D+%5Cright+%29%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2">, and the graph looks like this:</p>
+<p align="center"><img alt="" src="./A First Taste of Graph Theory « triangleinequality_files/triangle2.png" height="150" originalw="960" originalh="150" src-orig="https://triangleinequality.files.wordpress.com/2013/05/triangle2.png?w=960&amp;h=150" scale="2"></p>
+<p>Notice that if there are no loops, the diagonal will be <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(24).php" alt="{0}" title="{0}" class="latex" width="8" height="12" srcset="https://s0.wp.com/latex.php?latex=%7B0%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2">s, and if undirected then the matrix is symmetric about the main diagonal. Another neat property is that if <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(25).php" alt="{A}" title="{A}" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=%7BA%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2"> is the adjacency matrix of a simple graph <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(2).php" alt="{G}" title="{G}" class="latex" width="13" height="11" srcset="https://s0.wp.com/latex.php?latex=%7BG%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2">, then <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(26).php" alt="{A^n_{i,j}}" title="{A^n_{i,j}}" class="latex" width="24" height="17" srcset="https://s0.wp.com/latex.php?latex=%7BA%5En_%7Bi%2Cj%7D%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2"> is the number of paths of length <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(17).php" alt="{n}" title="{n}" class="latex" width="10" height="7" srcset="https://s0.wp.com/latex.php?latex=%7Bn%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2"> from vertex <img src="./A First Taste of Graph Theory « triangleinequality_files/latex(27).php" alt="{i \mapsto j}" title="{i \mapsto j}" class="latex" width="38" height="15" srcset="https://s0.wp.com/latex.php?latex=%7Bi+%5Cmapsto+j%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0&amp;zoom=2 2x" scale="2">. Prove it yourself!</p>
+<p>The problem with adjacency matrices as a data structure, is that it takes a lot of work to change it when you add or delete a vertex. Another way of doing it is with an adjacency list. This is where you have a list of the vertices, with each vertex ‘pointing’ to a list of vertices that are its targets. This can easily be implemented using dictionaries in Python. This makes it easy to find adjacent vertices, but it doesn’t really treat edges with the respect they deserve. We’ll be implementing something where both edges and vertices are <em>objects</em> that know about who they are connected to, this won’t be as fast as an adjacency list, but it will allow us to keep track of a lot of information.</p>
+<p><b>5. Next Time </b></p>
+<p>This was just to give you an idea of graphs are, and some of terminology needed to discuss them. There is <em>loads </em>more stuff to learn about graphs, you can colour edges and vertices, talk about paths and walks on a graph, planar graphs… but that’s all for now. Next time: object orientated programming with Python.</p>
+<div id="jp-post-flair" class="sharedaddy sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow" class="share-twitter sd-button share-icon" href="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/?share=twitter&nb=1" title="Click to share on Twitter" id="sharing-twitter-64" sl-processed="1"><span>Twitter<span class="share-count">2</span></span></a></li><li class="share-facebook"><a rel="nofollow" class="share-facebook sd-button share-icon" href="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/?share=facebook&nb=1" title="Share on Facebook" id="sharing-facebook-64" sl-processed="1"><span>Facebook</span></a></li><li class="share-google-plus-1"><a rel="nofollow" class="share-google-plus-1 sd-button share-icon" href="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/?share=google-plus-1&nb=1" title="Click to share on Google+" id="sharing-google-64" sl-processed="1"><span>Google</span></a></li><li class="share-end"></li></ul></div></div></div><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-loaded" id="like-post-wrapper-52270418-64-554864081fbdf" data-src="//widgets.wp.com/likes/#blog_id=52270418&amp;post_id=64&amp;origin=triangleinequality.wordpress.com&amp;obj_id=52270418-64-554864081fbdf" data-name="like-post-frame-52270418-64-554864081fbdf"><h3 class="sd-title">Like this:</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height: 55px; display: none;"><span class="button"><span>Like</span></span> <span class="loading">Loading...</span></div><iframe class="post-likes-widget jetpack-likes-widget" name="like-post-frame-52270418-64-554864081fbdf" height="55px" width="100%" frameborder="0" src="./A First Taste of Graph Theory « triangleinequality_files/saved_resource(7).html"></iframe><span class="sd-text-color"></span><a class="sd-link-color"></a></div>
+<div id="jp-relatedposts" class="jp-relatedposts" style="display: block;">
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+<div class="jp-relatedposts-items jp-relatedposts-items-minimal"><p class="jp-relatedposts-post jp-relatedposts-post0" data-post-id="224" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://triangleinequality.wordpress.com/2013/09/05/a-complete-guide-to-getting-0-79903-in-kaggles-titanic-competition-with-python/" title="A complete guide to getting 0.79903 in Kaggle&#39;s Titanic Competition with Python
+
+Ok so this is going to be a quick recap of all the work we have done so far in this blog, but it should be accessible to first time readers also. Quickstart: to get underway immediately just download the following python scripts: -Data Cleaning -Graph Theory -Decision Trees -Final…" rel="nofollow" data-origin="64" data-position="0" sl-processed="1">A complete guide to getting 0.79903 in Kaggle's Titanic Competition with Python</a></span><span class="jp-relatedposts-post-context">In "decision trees"</span></p><p class="jp-relatedposts-post jp-relatedposts-post1" data-post-id="503" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://triangleinequality.wordpress.com/2013/10/06/representing-a-triangulation/" title="Representing a Triangulation
+
+In this post we learned how to find all the triangles in a graph. The reason I wanted such an algorithm was that in computational topology/geometry, we are often dealing with graphs that represent triangulations of a manifold, and so the first step in this process is to get your…" rel="nofollow" data-origin="64" data-position="1" sl-processed="1">Representing a Triangulation</a></span><span class="jp-relatedposts-post-context">In "graph theory"</span></p><p class="jp-relatedposts-post jp-relatedposts-post2" data-post-id="151" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://triangleinequality.wordpress.com/2013/08/26/decision-trees-part-2-growing-your-tree/" title="Decision Trees Part 2: Growing Your Tree
+
+Ok so last time we looked at what a Decision Tree was, and how to represent one in Python using our DecisionNode, DecisionTree, PivotDecisionNode and PivotDecisionTree classes. We also built a very basic one for the Titanic Kaggle data with a single split on &#39;sex&#39;. As might have been apparent…" rel="nofollow" data-origin="64" data-position="2" sl-processed="1">Decision Trees Part 2: Growing Your Tree</a></span><span class="jp-relatedposts-post-context">In "decision trees"</span></p></div></div></div>	</div><!-- end .entry-content -->
+
+	<div class="entry-meta">
+		<p class="tags"><strong>Tags:</strong> <a href="https://triangleinequality.wordpress.com/tag/complete-graph/" rel="tag" sl-processed="1">Complete graph</a>, <a href="https://triangleinequality.wordpress.com/tag/cycle-graph/" rel="tag" sl-processed="1">Cycle graph</a>, <a href="https://triangleinequality.wordpress.com/tag/directed-graph/" rel="tag" sl-processed="1">Directed graph</a>, <a href="https://triangleinequality.wordpress.com/tag/graph-theory/" rel="tag" sl-processed="1">graph theory</a>, <a href="https://triangleinequality.wordpress.com/tag/graphs/" rel="tag" sl-processed="1">Graphs</a></p><span class="by-author">By <span class="author vcard"><a class="url fn n" href="https://triangleinequality.wordpress.com/author/triangleinequality/" title="View all posts by triangleinequality" rel="author" sl-processed="1">triangleinequality</a></span> </span>in <span class="category"><a href="https://triangleinequality.wordpress.com/category/maths/graph-theory/" rel="category tag" sl-processed="1">graph theory</a>, <a href="https://triangleinequality.wordpress.com/category/maths/" rel="category tag" sl-processed="1">maths</a></span> on <span class="datetime"><a href="./A First Taste of Graph Theory « triangleinequality_files/A First Taste of Graph Theory « triangleinequality.html" title="4:59 pm" rel="bookmark" sl-processed="1"><time class="entry-date" datetime="2013-06-01T16:59:53+00:00" pubdate="">June 1, 2013</time></a></span>.	</div><!-- end .entry-meta -->
+
+</div><!-- end #post-## -->
+		<div class="navigation clearfix">
+			<span class="alignleft"><a href="https://triangleinequality.wordpress.com/2013/05/25/plotting-with-python/" rel="prev" sl-processed="1"><span class="meta-nav">←</span> Plotting With Python</a></span>			<span class="alignright"><a href="https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/" rel="next" sl-processed="1">A First Taste of Object Orientated Programming with&nbsp;Python <span class="meta-nav">→</span></a></span>		</div><!-- end .navigation -->
+
+		
+<div id="comments">
+
+	
+		<hr>
+		<h2>5 Comments</h2>
+
+		<ol class="commentlist">
+					<li class="pingback even thread-even depth-1 highlander-comment" id="comment-11">
+				<div id="div-comment-11" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href="https://triangleinequality.wordpress.com/2013/08/21/graphs-as-objects-in-python/" rel="external nofollow" class="url" sl-processed="1">Graphs as Objects in Python | triangleinequality</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/comment-page-1/#comment-11" sl-processed="1">
+			August 21, 2013 at 7:30 pm</a>		</div>
+
+		<p>[…] time we are going to combine the lessons learned about objects and decorators in Python, and about graph theory, to represent graphs as […]</p>
+
+		<div class="reply"><a class="comment-reply-link" href="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/?replytocom=11#respond" onclick="return addComment.moveForm( &quot;div-comment-11&quot;, &quot;11&quot;, &quot;respond&quot;, &quot;64&quot; )" aria-label="Reply to Graphs as Objects in Python | triangleinequality" sl-processed="1">Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-13">
+				<div id="div-comment-13" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href="https://triangleinequality.wordpress.com/2013/08/22/special-graphs-and-dynamic-inheritance/" rel="external nofollow" class="url" sl-processed="1">Special Graphs and Dynamic Inheritance | triangleinequality</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/comment-page-1/#comment-13" sl-processed="1">
+			August 22, 2013 at 12:01 pm</a>		</div>
+
+		<p>[…] Welcome back! Last time we introduced the Vertex, Edge, Graph, DirGraph and UnDirGraph classes, now we are going to have some fun and introduce the special graphs like linear, cycle, complete and so on. If you want to refresh your memory on the special graphs, we discussed them here. […]</p>
+
+		<div class="reply"><a class="comment-reply-link" href="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/?replytocom=13#respond" onclick="return addComment.moveForm( &quot;div-comment-13&quot;, &quot;13&quot;, &quot;respond&quot;, &quot;64&quot; )" aria-label="Reply to Special Graphs and Dynamic Inheritance | triangleinequality" sl-processed="1">Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback even thread-even depth-1 highlander-comment" id="comment-24">
+				<div id="div-comment-24" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href="https://triangleinequality.wordpress.com/2013/09/05/a-complete-guide-to-getting-0-79903-in-kaggles-titanic-competition-with-python/" rel="external nofollow" class="url" sl-processed="1">A complete guide to getting 0.79903 in Kaggle’s Titanic Competition with Python « triangleinequality</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/comment-page-1/#comment-24" sl-processed="1">
+			September 5, 2013 at 12:16 pm</a>		</div>
+
+		<p>[…] So now you know something about Python, and also something about the Titanic data set. Our next goal is to produce a decision tree model for the data. Prior to that I created some Python code to represent graphs, to learn the very basics of graph theory you can click here. […]</p>
+
+		<div class="reply"><a class="comment-reply-link" href="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/?replytocom=24#respond" onclick="return addComment.moveForm( &quot;div-comment-24&quot;, &quot;24&quot;, &quot;respond&quot;, &quot;64&quot; )" aria-label="Reply to A complete guide to getting 0.79903 in Kaggle’s Titanic Competition with Python « triangleinequality" sl-processed="1">Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-soods26 odd alt thread-odd thread-alt depth-1 parent highlander-comment" id="comment-33">
+				<div id="div-comment-33" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="./A First Taste of Graph Theory « triangleinequality_files/6f91b18cc5973db3309b71b241465f4a" class="avatar avatar-40 grav-hashed grav-hijack" height="40" width="40" originals="40" src-orig="https://0.gravatar.com/avatar/6f91b18cc5973db3309b71b241465f4a?s=40&amp;d=identicon&amp;r=G" scale="2" id="grav-6f91b18cc5973db3309b71b241465f4a-0">			<cite class="fn"><a href="http://vanillachocolate.wordpress.com/" rel="external nofollow" class="url" sl-processed="1">Vanilla Chocolate</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/comment-page-1/#comment-33" sl-processed="1">
+			September 7, 2013 at 12:28 am</a>		</div>
+
+		<p>Great blog so far!!</p>
+<p>The image: <a href="https://triangleinequality.files.wordpress.com/2013/05/triangle.png?w=960&h=150" rel="nofollow" sl-processed="1">https://triangleinequality.files.wordpress.com/2013/05/triangle.png?w=960&amp;h=150</a></p>
+<p>Represents a cyclic relationship rather than a transitive relationship. You may want to correct that.</p>
+<p>Cheers.</p>
+
+		<div class="reply"><a class="comment-reply-link" href="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/?replytocom=33#respond" onclick="return addComment.moveForm( &quot;div-comment-33&quot;, &quot;33&quot;, &quot;respond&quot;, &quot;64&quot; )" aria-label="Reply to Vanilla Chocolate" sl-processed="1">Reply</a></div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-triangleinequality comment-author-is-site-member bypostauthor even depth-2 highlander-comment" id="comment-34">
+				<div id="div-comment-34" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="./A First Taste of Graph Theory « triangleinequality_files/93e7664c2862b9d8d5238f4de8cf68f5" class="avatar avatar-40 grav-hashed grav-hijack" height="40" width="40" originals="40" src-orig="https://0.gravatar.com/avatar/93e7664c2862b9d8d5238f4de8cf68f5?s=40&amp;d=identicon&amp;r=G" scale="2" id="grav-93e7664c2862b9d8d5238f4de8cf68f5-0">			<cite class="fn"><a href="https://triangleinequality.wordpress.com/" rel="external nofollow" class="url" sl-processed="1">triangleinequality</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/comment-page-1/#comment-34" sl-processed="1">
+			September 7, 2013 at 8:14 am</a>		</div>
+
+		<p>Thank you! You are quite correct, I have put it right.<br>
+Cheers.</p>
+
+		<div class="reply"><a class="comment-reply-link" href="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/?replytocom=34#respond" onclick="return addComment.moveForm( &quot;div-comment-34&quot;, &quot;34&quot;, &quot;respond&quot;, &quot;64&quot; )" aria-label="Reply to triangleinequality" sl-processed="1">Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		</ol>
+
+								<div id="respond" class="comment-respond js">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/#respond" style="display:none;" sl-processed="1">Cancel reply</a></small></h3>
+									<form action="https://triangleinequality.wordpress.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																										
+
+
+												<input type="hidden" id="highlander_comment_nonce" name="highlander_comment_nonce" value="9b3f4ae146"><input type="hidden" name="_wp_http_referer" value="/2013/06/01/a-first-taste-of-graph-theory/">
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest">
+
+<div class="comment-form-field comment-textarea">
+	
+	<div id="comment-form-comment"><textarea tabindex="-1" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px; padding: 0px; box-sizing: content-box; word-wrap: break-word; overflow: hidden; -webkit-transition: none; transition: none; height: 0px !important; min-height: 0px !important; font-family: Helvetica, Arial, Tahoma, sans-serif; font-size: 14px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; text-decoration: none; word-spacing: 0px; text-indent: 0px; line-height: normal; width: 938px;" class="autosizejs "></textarea><textarea id="comment" name="comment" title="Enter your comment here..." placeholder="Enter your comment here..." style="height: 36px; overflow: hidden; word-wrap: break-word; resize: none;"></textarea></div>
+</div>
+
+<div id="comment-form-identity" style="display: none;">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/#comment-form-guest" id="postas-guest" title="Guest" sl-processed="1">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com" sl-processed="1">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter" sl-processed="1">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook" sl-processed="1">
+					<span></span>
+				</a>
+			</li>
+			<li>
+			<iframe id="googleplus-sign-in" name="googleplus-sign-in" src="./A First Taste of Graph Theory « triangleinequality_files/saved_resource.html" width="24" height="24" scrolling="no" allowtransparency="true" seamless="seamless" frameborder="0"></iframe>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank" sl-processed="1">				<img src="./A First Taste of Graph Theory « triangleinequality_files/ad516503a11cd5ca435acc9bb6523536" alt="Gravatar" width="25" class="no-grav" originals="25" src-orig="https://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" scale="2">
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text" value=""></div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./A First Taste of Graph Theory « triangleinequality_files/wplogo.png" alt="WordPress.com Logo" width="25" class="no-grav" scale="0">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="">
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your <span class="skimlinks-unlinked">WordPress.com</span> account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'wordpress' );" sl-processed="1">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/#" onclick="javascript:HighlanderComments.switchAccount();return false;" sl-processed="1">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./A First Taste of Graph Theory « triangleinequality_files/ad516503a11cd5ca435acc9bb6523536(1)" alt="Twitter picture" width="25" class="no-grav" originals="25" scale="2">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="">
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'twitter' );" sl-processed="1">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/#" onclick="javascript:HighlanderComments.switchAccount();return false;" sl-processed="1">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./A First Taste of Graph Theory « triangleinequality_files/ad516503a11cd5ca435acc9bb6523536(1)" alt="Facebook photo" width="25" class="no-grav" originals="25" scale="2">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="">
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'facebook' );" sl-processed="1">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/#" onclick="javascript:HighlanderComments.switchAccount();return false;" sl-processed="1">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./A First Taste of Graph Theory « triangleinequality_files/ad516503a11cd5ca435acc9bb6523536(1)" alt="Google+ photo" width="25" class="no-grav" originals="25" scale="2">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="">
+				<p class="comment-form-posting-as pa-googleplus"><strong></strong> You are commenting using your Google+ account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'googleplus' );" sl-processed="1">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/#" onclick="javascript:HighlanderComments.switchAccount();return false;" sl-processed="1">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();" sl-processed="1">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div id="comment-form-subscribe" style="display: none;">
+	<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6"> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of new comments via email.</label></p></div>
+
+												<p class="form-submit" style="display: none;">
+							<input name="submit" type="submit" id="comment-submit" class="submit" value="Post Comment">
+							<input type="hidden" name="comment_post_ID" value="64" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+						</p>
+						<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="0811fa55b9"></p>
+<input type="hidden" name="genseq" value="1430807560">
+<p style="display: none;"></p>					<input type="hidden" id="ak_js" name="ak_js" value="1430808062686"></form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>
+</div><!-- #comments -->
+	</div><!-- end .column-content -->
+
+	
+	
+</div><!-- end #content -->
+
+			<div id="footer" class="clearfix">
+				
+								<p class="copy">
+					<a href="https://wordpress.com/?ref=footer_website" sl-processed="1">Create a free website or blog at WordPress.com</a>.<span class="sep"> / </span>
+					<a href="https://wordpress.com/themes/academica/" title="Learn more about this theme" sl-processed="1">The Academica Theme</a>.				</p>
+			</div><!-- end #footer -->
+		</div><!-- end #wrap -->
+
+		<!-- wpcom_wp_footer -->
+<script type="text/javascript" src="./A First Taste of Graph Theory « triangleinequality_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./A First Taste of Graph Theory « triangleinequality_files/wpgroho.js"></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+
+			if (typeof Gravatar === "undefined"){
+				return;
+			}
+
+			if ( typeof Gravatar.init !== "function" ) {
+				return;
+			}			
+
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	<div class="grofile-hash-map-6f91b18cc5973db3309b71b241465f4a">
+	</div>
+	<div class="grofile-hash-map-93e7664c2862b9d8d5238f4de8cf68f5">
+	</div>
+	</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"https:\/\/triangleinequality.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"https:\/\/triangleinequality.wordpress.com\/wp-login.php?action=logout&_wpnonce=4327dc2202","homeURL":"https:\/\/triangleinequality.wordpress.com\/","postID":"64","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"0","userIsLoggedIn":"","isJetpack":"0","text_direction":"ltr"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./A First Taste of Graph Theory « triangleinequality_files/saved_resource(3)"></script>
+
+	<div id="bit" class="loggedout-follow-normal" style="bottom: -260px;">
+		<a class="bsub" href="javascript:void(0)" sl-processed="1"><span id="bsub-text">Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow “triangleinequality”</label></h3>
+
+			<form action="https://subscribe.wordpress.com/" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+						<p class="bit-follow-count">Join 38 other followers</p>
+			<p><input type="email" name="email" value="Enter your email address" onfocus="this.value=(this.value==&quot;Enter your email address&quot;) ? &quot;&quot; : this.value;" onblur="this.value=(this.value==&quot;&quot;) ? &quot;Enter your email address&quot; : this.value;" id="loggedout-follow-field"></p>
+
+			<input type="hidden" name="action" value="subscribe">
+			<input type="hidden" name="blog_id" value="52270418">
+			<input type="hidden" name="source" value="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/">
+			<input type="hidden" name="sub-type" value="loggedout-follow">
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="9692dc94a5"><input type="hidden" name="_wp_http_referer" value="/2013/06/01/a-first-taste-of-graph-theory/">
+			<p id="bsub-subscribe-button"><input type="submit" value="Sign me up"></p>
+			</form>
+					<div id="bsub-credit"><a href="https://wordpress.com/?ref=lof" sl-processed="1">Build a website with WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"https:\/\/triangleinequality.wordpress.com\/2013\/06\/01\/a-first-taste-of-graph-theory\/":64};
+		window.WPCOM_site_ID = 52270418;
+	</script>
+		<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-google-plus-1' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=480,height=550' );
+				return false;
+			});
+		});
+		</script>
+				<iframe src="./A First Taste of Graph Theory « triangleinequality_files/master.html" scrolling="no" id="likes-master" name="likes-master" style="display:none;"></iframe>
+		<div id="likes-other-gravatars"><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type="text/javascript">
+		//<![CDATA[
+			var jetpackLikesWidgetQueue = [];
+			var jetpackLikesWidgetBatch = [];
+			var jetpackLikesMasterReady = false;
+
+			function JetpackLikespostMessage( message, target ) {
+				if ( "string" === typeof message ){
+					try{
+						message = JSON.parse( message );
+					}
+					catch(e) {
+						return;
+					}
+				}
+
+				pm( {
+					target: target,
+					type: 'likesMessage',
+					data: message,
+					origin: '*'
+				} );
+			}
+
+			function JetpackLikesBatchHandler() {
+				var requests = [];
+				jQuery( 'div.jetpack-likes-widget-unloaded' ).each( function( i ) {
+					if ( jetpackLikesWidgetBatch.indexOf( this.id ) > -1 )
+						return;
+					jetpackLikesWidgetBatch.push( this.id );
+					var regex = /like-(post|comment)-wrapper-(\d+)-(\d+)-(\w+)/;
+					var match = regex.exec( this.id );
+					if ( ! match || match.length != 5 )
+						return;
+
+					var info = {
+						blog_id: match[2],
+						width:   this.width
+					};
+
+					if ( 'post' == match[1] ) {
+						info.post_id = match[3];
+					} else if ( 'comment' == match[1] ) {
+						info.comment_id = match[3];
+					}
+
+					info.obj_id = match[4];
+
+					requests.push( info );
+				});
+
+				if ( requests.length > 0 ) {
+					JetpackLikespostMessage( { event: 'initialBatch', requests: requests }, window.frames['likes-master'] );
+				}
+			}
+
+			function JetpackLikesMessageListener( event ) {
+				if ( "undefined" == typeof event.event )
+					return;
+
+				if ( 'masterReady' == event.event ) {
+					jQuery( document ).ready( function() {
+						jetpackLikesMasterReady = true;
+
+						var stylesData = {
+								event: 'injectStyles'
+						};
+
+						if ( jQuery( 'iframe.admin-bar-likes-widget' ).length > 0 ) {
+							JetpackLikespostMessage( { event: 'adminBarEnabled' }, window.frames[ 'likes-master' ] );
+
+							stylesData.adminBarStyles = {
+								background: jQuery( '#wpadminbar .quicklinks li#wp-admin-bar-wpl-like > a' ).css( 'background' ),
+								isRtl: ( 'rtl' == jQuery( '#wpadminbar' ).css( 'direction' ) )
+							};
+						}
+
+						if ( !window.addEventListener )
+							jQuery( '#wp-admin-bar-admin-bar-likes-widget' ).hide();
+
+						stylesData.textStyles = {
+							color: jQuery( '.sd-text-color').css( 'color' ),
+							fontFamily: jQuery( '.sd-text-color' ).css( 'font-family' ),
+							fontSize: jQuery( '.sd-text-color' ).css( 'font-size' ),
+							direction: jQuery( '.sd-text-color' ).css( 'direction' ),
+							fontWeight: jQuery( '.sd-text-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-text-color' ).css( 'font-style' ),
+							textDecoration: jQuery( '.sd-text-color' ).css('text-decoration')
+						};
+
+						stylesData.linkStyles = {
+							color: jQuery( '.sd-link-color' ).css('color'),
+							fontFamily: jQuery( '.sd-link-color' ).css('font-family'),
+							fontSize: jQuery( '.sd-link-color' ).css('font-size'),
+							textDecoration: jQuery( '.sd-link-color' ).css('text-decoration'),
+							fontWeight: jQuery( '.sd-link-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-link-color' ).css( 'font-style' )
+						};
+
+						JetpackLikespostMessage( stylesData, window.frames[ 'likes-master' ] );
+
+						JetpackLikesBatchHandler();
+
+						jQuery( document ).on( 'inview', 'div.jetpack-likes-widget-unloaded', function() {
+							jetpackLikesWidgetQueue.push( this.id );
+						});
+					});
+				}
+
+				if ( 'showLikeWidget' == event.event ) {
+					jQuery( '#' + event.id + ' .post-likes-widget-placeholder'  ).fadeOut( 'fast', function() {
+						jQuery( '#' + event.id + ' .post-likes-widget' ).fadeIn( 'fast', function() {
+							JetpackLikespostMessage( { event: 'likeWidgetDisplayed', blog_id: event.blog_id, post_id: event.post_id, obj_id: event.obj_id }, window.frames['likes-master'] );
+						});
+					});
+				}
+
+				if ( 'clickReblogFlair' == event.event ) {
+					wpcom_reblog.toggle_reblog_box_flair( event.obj_id );
+				}
+
+				if ( 'showOtherGravatars' == event.event ) {
+					var $container = jQuery( '#likes-other-gravatars' );
+					var $list = $container.find( 'ul' );
+
+					$container.hide();
+					$list.html( '' );
+
+					$container.find( '.likes-text span' ).text( event.total );
+
+					jQuery.each( event.likers, function( i, liker ) {
+						$list.append( '<li class="' + liker.css_class + '"><a href="' + liker.profile_URL + '" class="wpl-liker" rel="nofollow" target="_parent"><img src="' + liker.avatar_URL + '" alt="' + liker.name + '" width="30" height="30" style="padding-right: 3px;" /></a></li>');
+					} );
+
+					var offset = jQuery( "[name='" + event.parent + "']" ).offset();
+
+					$container.css( 'left', offset.left + event.position.left - 10 + 'px' );
+					$container.css( 'top', offset.top + event.position.top - 33 + 'px' );
+
+					var rowLength = Math.floor( event.width / 37 );
+					var height = ( Math.ceil( event.likers.length / rowLength ) * 37 ) + 13;
+					if ( height > 204 ) {
+						height = 204;
+					}
+
+					$container.css( 'height', height + 'px' );
+					$container.css( 'width', rowLength * 37 - 7 + 'px' );
+
+					$list.css( 'width', rowLength * 37 + 'px' );
+
+					$container.fadeIn( 'slow' );
+
+					var scrollbarWidth = $list[0].offsetWidth - $list[0].clientWidth;
+					if ( scrollbarWidth > 0 ) {
+						$container.width( $container.width() + scrollbarWidth );
+						$list.width( $list.width() + scrollbarWidth );
+					}
+				}
+			}
+
+			pm.bind( 'likesMessage', function(e) { JetpackLikesMessageListener(e); } );
+
+			jQuery( document ).click( function( e ) {
+				var $container = jQuery( '#likes-other-gravatars' );
+
+				if ( $container.has( e.target ).length === 0 ) {
+					$container.fadeOut( 'slow' );
+				}
+			});
+
+			function JetpackLikesWidgetQueueHandler() {
+				var wrapperID;
+				if ( ! jetpackLikesMasterReady ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				if ( jetpackLikesWidgetQueue.length > 0 ) {
+					// We may have a widget that needs creating now
+					var found = false;
+					while( jetpackLikesWidgetQueue.length > 0 ) {
+						// Grab the first member of the queue that isn't already loading.
+						wrapperID = jetpackLikesWidgetQueue.splice( 0, 1 )[0];
+						if ( jQuery( '#' + wrapperID ).hasClass( 'jetpack-likes-widget-unloaded' ) ) {
+							found = true;
+							break;
+						}
+					}
+					if ( ! found ) {
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				} else if ( jQuery( 'div.jetpack-likes-widget-unloaded' ).length > 0 ) {
+					// Grab any unloaded widgets for a batch request
+					JetpackLikesBatchHandler();
+
+					// Get the next unloaded widget
+					wrapperID = jQuery( 'div.jetpack-likes-widget-unloaded' ).first()[0].id;
+					if ( ! wrapperID ) {
+						// Everything is currently loaded
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				}
+
+				if ( 'undefined' === typeof wrapperID ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				var $wrapper = jQuery( '#' + wrapperID );
+				$wrapper.find( 'iframe' ).remove();
+
+				if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='22px' width='68px' frameBorder='0' scrolling='no' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				} else {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='55px' width='100%' frameBorder='0' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				}
+
+				$wrapper.removeClass( 'jetpack-likes-widget-unloaded' ).addClass( 'jetpack-likes-widget-loading' );
+
+				$wrapper.find( 'iframe' ).load( function( e ) {
+					var $iframe = jQuery( e.target );
+					$wrapper.removeClass( 'jetpack-likes-widget-loading' ).addClass( 'jetpack-likes-widget-loaded' );
+
+					JetpackLikespostMessage( { event: 'loadLikeWidget', name: $iframe.attr( 'name' ), width: $iframe.width() }, window.frames[ 'likes-master' ] );
+
+					if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+						$wrapper.find( 'iframe' ).Jetpack( 'resizeable' );
+					}
+				});
+				setTimeout( JetpackLikesWidgetQueueHandler, 250 );
+			}
+			JetpackLikesWidgetQueueHandler();
+		//]]>
+		</script>
+<script type="text/javascript" src="./A First Taste of Graph Theory « triangleinequality_files/form.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var JetpackEmojiSettings = {"base_url":"https:\/\/s0.wp.com\/wp-content\/mu-plugins\/emoji\/twemoji\/"};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./A First Taste of Graph Theory « triangleinequality_files/saved_resource(4)"></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script>	<script type="text/javascript">
+	var skimlinks_pub_id = "725X584219"
+	var skimlinks_sitename = "triangleinequality.wordpress.com";
+	</script>
+	<script type="text/javascript" src="./A First Taste of Graph Theory « triangleinequality_files/725X1342.skimlinks.js"></script><script src="./A First Taste of Graph Theory « triangleinequality_files/w.js" type="text/javascript" async="" defer=""></script>
+<script type="text/javascript">
+_tkq = window._tkq || [];
+_stq = window._stq || [];
+_tkq.push(['storeContext', {'blog_id':'52270418','blog_tz':'0','user_lang':'en','blog_lang':'en','user_id':'0'}]);
+_stq.push(['view', {'blog':'52270418','v':'wpcom','tz':'0','user_id':'0','post':'64','subd':'triangleinequality'}]);
+_stq.push(['extra', {'crypt':'UE40eW5QN0p8M2Y/RE1oOHBqWkJdYy5wL35xRnR4SVtWLmluVHQrZ3JBRDNRaV9yeU4rX041RXBzU1FiayxfJjYsMDgzbnJVcVJxJW5CRj9vLlMmeXZKTFpPaXdEMnR4bT1OJiV3cjFUY240UG9VWSV3blslLHMxRmZZd1B5X1tQSkw/QkRVViZ1RVVMdjZmUTI2ZzR5Ky9MM3N2cDh4Yk40dCZtMERWRHZldWt5LHprU2QlSU9QVFZRYS55UGVQaGhrP1U5ND9tTXlrK1Y3fDVYfj1KJjJadDJFNXpuNy98fERYNVZIQXYsR3MvdGErWzBiU24lZGxvTEdwMG9pQUpIKzMxMy0mR2ZLZVBHNlROd2poYWtyL04saTcrb1Vtfl9aQU89LjVdW01PKzdLbUoySi8='}]);
+_stq.push([ 'clickTrackerInit', '52270418', '64' ]);
+	</script>
+<noscript>&lt;img src="https://pixel.wp.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /&gt;</noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//pixel.wp.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>	
+<img src="./A First Taste of Graph Theory « triangleinequality_files/g.gif" id="wpstats" scale="0"></body></html>

@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<!-- saved from url=(0111)https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<title>A First Taste of Object Orientated Programming with Python « triangleinequality</title>
+
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://triangleinequality.wordpress.com/xmlrpc.php">
+
+<link rel="alternate" type="application/rss+xml" title="triangleinequality » Feed" href="https://triangleinequality.wordpress.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="triangleinequality » Comments Feed" href="https://triangleinequality.wordpress.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="triangleinequality » A First Taste of Object Orientated Programming with Python Comments Feed" href="https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel="stylesheet" id="all-css-0" href="./A First Taste of Object Orientated Programming with Python « triangleinequality_files/saved_resource" type="text/css" media="all">
+<script type="text/javascript">
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./A First Taste of Object Orientated Programming with Python « triangleinequality_files/saved_resource(1)"></script>
+<link rel="stylesheet" id="all-css-0" href="./A First Taste of Object Orientated Programming with Python « triangleinequality_files/style.css" type="text/css" media="all">
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='https://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://triangleinequality.wordpress.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://s1.wp.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="A First Taste of Graph Theory" href="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/">
+<link rel="next" title="Decorators in Python and Syncing Objects" href="https://triangleinequality.wordpress.com/2013/08/19/decorators-in-python-and-syncing-objects/">
+<meta name="generator" content="WordPress.com">
+<link rel="canonical" href="./A First Taste of Object Orientated Programming with Python « triangleinequality_files/A First Taste of Object Orientated Programming with Python « triangleinequality.html">
+<link rel="shortlink" href="http://wp.me/p3xjVg-1j">
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=json&url=https%3A%2F%2Ftriangleinequality.wordpress.com%2F2013%2F06%2F03%2Fa-first-taste-of-object-orientated-programming-with-python%2F&for=wpcom-auto-discovery"><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=xml&url=https%3A%2F%2Ftriangleinequality.wordpress.com%2F2013%2F06%2F03%2Fa-first-taste-of-object-orientated-programming-with-python%2F&for=wpcom-auto-discovery">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="A First Taste of Object Orientated Programming with Python">
+<meta property="og:url" content="https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/">
+<meta property="og:description" content="1. Objects, attributes, methods and __init__ A class is a recipe for an object, objects are instantiations of a class. For instance the class may be &#39;Person&#39;, and the instantiation might be &#39;Bob&#39;. ...">
+<meta property="article:published_time" content="2013-06-03T19:49:19+00:00">
+<meta property="article:modified_time" content="2013-09-01T09:54:29+00:00">
+<meta property="article:author" content="https://triangleinequality.wordpress.com/author/triangleinequality/">
+<meta property="og:site_name" content="triangleinequality">
+<meta property="og:image" content="https://triangleinequality.files.wordpress.com/2013/06/leonard_nimoy_william_shatner_star_trek_1968.jpg?w=945">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:site" content="@wordpressdotcom">
+<meta name="twitter:image:src" content="https://triangleinequality.files.wordpress.com/2013/06/leonard_nimoy_william_shatner_star_trek_1968.jpg?w=640">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="fb:app_id" content="249643311490">
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom">
+<link rel="shortcut icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="apple-touch-icon-precomposed" href="https://s0.wp.com/i/webclip.png">
+<link rel="openid.server" href="https://triangleinequality.wordpress.com/?openidserver=1">
+<link rel="openid.delegate" href="https://triangleinequality.wordpress.com/">
+<link rel="search" type="application/opensearchdescription+xml" href="https://triangleinequality.wordpress.com/osd.xml" title="triangleinequality">
+<link rel="search" type="application/opensearchdescription+xml" href="https://wordpress.com/opensearch.xml" title="WordPress.com">
+<meta name="application-name" content="triangleinequality"><meta name="msapplication-window" content="width=device-width;height=device-height"><meta name="msapplication-tooltip" content="for matters mathematical"><meta name="msapplication-task" content="name=Subscribe;action-uri=https://triangleinequality.wordpress.com/feed/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="title" content="A First Taste of Object Orientated Programming with Python | triangleinequality on WordPress.com">
+<meta name="description" content="1. Objects, attributes, methods and __init__ A class is a recipe for an object, objects are instantiations of a class. For instance the class may be &#39;Person&#39;, and the instantiation might be &#39;Bob&#39;. Objects give us a natural way of thinking about code, instead of just having functions and variables, we have things that mirror…">
+	<style type="text/css">
+			#site-title a,
+		#site-description {
+			color: #545454 !important;
+		}
+		</style>
+	<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #999999; }
+</style>
+
+<script type="text/javascript" src="./A First Taste of Object Orientated Programming with Python « triangleinequality_files/google_service.js">
+</script>
+<script type="text/javascript">
+if ( typeof GS_googleAddAdSenseService == 'function' ) { GS_googleAddAdSenseService("ca-pub-3443918307802676"); }
+if ( typeof GS_googleEnableAllServices == 'function' ) { GS_googleEnableAllServices() };
+</script><script src="https://securepubads.g.doubleclick.net/gampad/google_ads.js"></script>
+<script type="text/javascript" src="https://c.amazon-adsystem.com/aax2/amzn_ads.js"></script>
+<script type="text/javascript">
+try { amznads.getAds("3033","300x250"); } catch(e) { /* ignore */ }
+</script>
+<script type="text/javascript">
+var amznKeys = amznads.getKeys();
+if (typeof amznKeys != "undefined" && amznKeys != "") { for (var i =0; i < amznKeys.length; i++) { var key = amznKeys[i]; GA_googleAddAttr("amzn", key);} }
+document.close();
+</script>
+<script type="text/javascript">
+if ( typeof GA_googleAddSlot == 'function' ) { GA_googleAddSlot("ca-pub-3443918307802676", "wpcom_below_post"); }
+</script>
+<script type="text/javascript">
+if ( typeof GA_googleFetchAds == 'function' ) { GA_googleFetchAds(); }
+</script>
+
+<script type="text/javascript">
+var wpcom_ads = { bid: 52270418, pt: 'permalink', wa: 0, as: 0, domain: 'triangleinequality.wordpress.com', url: 'https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/', gid: '', };
+</script>
+<link rel="stylesheet" type="text/css" href="./A First Taste of Object Orientated Programming with Python « triangleinequality_files/shCore.css"><link rel="stylesheet" type="text/css" href="./A First Taste of Object Orientated Programming with Python « triangleinequality_files/shThemeDefault.css"><style type="text/css" id="syntaxhighlighteranchor"></style>
+<script type="text/javascript">
+	window.google_analytics_uacct = "UA-52447-2";
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_setDomainName', 'wordpress.com']);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script><script type="text/javascript" async="" src="./A First Taste of Object Orientated Programming with Python « triangleinequality_files/ga.js"></script>
+<link rel="stylesheet" type="text/css" id="gravatar-card-css" href="./A First Taste of Object Orientated Programming with Python « triangleinequality_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="./A First Taste of Object Orientated Programming with Python « triangleinequality_files/services.css"></head>
+<body class="single single-post postid-81 single-format-standard custom-background mp6 customizer-styles-applied column-full column-right highlander-enabled highlander-light">
+	<div id="wrap">
+		<div id="header" class="clearfix">
+
+			<div id="main-nav">
+				<div class="menu"><ul><li><a href="https://triangleinequality.wordpress.com/">Home</a></li><li class="page_item page-item-1"><a href="https://triangleinequality.wordpress.com/about/">About</a></li><li class="page_item page-item-233"><a href="https://triangleinequality.wordpress.com/contents/">Contents</a></li></ul></div>
+			</div><!-- end #main-nav -->
+
+			<div id="logo">
+				<h1 id="site-title">
+					<a href="https://triangleinequality.wordpress.com/" title="triangleinequality - for matters mathematical" rel="home">
+						triangleinequality					</a>
+				</h1>
+				<p id="site-description">for matters mathematical</p>
+			</div><!-- end #logo -->
+
+			<div id="search">
+				<form method="get" id="searchform" action="https://triangleinequality.wordpress.com/">
+	<label for="s" class="assistive-text hidden">Search</label>
+	<input id="s" type="text" name="s" placeholder="Search">
+	<button id="searchsubmit" name="submit" type="submit">Search</button>
+</form>			</div><!-- end #search -->
+
+			
+<div id="social">
+	<ul>
+			</ul>
+</div>
+		</div><!-- end #header -->
+
+		<hr class="sepinside">
+<div id="content" class="clearfix">
+
+	
+	<div class="column column-title">
+		<div id="crumbs">
+	<p><a href="https://triangleinequality.wordpress.com/">Home</a> » <a href="https://triangleinequality.wordpress.com/category/python/">python</a> » <span class="current">A First Taste of Object Orientated Programming with&nbsp;Python</span></p>
+</div><!-- end #crumbs -->		<h1 class="title-header">A First Taste of Object Orientated Programming with&nbsp;Python</h1>	</div><!-- end .column-title -->
+
+	
+	<div class="column column-content single">
+
+		
+<div id="post-81" class="post-81 post type-post status-publish format-standard has-post-thumbnail hentry category-python tag-inheritance-object-oriented-programming tag-introduction tag-object-oriented-programming tag-primer tag-programming tag-python tag-star-trek tag-tutorial">
+
+	<div class="entry-content clearfix">
+		<p><b>1. Objects, attributes, methods and __init__ </b></p>
+<p>A class is a recipe for an object, objects are instantiations of a class. For instance the class may be ‘Person’, and the instantiation might be ‘Bob’. Objects give us a natural way of thinking about code, instead of just having functions and variables, we have things that mirror those things we are trying to model. Basically it gives you a way to create your own data structure. Let’s do an example, and let me warn you: this post will have a star trek theme! See if you can spot it.</p>
+<div style="width: 310px" class="wp-caption alignright"><a href="http://commons.wikipedia.org/wiki/File:Leonard_Nimoy_William_Shatner_Star_Trek_1968.JPG" target="_blank"><img class="zemanta-img-inserted" title="Publicity photo of Leonard Nimoy and William S..." alt="Publicity photo of Leonard Nimoy and William S..." src="./A First Taste of Object Orientated Programming with Python « triangleinequality_files/300px-Leonard_Nimoy_William_Shatner_Star_Trek_1968.JPG" width="292" height="360" srcset="https://i1.wp.com/upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Leonard_Nimoy_William_Shatner_Star_Trek_1968.JPG/300px-Leonard_Nimoy_William_Shatner_Star_Trek_1968.JPG?zoom=2 2x" scale="2"></a><p class="wp-caption-text">Publicity photo of Leonard Nimoy and William Shatner as Mr. Spock and Captain Kirk from the television program Star Trek. (Photo credit: Wikipedia)</p></div>
+<p>&nbsp;</p>
+<div><div id="highlighter_515219" class="syntaxhighlighter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">class</code> <code class="python plain">IntelligentLifeForm(</code><code class="python functions">object</code><code class="python plain">):</code></div><div class="line number2 index1 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">__init__(</code><code class="python color1">self</code><code class="python plain">, name):</code></div><div class="line number3 index2 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.name </code><code class="python keyword">=</code> <code class="python plain">name</code></div><div class="line number4 index3 alt1">&nbsp;</div><div class="line number5 index4 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">say_name(</code><code class="python color1">self</code><code class="python plain">):</code></div><div class="line number6 index5 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">print</code> <code class="python string">'My name is %s.'</code> <code class="python keyword">%</code> <code class="python color1">self</code><code class="python plain">.name</code></div><div class="line number7 index6 alt2">&nbsp;</div><div class="line number8 index7 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">greeting(</code><code class="python color1">self</code><code class="python plain">):</code></div></div></td></tr></tbody></table></div></div>
+<p>So the class is called ‘IntelligentLifeForm’, the ‘object’ part in brackets is just something technical that I add in to make it compatible with certain Python 3 behaviours. As you can see, classes have what look like function definitions inside them.</p>
+<p>We call these ‘methods’ or ‘class methods’. The funny looking one, ‘__init__’ has a special function: whenever an object is made, it runs init.</p>
+<p>In addition to methods, classes also have variable or attributes, these you declare in init like ‘self.attribute’. The ‘self’ thing you see everywhere just means that it is referring to the object itself, and every method needs self as an argument. So how do we make an IntelligentLifeForm? Easy, we type:</p>
+<div><div id="highlighter_316410" class="syntaxhighlighter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python plain">CrystalEntity </code><code class="python keyword">=</code> <code class="python plain">IntelligentLifeForm(name</code><code class="python keyword">=</code><code class="python string">'Crystal Entity'</code><code class="python plain">)</code></div><div class="line number2 index1 alt1"><code class="python functions">print</code> <code class="python plain">CrystalEntity.name</code></div><div class="line number3 index2 alt2"><code class="python plain">CrystalEntity.say_name()</code></div><div class="line number4 index3 alt1"><code class="python plain">CrystalEntity.greeting()</code></div><div class="line number5 index4 alt2"><code class="python comments">#OUTPUT</code></div><div class="line number6 index5 alt1"><code class="python plain">Crystal Entity</code></div><div class="line number7 index6 alt2"><code class="python plain">My name </code><code class="python keyword">is</code> <code class="python plain">Crystal Entity.</code></div></div></td></tr></tbody></table></div></div>
+<p>So all you do is call it like a function, passing whatever arguments that init asks for. Notice that attributes can accessed using the ‘.’ syntax directly, or indirectly through calling a method.</p>
+<p><b>2. Inheritance </b></p>
+<p>One of the most useful ideas in object orientated programming is inheritance, this allows us to create new classes that inherit features from a parent class, allowing us to be more specific, whilst avoiding code duplication. The best way to explain it is by doing it.</p>
+<div><div id="highlighter_946439" class="syntaxhighlighter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">class</code> <code class="python plain">Human(IntelligentLifeForm, </code><code class="python functions">object</code><code class="python plain">):</code></div><div class="line number2 index1 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">greeting(</code><code class="python color1">self</code><code class="python plain">):</code></div><div class="line number3 index2 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">print</code> <code class="python string">'Howdy!'</code></div><div class="line number4 index3 alt1">&nbsp;</div><div class="line number5 index4 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">act_emotional(</code><code class="python color1">self</code><code class="python plain">):</code></div><div class="line number6 index5 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">print</code> <code class="python string">'KHAAAN!!!'</code></div><div class="line number7 index6 alt2">&nbsp;</div><div class="line number8 index7 alt1"><code class="python plain">Kirk </code><code class="python keyword">=</code> <code class="python plain">Human(name</code><code class="python keyword">=</code><code class="python string">'Kirk'</code><code class="python plain">)</code></div><div class="line number9 index8 alt2"><code class="python plain">Kirk.greeting()</code></div><div class="line number10 index9 alt1"><code class="python plain">Kirk.say_name()</code></div><div class="line number11 index10 alt2"><code class="python plain">Kirk.act_emotional()</code></div><div class="line number12 index11 alt1">&nbsp;</div><div class="line number13 index12 alt2"><code class="python comments">#OUTPUT</code></div><div class="line number14 index13 alt1"><code class="python plain">Howdy!</code></div><div class="line number15 index14 alt2"><code class="python plain">My name </code><code class="python keyword">is</code> <code class="python plain">Kirk.</code></div><div class="line number16 index15 alt1"><code class="python plain">KHAAAN!!!</code></div></div></td></tr></tbody></table></div></div>
+<p>So to inherit from a class, just add it to the class definition arguments. The new class will be exactly the same as the old one, except that we can declare new methods, like act_emotional, or override inherited methods, like greeting. After you play with this for a bit, you may wonder: how can I change behaviours instead of just overriding them? The answer is super.</p>
+<div><div id="highlighter_154891" class="syntaxhighlighter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">class</code> <code class="python plain">Vulcan(IntelligentLifeForm, </code><code class="python functions">object</code><code class="python plain">):</code></div><div class="line number2 index1 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">__init__(</code><code class="python color1">self</code><code class="python plain">, time_till_Pon_farr</code><code class="python keyword">=</code><code class="python value">7</code><code class="python plain">, </code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs):</code></div><div class="line number3 index2 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.time_till_Pon_farr </code><code class="python keyword">=</code> <code class="python plain">time_till_Pon_farr</code></div><div class="line number4 index3 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">super</code><code class="python plain">(Vulcan, </code><code class="python color1">self</code><code class="python plain">).__init__(</code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs)</code></div><div class="line number5 index4 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">greeting(</code><code class="python color1">self</code><code class="python plain">):</code></div><div class="line number6 index5 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">print</code> <code class="python string">'Live long and prosper.'</code></div><div class="line number7 index6 alt2">&nbsp;</div><div class="line number8 index7 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">act_logical(</code><code class="python color1">self</code><code class="python plain">):</code></div><div class="line number9 index8 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">print</code> <code class="python string">'It is logical.'</code></div><div class="line number10 index9 alt1">&nbsp;</div><div class="line number11 index10 alt2"><code class="python plain">Tpol</code><code class="python keyword">=</code><code class="python plain">Vulcan(time_till_Pon_farr</code><code class="python keyword">=</code><code class="python value">3</code><code class="python plain">, name</code><code class="python keyword">=</code><code class="python string">'T\'Pol'</code><code class="python plain">)</code></div><div class="line number12 index11 alt1"><code class="python functions">print</code> <code class="python plain">Tpol.time_till_Pon_farr</code></div><div class="line number13 index12 alt2"><code class="python comments">#OUTPUT</code></div><div class="line number14 index13 alt1"><code class="python value">3</code></div></div></td></tr></tbody></table></div></div>
+<p>So as you see when you call super, it gives you access to the methods of the parents, which is especially useful if you want to extend init, but can be used in any method. Also notice the kwargs argument to init, this refers to keyword arguments, it anticipates and stores an arbitrary number of keyword arguments, which you can then pass into another function. More on this in my forthcoming post on decorators.</p>
+<p><b>3. Multiple Inheritance </b></p>
+<p>What if you want to inherit from more than one class? Well this is not generally advised if possible, because it creates a problem of precedence when the parents have methods or attributes of the same name. We’ll see how this turns out in the following.</p>
+<div><div id="highlighter_687440" class="syntaxhighlighter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">class</code> <code class="python plain">ChildOfTwoWorlds(Vulcan, Human):</code></div><div class="line number2 index1 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">pass</code></div><div class="line number3 index2 alt2">&nbsp;</div><div class="line number4 index3 alt1"><code class="python plain">Spock </code><code class="python keyword">=</code> <code class="python plain">ChildOfTwoWorlds(name</code><code class="python keyword">=</code><code class="python string">'Spock'</code><code class="python plain">, time_till_Pon_farr</code><code class="python keyword">=</code><code class="python value">6</code><code class="python plain">)</code></div><div class="line number5 index4 alt2"><code class="python plain">Spock.greeting()</code></div><div class="line number6 index5 alt1"><code class="python plain">Spock.say_name()</code></div><div class="line number7 index6 alt2"><code class="python plain">Spock.act_logical()</code></div><div class="line number8 index7 alt1"><code class="python plain">Spock.act_emotional()</code></div><div class="line number9 index8 alt2"><code class="python comments">#OUTPUT</code></div><div class="line number10 index9 alt1"><code class="python plain">Live </code><code class="python functions">long</code> <code class="python keyword">and</code> <code class="python plain">prosper.</code></div><div class="line number11 index10 alt2"><code class="python plain">My name </code><code class="python keyword">is</code> <code class="python plain">Spock.</code></div><div class="line number12 index11 alt1"><code class="python plain">It </code><code class="python keyword">is</code> <code class="python plain">logical.</code></div><div class="line number13 index12 alt2"><code class="python plain">KHAAAN!!!</code></div></div></td></tr></tbody></table></div></div>
+<p>So ChildOfTwoWorlds inherits from both the Vulcan and Human classes, and they from IntelligentLifeForms. The order in which the arguments are given in the class definition is important! It determines priority. Here we see that since Vulcan is before Human, ChildOfTwoWorlds uses the Vulcan greeting and not the Human. This example is simple, but it could quickly get difficult to manage.</p>
+<p><b>4. Composition </b></p>
+<p>Composition is a way of reusing code without inheritance and should probably be used where possible, as it avoids the complexities of class hierarchies.</p>
+<p>It is used when you can think of one object as having parts that are other objects. For example:</p>
+<div><div id="highlighter_567147" class="syntaxhighlighter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">class</code> <code class="python plain">StarShip(</code><code class="python functions">object</code><code class="python plain">):</code></div><div class="line number2 index1 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">__init__(</code><code class="python color1">self</code><code class="python plain">, crew):</code></div><div class="line number3 index2 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.crew</code><code class="python keyword">=</code><code class="python plain">crew</code></div><div class="line number4 index3 alt1">&nbsp;</div><div class="line number5 index4 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">go_to_warp(</code><code class="python color1">self</code><code class="python plain">, warp_factor):</code></div><div class="line number6 index5 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">print</code> <code class="python string">'Ahead warp factor %i.'</code> <code class="python keyword">%</code> <code class="python plain">warp_factor</code></div><div class="line number7 index6 alt2">&nbsp;</div><div class="line number8 index7 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">shields_up(</code><code class="python color1">self</code><code class="python plain">):</code></div><div class="line number9 index8 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">print</code> <code class="python string">'Shields up!'</code></div><div class="line number10 index9 alt1">&nbsp;</div><div class="line number11 index10 alt2"><code class="python plain">Enterprise </code><code class="python keyword">=</code> <code class="python plain">StarShip(crew</code><code class="python keyword">=</code><code class="python plain">[Kirk, Spock])</code></div><div class="line number12 index11 alt1"><code class="python plain">Enterprise.go_to_warp(</code><code class="python value">8</code><code class="python plain">)</code></div><div class="line number13 index12 alt2"><code class="python comments">#OUTPUT</code></div><div class="line number14 index13 alt1"><code class="python plain">Ahead warp factor </code><code class="python value">8.</code></div></div></td></tr></tbody></table></div></div>
+<p>For less trivial examples, the composed class will want to access the methods and attributes of its parts.</p>
+<p><b>5. Dynamic Inheritance </b></p>
+<p>This final section concerns another problem of reusing code, where two classes are very similar, and differ only in who they inherit from. You could of course define each separately, but code duplication is a sin! So what I will do is wrap the class definition in a function that takes the parent class as an argument, like this:</p>
+<div><div id="highlighter_699384" class="syntaxhighlighter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">def</code> <code class="python plain">return_starfleet_officer_class(Species):</code></div><div class="line number2 index1 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">class</code> <code class="python plain">Starfleet_Officer(Species, </code><code class="python functions">object</code><code class="python plain">):</code></div><div class="line number3 index2 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">__init__(</code><code class="python color1">self</code><code class="python plain">, rank, </code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs):</code></div><div class="line number4 index3 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.rank</code><code class="python keyword">=</code><code class="python plain">rank</code></div><div class="line number5 index4 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">super</code><code class="python plain">(Starfleet_Officer, </code><code class="python color1">self</code><code class="python plain">).__init__(</code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs)</code></div><div class="line number6 index5 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python plain">Starfleet_Officer</code></div><div class="line number7 index6 alt2"><code class="python plain">Spock </code><code class="python keyword">=</code> <code class="python plain">return_starfleet_officer_class(ChildOfTwoWorlds)(name</code><code class="python keyword">=</code><code class="python string">'Spock'</code><code class="python plain">, rank</code><code class="python keyword">=</code><code class="python string">'Commander'</code><code class="python plain">)</code></div><div class="line number8 index7 alt1"><code class="python plain">Spock.greeting()</code></div><div class="line number9 index8 alt2"><code class="python plain">Spock.say_name()</code></div><div class="line number10 index9 alt1"><code class="python plain">Spock.act_logical()</code></div><div class="line number11 index10 alt2"><code class="python plain">Spock.act_emotional()</code></div><div class="line number12 index11 alt1"><code class="python functions">print</code> <code class="python plain">Spock.rank</code></div><div class="line number13 index12 alt2"><code class="python comments">#OUTPUT</code></div><div class="line number14 index13 alt1"><code class="python plain">Live </code><code class="python functions">long</code> <code class="python keyword">and</code> <code class="python plain">prosper.</code></div><div class="line number15 index14 alt2"><code class="python plain">My name </code><code class="python keyword">is</code> <code class="python plain">Spock.</code></div><div class="line number16 index15 alt1"><code class="python plain">It </code><code class="python keyword">is</code> <code class="python plain">logical.</code></div><div class="line number17 index16 alt2"><code class="python plain">KHAAAN!!!</code></div><div class="line number18 index17 alt1"><code class="python plain">Commander</code></div></div></td></tr></tbody></table></div></div>
+<p><b>6. Next Time </b></p>
+<p>There you have it, next time we will look at a another way of avoiding code duplication – decorators.</p>
+
+<div class="wpcnt">
+<div class="wpa">
+<a class="wpa-about" href="http://wordpress.com/about-these-ads/" rel="nofollow">About these ads</a>
+<script type="text/javascript">
+		var wpcom_adclk_hovering = false;
+		var wpcom_adclk_recorded = false;
+		var wpcom_adclk_theme = "Academica";
+		var wpcom_adclk_slot = "wpcom_below_post";
+		var wpcom_adclk_network = ( typeof wpcom_adclk_network === "undefined" ) ? "" : wpcom_adclk_network ;
+
+		jQuery(document).ready( function() {
+			function wpcom_adclk_hover_yes() { wpcom_adclk_hovering = true; }
+			function wpcom_adclk_hover_no() { wpcom_adclk_hovering = false; }
+			jQuery(".wpa").click(wpcom_adclk_click);
+			jQuery(".wpa iframe").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+			jQuery(".wpa object").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+
+			jQuery(window).blur( function() {
+				if ( wpcom_adclk_hovering ) { wpcom_adclk_click(); }
+			});
+		});
+
+		function wpcom_adclk_impression() {
+			var stat_gif = document.location.protocol + "//pixel.wp.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_imp_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_imp_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_imp_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_imp_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			return true;
+		}
+
+		function wpcom_adclk_click() {
+			if (wpcom_adclk_recorded) { return true; } // no double counting
+			var stat_gif = document.location.protocol + "//pixel.wp.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_click_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_click_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_click_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_click_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			wpcom_adclk_recorded = true;
+			var now=new Date(); var end=now.getTime()+250;
+			while(true){now=new Date();if(now.getTime()>end){break;}}
+			return true;
+		}
+	
+if ( typeof GA_googleAddAttr == 'function' ) {
+GA_googleAddAttr("AdOpt", "1");
+GA_googleAddAttr("Origin", "other");
+GA_googleAddAttr("LangId", "1");
+GA_googleAddAttr("Domain", "triangleinequality.wordpress.com");
+GA_googleAddAttr("BlogId", "52270418");
+GA_googleAddAttr("PageURL", "https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/");
+GA_googleAddAttr("Autotag", "science");
+GA_googleAddAttr("Autotag", "technology");
+GA_googleAddAttr("Autotag", "entertainment");
+GA_googleAddAttr("Tag", "python");
+GA_googleAddAttr("Tag", "inheritance-object-oriented-programming");
+GA_googleAddAttr("Tag", "introduction");
+GA_googleAddAttr("Tag", "object-oriented-programming");
+GA_googleAddAttr("Tag", "primer");
+GA_googleAddAttr("Tag", "programming");
+GA_googleAddAttr("Tag", "python");
+GA_googleAddAttr("Tag", "star-trek");
+GA_googleAddAttr("Tag", "tutorial");
+GA_googleAddAttr("theme_bg", "ffffff");
+GA_googleAddAttr("theme_text", "333333");
+GA_googleAddAttr("theme_link", "0c5390");
+GA_googleAddAttr("theme_border", "f99734");
+GA_googleAddAttr("theme_url", "f99734");
+GA_googleAddAdSensePageAttr("google_page_url", "https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/");
+GA_googleFillSlot("wpcom_below_post");
+}
+</script>
+</div>
+</div>
+
+<script type="text/javascript">
+jQuery( window ).load( function() {
+    if ( jQuery(".wpa script[src*='virool.com']").length > 0 || jQuery(".wpa script[src*='shareth.ru']").length > 0 || jQuery(".wpa iframe[src*='boomvideo.tv']").length > 0 || jQuery(".wpa iframe[src*='viewablemedia.net']").length > 0 || jQuery(".wpa .sharethrough-placement").length > 0 ) {
+        jQuery( '.wpa' ).css( 'width', '400px' );
+    }
+setTimeout(function(){if(typeof GS_googleAddAdSenseService !== 'function'){new Image().src=document.location.protocol+"//pixel.wp.com/g.gif?v=wpcom-no-pv&x_noads=adblock&baba="+Math.random()}},100);
+} );
+</script>
+
+<div id="jp-post-flair" class="sharedaddy sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow" class="share-twitter sd-button share-icon" href="https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/?share=twitter&nb=1" title="Click to share on Twitter" id="sharing-twitter-81"><span>Twitter</span></a></li><li class="share-facebook"><a rel="nofollow" class="share-facebook sd-button share-icon" href="https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/?share=facebook&nb=1" title="Share on Facebook" id="sharing-facebook-81"><span>Facebook</span></a></li><li class="share-google-plus-1"><a rel="nofollow" class="share-google-plus-1 sd-button share-icon" href="https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/?share=google-plus-1&nb=1" title="Click to share on Google+" id="sharing-google-81"><span>Google</span></a></li><li class="share-end"></li></ul></div></div></div><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-loaded" id="like-post-wrapper-52270418-81-5548645d47413" data-src="//widgets.wp.com/likes/#blog_id=52270418&amp;post_id=81&amp;origin=triangleinequality.wordpress.com&amp;obj_id=52270418-81-5548645d47413" data-name="like-post-frame-52270418-81-5548645d47413"><h3 class="sd-title">Like this:</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height: 55px; display: none;"><span class="button"><span>Like</span></span> <span class="loading">Loading...</span></div><iframe class="post-likes-widget jetpack-likes-widget" name="like-post-frame-52270418-81-5548645d47413" height="55px" width="100%" frameborder="0" src="./A First Taste of Object Orientated Programming with Python « triangleinequality_files/saved_resource(7).html"></iframe><span class="sd-text-color"></span><a class="sd-link-color"></a></div>
+<div id="jp-relatedposts" class="jp-relatedposts" style="display: block;">
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+<div class="jp-relatedposts-items jp-relatedposts-items-minimal"><p class="jp-relatedposts-post jp-relatedposts-post0" data-post-id="114" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://triangleinequality.wordpress.com/2013/08/22/special-graphs-and-dynamic-inheritance/" title="Special Graphs and Dynamic Inheritance
+
+Welcome back! Last time we introduced the Vertex, Edge, Graph, DirGraph and UnDirGraph classes, now we are going to have some fun and introduce the special graphs like linear, cycle, complete and so on. If you want to refresh your memory on the special graphs, we discussed them here. There…" rel="nofollow" data-origin="81" data-position="0">Special Graphs and Dynamic Inheritance</a></span><span class="jp-relatedposts-post-context">In "graph theory"</span></p><p class="jp-relatedposts-post jp-relatedposts-post1" data-post-id="138" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://triangleinequality.wordpress.com/2013/08/24/decision-trees-part-1-representation/" title="Decision Trees Part 1: Representation
+
+Now that we have data structures describing graphs, we can put them to work and do some machine learning! We&#39;re going to be looking at decision trees. The wikipedia page on Decison Tree learning has an example from our favourite data set, the Titanic survivors, so let&#39;s steal their picture…" rel="nofollow" data-origin="81" data-position="1">Decision Trees Part 1: Representation</a></span><span class="jp-relatedposts-post-context">In "graph theory"</span></p><p class="jp-relatedposts-post jp-relatedposts-post2" data-post-id="540" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://triangleinequality.wordpress.com/2013/11/03/random-forest/" title="Random Forest
+
+Today we will learn about the random forest algorithm, and how to implement in Python, using the decision trees we have made before. History The random forest algorithm was first introduced by Leo Breiman, and he (and Adam Cutler) have a great guide to them here. The Algorithm The idea…" rel="nofollow" data-origin="81" data-position="2">Random Forest</a></span><span class="jp-relatedposts-post-context">In "decision trees"</span></p></div></div></div>	</div><!-- end .entry-content -->
+
+	<div class="entry-meta">
+		<p class="tags"><strong>Tags:</strong> <a href="https://triangleinequality.wordpress.com/tag/inheritance-object-oriented-programming/" rel="tag">Inheritance (object-oriented programming)</a>, <a href="https://triangleinequality.wordpress.com/tag/introduction/" rel="tag">Introduction</a>, <a href="https://triangleinequality.wordpress.com/tag/object-oriented-programming/" rel="tag">Object-oriented programming</a>, <a href="https://triangleinequality.wordpress.com/tag/primer/" rel="tag">Primer</a>, <a href="https://triangleinequality.wordpress.com/tag/programming/" rel="tag">Programming</a>, <a href="https://triangleinequality.wordpress.com/tag/python/" rel="tag">python</a>, <a href="https://triangleinequality.wordpress.com/tag/star-trek/" rel="tag">Star Trek</a>, <a href="https://triangleinequality.wordpress.com/tag/tutorial/" rel="tag">Tutorial</a></p><span class="by-author">By <span class="author vcard"><a class="url fn n" href="https://triangleinequality.wordpress.com/author/triangleinequality/" title="View all posts by triangleinequality" rel="author">triangleinequality</a></span> </span>in <span class="category"><a href="https://triangleinequality.wordpress.com/category/python/" rel="category tag">python</a></span> on <span class="datetime"><a href="./A First Taste of Object Orientated Programming with Python « triangleinequality_files/A First Taste of Object Orientated Programming with Python « triangleinequality.html" title="7:49 pm" rel="bookmark"><time class="entry-date" datetime="2013-06-03T19:49:19+00:00" pubdate="">June 3, 2013</time></a></span>.	</div><!-- end .entry-meta -->
+
+</div><!-- end #post-## -->
+		<div class="navigation clearfix">
+			<span class="alignleft"><a href="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/" rel="prev"><span class="meta-nav">←</span> A First Taste of Graph&nbsp;Theory</a></span>			<span class="alignright"><a href="https://triangleinequality.wordpress.com/2013/08/19/decorators-in-python-and-syncing-objects/" rel="next">Decorators in Python and Syncing&nbsp;Objects <span class="meta-nav">→</span></a></span>		</div><!-- end .navigation -->
+
+		
+<div id="comments">
+
+	
+		<hr>
+		<h2>3 Comments</h2>
+
+		<ol class="commentlist">
+					<li class="pingback even thread-even depth-1 highlander-comment" id="comment-9">
+				<div id="div-comment-9" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href="https://triangleinequality.wordpress.com/2013/08/21/graphs-as-objects-in-python/" rel="external nofollow" class="url">Graphs as Objects in Python | triangleinequality</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/comment-page-1/#comment-9">
+			August 21, 2013 at 7:30 pm</a>		</div>
+
+		<p>[…] time we are going to combine the lessons learned about objects and decorators in Python, and about graph theory, to represent graphs as […]</p>
+
+		<div class="reply"><a class="comment-reply-link" href="https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/?replytocom=9#respond" onclick="return addComment.moveForm( &quot;div-comment-9&quot;, &quot;9&quot;, &quot;respond&quot;, &quot;81&quot; )" aria-label="Reply to Graphs as Objects in Python | triangleinequality">Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-25">
+				<div id="div-comment-25" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href="https://triangleinequality.wordpress.com/2013/09/05/a-complete-guide-to-getting-0-79903-in-kaggles-titanic-competition-with-python/" rel="external nofollow" class="url">A complete guide to getting 0.79903 in Kaggle’s Titanic Competition with Python « triangleinequality</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/comment-page-1/#comment-25">
+			September 5, 2013 at 12:16 pm</a>		</div>
+
+		<p>[…] and some related topics in python programming, you can read about object orientated programming here, decorators in python here, and how to represent graphs in python here and here. Note that to […]</p>
+
+		<div class="reply"><a class="comment-reply-link" href="https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/?replytocom=25#respond" onclick="return addComment.moveForm( &quot;div-comment-25&quot;, &quot;25&quot;, &quot;respond&quot;, &quot;81&quot; )" aria-label="Reply to A complete guide to getting 0.79903 in Kaggle’s Titanic Competition with Python « triangleinequality">Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback even thread-even depth-1 highlander-comment" id="comment-77">
+				<div id="div-comment-77" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href="http://www.michelmuhlhauser.com/mr-spock-logical-guide-effective-blogging/" rel="external nofollow" class="url">Mr. Spock Logical Guide to Effective Blogging - My IM Journey</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/comment-page-1/#comment-77">
+			March 17, 2014 at 9:35 am</a>		</div>
+
+		<p>[…] A First Taste of Object Orientated Programming with Python […]</p>
+
+		<div class="reply"><a class="comment-reply-link" href="https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/?replytocom=77#respond" onclick="return addComment.moveForm( &quot;div-comment-77&quot;, &quot;77&quot;, &quot;respond&quot;, &quot;81&quot; )" aria-label="Reply to Mr. Spock Logical Guide to Effective Blogging - My IM Journey">Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		</ol>
+
+								<div id="respond" class="comment-respond js">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="https://triangleinequality.wordpress.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																										
+
+
+												<input type="hidden" id="highlander_comment_nonce" name="highlander_comment_nonce" value="9b3f4ae146"><input type="hidden" name="_wp_http_referer" value="/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/">
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest">
+
+<div class="comment-form-field comment-textarea">
+	
+	<div id="comment-form-comment"><textarea tabindex="-1" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px; padding: 0px; box-sizing: content-box; word-wrap: break-word; overflow: hidden; -webkit-transition: none; transition: none; height: 0px !important; min-height: 0px !important; font-family: Helvetica, Arial, Tahoma, sans-serif; font-size: 14px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; text-decoration: none; word-spacing: 0px; text-indent: 0px; line-height: normal; width: 938px;" class="autosizejs "></textarea><textarea id="comment" name="comment" title="Enter your comment here..." placeholder="Enter your comment here..." style="height: 36px; overflow: hidden; word-wrap: break-word; resize: none;"></textarea></div>
+</div>
+
+<div id="comment-form-identity" style="display: none;">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+			<li>
+			<iframe id="googleplus-sign-in" name="googleplus-sign-in" src="./A First Taste of Object Orientated Programming with Python « triangleinequality_files/saved_resource.html" width="24" height="24" scrolling="no" allowtransparency="true" seamless="seamless" frameborder="0"></iframe>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank">				<img src="./A First Taste of Object Orientated Programming with Python « triangleinequality_files/ad516503a11cd5ca435acc9bb6523536" alt="Gravatar" width="25" class="no-grav" originals="25" src-orig="https://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" scale="2">
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text" value=""></div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./A First Taste of Object Orientated Programming with Python « triangleinequality_files/wplogo.png" alt="WordPress.com Logo" width="25" class="no-grav" scale="0">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="">
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your WordPress.com account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'wordpress' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./A First Taste of Object Orientated Programming with Python « triangleinequality_files/ad516503a11cd5ca435acc9bb6523536(1)" alt="Twitter picture" width="25" class="no-grav" originals="25" scale="2">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="">
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'twitter' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./A First Taste of Object Orientated Programming with Python « triangleinequality_files/ad516503a11cd5ca435acc9bb6523536(1)" alt="Facebook photo" width="25" class="no-grav" originals="25" scale="2">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="">
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'facebook' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./A First Taste of Object Orientated Programming with Python « triangleinequality_files/ad516503a11cd5ca435acc9bb6523536(1)" alt="Google+ photo" width="25" class="no-grav" originals="25" scale="2">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="">
+				<p class="comment-form-posting-as pa-googleplus"><strong></strong> You are commenting using your Google+ account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'googleplus' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div id="comment-form-subscribe" style="display: none;">
+	<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6"> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of new comments via email.</label></p></div>
+
+												<p class="form-submit" style="display: none;">
+							<input name="submit" type="submit" id="comment-submit" class="submit" value="Post Comment">
+							<input type="hidden" name="comment_post_ID" value="81" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+						</p>
+						<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="583121324a"></p>
+<input type="hidden" name="genseq" value="1430807645">
+<p style="display: none;"></p>					<input type="hidden" id="ak_js" name="ak_js" value="1430808147811"></form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>
+</div><!-- #comments -->
+	</div><!-- end .column-content -->
+
+	
+	
+</div><!-- end #content -->
+
+			<div id="footer" class="clearfix">
+				
+								<p class="copy">
+					<a href="https://wordpress.com/?ref=footer_website">Create a free website or blog at WordPress.com</a>.<span class="sep"> / </span>
+					<a href="https://wordpress.com/themes/academica/" title="Learn more about this theme">The Academica Theme</a>.				</p>
+			</div><!-- end #footer -->
+		</div><!-- end #wrap -->
+
+		<!-- wpcom_wp_footer -->
+<script type="text/javascript" src="./A First Taste of Object Orientated Programming with Python « triangleinequality_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./A First Taste of Object Orientated Programming with Python « triangleinequality_files/wpgroho.js"></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+
+			if (typeof Gravatar === "undefined"){
+				return;
+			}
+
+			if ( typeof Gravatar.init !== "function" ) {
+				return;
+			}			
+
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"https:\/\/triangleinequality.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"https:\/\/triangleinequality.wordpress.com\/wp-login.php?action=logout&_wpnonce=4327dc2202","homeURL":"https:\/\/triangleinequality.wordpress.com\/","postID":"81","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"0","userIsLoggedIn":"","isJetpack":"0","text_direction":"ltr"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./A First Taste of Object Orientated Programming with Python « triangleinequality_files/saved_resource(2)"></script>
+
+	<div id="bit" class="loggedout-follow-normal" style="bottom: -260px;">
+		<a class="bsub" href="javascript:void(0)"><span id="bsub-text">Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow “triangleinequality”</label></h3>
+
+			<form action="https://subscribe.wordpress.com/" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+						<p class="bit-follow-count">Join 38 other followers</p>
+			<p><input type="email" name="email" value="Enter your email address" onfocus="this.value=(this.value==&quot;Enter your email address&quot;) ? &quot;&quot; : this.value;" onblur="this.value=(this.value==&quot;&quot;) ? &quot;Enter your email address&quot; : this.value;" id="loggedout-follow-field"></p>
+
+			<input type="hidden" name="action" value="subscribe">
+			<input type="hidden" name="blog_id" value="52270418">
+			<input type="hidden" name="source" value="https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/">
+			<input type="hidden" name="sub-type" value="loggedout-follow">
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="9692dc94a5"><input type="hidden" name="_wp_http_referer" value="/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/">
+			<p id="bsub-subscribe-button"><input type="submit" value="Sign me up"></p>
+			</form>
+					<div id="bsub-credit"><a href="https://wordpress.com/?ref=lof">Build a website with WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"https:\/\/triangleinequality.wordpress.com\/2013\/06\/03\/a-first-taste-of-object-orientated-programming-with-python\/":81};
+		window.WPCOM_site_ID = 52270418;
+	</script>
+		<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-google-plus-1' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=480,height=550' );
+				return false;
+			});
+		});
+		</script>
+				<iframe src="./A First Taste of Object Orientated Programming with Python « triangleinequality_files/master.html" scrolling="no" id="likes-master" name="likes-master" style="display:none;"></iframe>
+		<div id="likes-other-gravatars"><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type="text/javascript">
+		//<![CDATA[
+			var jetpackLikesWidgetQueue = [];
+			var jetpackLikesWidgetBatch = [];
+			var jetpackLikesMasterReady = false;
+
+			function JetpackLikespostMessage( message, target ) {
+				if ( "string" === typeof message ){
+					try{
+						message = JSON.parse( message );
+					}
+					catch(e) {
+						return;
+					}
+				}
+
+				pm( {
+					target: target,
+					type: 'likesMessage',
+					data: message,
+					origin: '*'
+				} );
+			}
+
+			function JetpackLikesBatchHandler() {
+				var requests = [];
+				jQuery( 'div.jetpack-likes-widget-unloaded' ).each( function( i ) {
+					if ( jetpackLikesWidgetBatch.indexOf( this.id ) > -1 )
+						return;
+					jetpackLikesWidgetBatch.push( this.id );
+					var regex = /like-(post|comment)-wrapper-(\d+)-(\d+)-(\w+)/;
+					var match = regex.exec( this.id );
+					if ( ! match || match.length != 5 )
+						return;
+
+					var info = {
+						blog_id: match[2],
+						width:   this.width
+					};
+
+					if ( 'post' == match[1] ) {
+						info.post_id = match[3];
+					} else if ( 'comment' == match[1] ) {
+						info.comment_id = match[3];
+					}
+
+					info.obj_id = match[4];
+
+					requests.push( info );
+				});
+
+				if ( requests.length > 0 ) {
+					JetpackLikespostMessage( { event: 'initialBatch', requests: requests }, window.frames['likes-master'] );
+				}
+			}
+
+			function JetpackLikesMessageListener( event ) {
+				if ( "undefined" == typeof event.event )
+					return;
+
+				if ( 'masterReady' == event.event ) {
+					jQuery( document ).ready( function() {
+						jetpackLikesMasterReady = true;
+
+						var stylesData = {
+								event: 'injectStyles'
+						};
+
+						if ( jQuery( 'iframe.admin-bar-likes-widget' ).length > 0 ) {
+							JetpackLikespostMessage( { event: 'adminBarEnabled' }, window.frames[ 'likes-master' ] );
+
+							stylesData.adminBarStyles = {
+								background: jQuery( '#wpadminbar .quicklinks li#wp-admin-bar-wpl-like > a' ).css( 'background' ),
+								isRtl: ( 'rtl' == jQuery( '#wpadminbar' ).css( 'direction' ) )
+							};
+						}
+
+						if ( !window.addEventListener )
+							jQuery( '#wp-admin-bar-admin-bar-likes-widget' ).hide();
+
+						stylesData.textStyles = {
+							color: jQuery( '.sd-text-color').css( 'color' ),
+							fontFamily: jQuery( '.sd-text-color' ).css( 'font-family' ),
+							fontSize: jQuery( '.sd-text-color' ).css( 'font-size' ),
+							direction: jQuery( '.sd-text-color' ).css( 'direction' ),
+							fontWeight: jQuery( '.sd-text-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-text-color' ).css( 'font-style' ),
+							textDecoration: jQuery( '.sd-text-color' ).css('text-decoration')
+						};
+
+						stylesData.linkStyles = {
+							color: jQuery( '.sd-link-color' ).css('color'),
+							fontFamily: jQuery( '.sd-link-color' ).css('font-family'),
+							fontSize: jQuery( '.sd-link-color' ).css('font-size'),
+							textDecoration: jQuery( '.sd-link-color' ).css('text-decoration'),
+							fontWeight: jQuery( '.sd-link-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-link-color' ).css( 'font-style' )
+						};
+
+						JetpackLikespostMessage( stylesData, window.frames[ 'likes-master' ] );
+
+						JetpackLikesBatchHandler();
+
+						jQuery( document ).on( 'inview', 'div.jetpack-likes-widget-unloaded', function() {
+							jetpackLikesWidgetQueue.push( this.id );
+						});
+					});
+				}
+
+				if ( 'showLikeWidget' == event.event ) {
+					jQuery( '#' + event.id + ' .post-likes-widget-placeholder'  ).fadeOut( 'fast', function() {
+						jQuery( '#' + event.id + ' .post-likes-widget' ).fadeIn( 'fast', function() {
+							JetpackLikespostMessage( { event: 'likeWidgetDisplayed', blog_id: event.blog_id, post_id: event.post_id, obj_id: event.obj_id }, window.frames['likes-master'] );
+						});
+					});
+				}
+
+				if ( 'clickReblogFlair' == event.event ) {
+					wpcom_reblog.toggle_reblog_box_flair( event.obj_id );
+				}
+
+				if ( 'showOtherGravatars' == event.event ) {
+					var $container = jQuery( '#likes-other-gravatars' );
+					var $list = $container.find( 'ul' );
+
+					$container.hide();
+					$list.html( '' );
+
+					$container.find( '.likes-text span' ).text( event.total );
+
+					jQuery.each( event.likers, function( i, liker ) {
+						$list.append( '<li class="' + liker.css_class + '"><a href="' + liker.profile_URL + '" class="wpl-liker" rel="nofollow" target="_parent"><img src="' + liker.avatar_URL + '" alt="' + liker.name + '" width="30" height="30" style="padding-right: 3px;" /></a></li>');
+					} );
+
+					var offset = jQuery( "[name='" + event.parent + "']" ).offset();
+
+					$container.css( 'left', offset.left + event.position.left - 10 + 'px' );
+					$container.css( 'top', offset.top + event.position.top - 33 + 'px' );
+
+					var rowLength = Math.floor( event.width / 37 );
+					var height = ( Math.ceil( event.likers.length / rowLength ) * 37 ) + 13;
+					if ( height > 204 ) {
+						height = 204;
+					}
+
+					$container.css( 'height', height + 'px' );
+					$container.css( 'width', rowLength * 37 - 7 + 'px' );
+
+					$list.css( 'width', rowLength * 37 + 'px' );
+
+					$container.fadeIn( 'slow' );
+
+					var scrollbarWidth = $list[0].offsetWidth - $list[0].clientWidth;
+					if ( scrollbarWidth > 0 ) {
+						$container.width( $container.width() + scrollbarWidth );
+						$list.width( $list.width() + scrollbarWidth );
+					}
+				}
+			}
+
+			pm.bind( 'likesMessage', function(e) { JetpackLikesMessageListener(e); } );
+
+			jQuery( document ).click( function( e ) {
+				var $container = jQuery( '#likes-other-gravatars' );
+
+				if ( $container.has( e.target ).length === 0 ) {
+					$container.fadeOut( 'slow' );
+				}
+			});
+
+			function JetpackLikesWidgetQueueHandler() {
+				var wrapperID;
+				if ( ! jetpackLikesMasterReady ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				if ( jetpackLikesWidgetQueue.length > 0 ) {
+					// We may have a widget that needs creating now
+					var found = false;
+					while( jetpackLikesWidgetQueue.length > 0 ) {
+						// Grab the first member of the queue that isn't already loading.
+						wrapperID = jetpackLikesWidgetQueue.splice( 0, 1 )[0];
+						if ( jQuery( '#' + wrapperID ).hasClass( 'jetpack-likes-widget-unloaded' ) ) {
+							found = true;
+							break;
+						}
+					}
+					if ( ! found ) {
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				} else if ( jQuery( 'div.jetpack-likes-widget-unloaded' ).length > 0 ) {
+					// Grab any unloaded widgets for a batch request
+					JetpackLikesBatchHandler();
+
+					// Get the next unloaded widget
+					wrapperID = jQuery( 'div.jetpack-likes-widget-unloaded' ).first()[0].id;
+					if ( ! wrapperID ) {
+						// Everything is currently loaded
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				}
+
+				if ( 'undefined' === typeof wrapperID ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				var $wrapper = jQuery( '#' + wrapperID );
+				$wrapper.find( 'iframe' ).remove();
+
+				if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='22px' width='68px' frameBorder='0' scrolling='no' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				} else {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='55px' width='100%' frameBorder='0' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				}
+
+				$wrapper.removeClass( 'jetpack-likes-widget-unloaded' ).addClass( 'jetpack-likes-widget-loading' );
+
+				$wrapper.find( 'iframe' ).load( function( e ) {
+					var $iframe = jQuery( e.target );
+					$wrapper.removeClass( 'jetpack-likes-widget-loading' ).addClass( 'jetpack-likes-widget-loaded' );
+
+					JetpackLikespostMessage( { event: 'loadLikeWidget', name: $iframe.attr( 'name' ), width: $iframe.width() }, window.frames[ 'likes-master' ] );
+
+					if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+						$wrapper.find( 'iframe' ).Jetpack( 'resizeable' );
+					}
+				});
+				setTimeout( JetpackLikesWidgetQueueHandler, 250 );
+			}
+			JetpackLikesWidgetQueueHandler();
+		//]]>
+		</script>
+<script type="text/javascript" src="./A First Taste of Object Orientated Programming with Python « triangleinequality_files/form.js"></script>
+<script type="text/javascript" src="./A First Taste of Object Orientated Programming with Python « triangleinequality_files/saved_resource(3)"></script>
+<script type="text/javascript">
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "https://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.9b";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "https://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?m=1363304414g&amp;ver=3.0.9b";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var JetpackEmojiSettings = {"base_url":"https:\/\/s0.wp.com\/wp-content\/mu-plugins\/emoji\/twemoji\/"};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./A First Taste of Object Orientated Programming with Python « triangleinequality_files/saved_resource(4)"></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="./A First Taste of Object Orientated Programming with Python « triangleinequality_files/w.js" type="text/javascript" async="" defer=""></script>
+<script type="text/javascript">
+_tkq = window._tkq || [];
+_stq = window._stq || [];
+_tkq.push(['storeContext', {'blog_id':'52270418','blog_tz':'0','user_lang':'en','blog_lang':'en','user_id':'0'}]);
+_stq.push(['view', {'blog':'52270418','v':'wpcom','tz':'0','user_id':'0','post':'81','subd':'triangleinequality'}]);
+_stq.push(['extra', {'crypt':'UE5XaGUuOTlwaD85flAmcm1mcmZsaDhkV11YdTdvUG14Q2VDQTR4LlUsLi82dU1mai9BMmlCVVM1U0h6VG1VbVhmVDhlL0olVnhjTE9zUjdwaT1aNVNuU0sxazJyUnNjUmosZT9ScWotZllQNEI4dFJVeCVZQ10laC9wW1VjZVplRGhqMV10VF9vTD8uL2g0UktvQS8/dWpxUzh6cEVfazk4TEpqLS8mLWtrWFB5dl1wc009WFhqdCxuRVZ+ejB2Mk8sLy9VWlsuQVljeEF4TXE9SFJbUj9WRE1bdEcuYmtqdVJPNUlkUDBzWX5uNVpfY2JmZzJxdWdSdF1BckN6R1RLcVZVZVs/T19wM2tiZnhLemplUFZ8aVEsNU1vVj81V3d+XUN2dC1HW3dqaktGYUo1MVQmMmU2'}]);
+_stq.push([ 'clickTrackerInit', '52270418', '81' ]);
+	</script>
+<noscript>&lt;img src="https://pixel.wp.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /&gt;</noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//pixel.wp.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>	
+<img src="./A First Taste of Object Orientated Programming with Python « triangleinequality_files/g.gif" id="wpstats" scale="0"></body></html>

@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<!-- saved from url=(0110)http://blog.kaggle.com/2013/01/17/getting-started-with-pandas-predicting-sat-scores-for-new-york-city-schools/ -->
+<html lang="en-US" class="no-js"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="UTF-8">
+		<title>Getting Started with Pandas – Predicting SAT Scores for New York City Schools | no free hunch</title>
+
+        <meta name="viewport" content="width=device-width">
+
+		<link rel="profile" href="http://gmpg.org/xfn/11">
+		<link rel="stylesheet" href="http://blog.kaggle.com/wp-content/themes/nfhv4/style.css">
+		<link rel="stylesheet" href="http://blog.kaggle.com/wp-content/themes/nfhv4/css/ss-standard.css">
+		<link rel="pingback" href="http://blog.kaggle.com/xmlrpc.php">
+		<link rel="stylesheet" href="http://yandex.st/highlightjs/7.0/styles/solarized_light.min.css">
+
+		<link rel="stylesheet" type="text/css" href="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/fonts.css">
+
+<link rel="alternate" type="application/rss+xml" title="no free hunch » Feed" href="http://blog.kaggle.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="no free hunch » Comments Feed" href="http://blog.kaggle.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="no free hunch » Getting Started with Pandas - Predicting SAT Scores for New York City Schools Comments Feed" href="http://blog.kaggle.com/2013/01/17/getting-started-with-pandas-predicting-sat-scores-for-new-york-city-schools/feed/">
+		<script async="" src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/saved_resource"></script><script id="twitter-wjs" src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/widgets.js"></script><script type="text/javascript" async="" src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/ga.js"></script><script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"http:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/blog.kaggle.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.2.1"}};
+			!function(a,b,c){function d(a){var c=b.createElement("canvas"),d=c.getContext&&c.getContext("2d");return d&&d.fillText?(d.textBaseline="top",d.font="600 32px Arial","flag"===a?(d.fillText(String.fromCharCode(55356,56812,55356,56807),0,0),c.toDataURL().length>3e3):(d.fillText(String.fromCharCode(55357,56835),0,0),0!==d.getImageData(16,16,1,1).data[0])):!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f;c.supports={simple:d("simple"),flag:d("flag")},c.supports.simple&&c.supports.flag||(f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/wp-emoji-release.min.js" type="text/javascript"></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js" onload="window.ieshiv=true;"></script>
+	<script>!window.ieshiv && document.write(unescape('%3Cscript src="http://blog.kaggle.com/wp-content/themes/nfhv4/js/ieshiv.js"%3E%3C/script%3E'))</script>
+<![endif]-->
+<script type="text/javascript" src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/prototype.js"></script>
+<script type="text/javascript" src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/scriptaculous.js"></script><script type="text/javascript" src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/builder.js"></script><script type="text/javascript" src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/effects.js"></script><script type="text/javascript" src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/dragdrop.js"></script><script type="text/javascript" src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/controls.js"></script><script type="text/javascript" src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/slider.js"></script><script type="text/javascript" src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/sound.js"></script>
+<script type="text/javascript" src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/effects(1).js"></script>
+<script type="text/javascript" src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/lightbox.js"></script>
+<script type="text/javascript" src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/jquery.js"></script>
+<script type="text/javascript" src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/external-tracking.min.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://blog.kaggle.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://blog.kaggle.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Webapps for Data Scientists - Building your first CRUD" href="http://blog.kaggle.com/2013/01/14/webapps-for-data-scientists-building-your-first-crud/">
+<link rel="next" title="Explorer: Long Distance Kagglationships" href="http://blog.kaggle.com/2013/01/29/explorer-long-distance-kagglationships/">
+<link rel="canonical" href="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch.html">
+<link rel="shortlink" href="http://blog.kaggle.com/?p=4458">
+
+	<!-- begin lightbox scripts -->
+	<script type="text/javascript">
+    //<![CDATA[
+    document.write('<link rel="stylesheet" href="http://blog.kaggle.com/wp-content/plugins/lightbox-2/Themes/Black/lightbox.css" type="text/css" media="screen" />');
+    //]]>
+    </script><link rel="stylesheet" href="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/lightbox.css" type="text/css" media="screen">
+	<!-- end lightbox scripts -->
+
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Getting Started with Pandas - Predicting SAT Scores for New York City Schools">
+<meta property="og:url" content="http://blog.kaggle.com/2013/01/17/getting-started-with-pandas-predicting-sat-scores-for-new-york-city-schools/">
+<meta property="og:description" content="This tutorial will get you started with Pandas - a data analysis library for Python that is great for data preparation, joining, and ultimately generating well-formed, tabular data that&#39;s easy to u...">
+<meta property="article:published_time" content="2013-01-17T17:56:46+00:00">
+<meta property="article:modified_time" content="2014-03-17T06:30:55+00:00">
+<meta property="article:author" content="http://blog.kaggle.com/author/chrisclark/">
+<meta property="og:site_name" content="no free hunch">
+<meta property="og:image" content="http://blog.kaggle.com/wp-content/uploads/2013/01/3412315710_7c5242b105_b.jpg">
+<meta property="og:locale" content="en_US">
+<style type="text/css" id="syntaxhighlighteranchor"></style>
+<!-- Google Analytics Tracking by Google Analyticator 6.4.8: http://www.videousermanuals.com/google-analyticator/ -->
+<script type="text/javascript">
+    var analyticsFileTypes = [''];
+    var analyticsSnippet = 'enabled';
+    var analyticsEventTracking = 'enabled';
+</script>
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+  
+	_gaq.push(['_setAccount', 'UA-12629138-3']);
+    _gaq.push(['_addDevId', 'i9k95']); // Google Analyticator App ID with Google
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+</script>
+
+		<script type="text/javascript" src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/respond.min.js"></script>
+		<script type="text/javascript" src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/selectivizr-min.js"></script>
+	<script type="text/javascript" async="" src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/embed.js"></script><script async="" type="text/javascript" src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/count.js"></script></head>
+	<body class="single single-post postid-4458 single-format-standard" data-twttr-rendered="true">
+
+		<header role="banner" id="site-header"><div id="header-inside">
+			<h1><a href="http://blog.kaggle.com/" title="no free hunch" rel="home">no free hunch</a><a href="http://www.kaggle.com/" target="_blank"><img src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/kaggle-logo.png" id="kaggle-logo"></a>
+			</h1>
+			<h2>the sport of data science</h2>
+
+			<div id="header-menu" class="clearfix">
+				<div id="archive" class="header-menu-item">
+                <div class="archive-link"><span style="font-size:0.5em;">▼</span> Archives</div>
+    					<div id="archive-inside" class="inside">
+    					<div>
+    						<div>
+    						
+    						
+
+    							    							
+    							<div class="archive-year">
+
+    								<strong>	<a href="http://blog.kaggle.com/2015/">2015</a></strong> <span class="bull">•</span>
+
+    									<a href="http://blog.kaggle.com/2015/01/">Jan</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2015/02/">Feb</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2015/03/">Mar</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2015/04/">Apr</a> <span class="bull">•</span> 
+
+    							</div>
+
+    						
+
+    							    							
+    							<div class="archive-year">
+
+    								<strong>	<a href="http://blog.kaggle.com/2014/">2014</a></strong> <span class="bull">•</span>
+
+    									<a href="http://blog.kaggle.com/2014/01/">Jan</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2014/02/">Feb</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2014/03/">Mar</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2014/04/">Apr</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2014/05/">May</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2014/06/">Jun</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2014/07/">Jul</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2014/08/">Aug</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2014/09/">Sep</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2014/11/">Nov</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2014/12/">Dec</a> <span class="bull">•</span> 
+
+    							</div>
+
+    						
+
+    							    							
+    							<div class="archive-year">
+
+    								<strong>	<a href="http://blog.kaggle.com/2013/">2013</a></strong> <span class="bull">•</span>
+
+    									<a href="http://blog.kaggle.com/2013/01/">Jan</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2013/02/">Feb</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2013/03/">Mar</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2013/04/">Apr</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2013/05/">May</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2013/06/">Jun</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2013/07/">Jul</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2013/08/">Aug</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2013/09/">Sep</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2013/10/">Oct</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2013/11/">Nov</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2013/12/">Dec</a> <span class="bull">•</span> 
+
+    							</div>
+
+    						
+
+    							    							
+    							<div class="archive-year">
+
+    								<strong>	<a href="http://blog.kaggle.com/2012/">2012</a></strong> <span class="bull">•</span>
+
+    									<a href="http://blog.kaggle.com/2012/01/">Jan</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2012/02/">Feb</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2012/03/">Mar</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2012/04/">Apr</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2012/05/">May</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2012/06/">Jun</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2012/07/">Jul</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2012/08/">Aug</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2012/09/">Sep</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2012/10/">Oct</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2012/11/">Nov</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2012/12/">Dec</a> <span class="bull">•</span> 
+
+    							</div>
+
+    						
+
+    							    							
+    							<div class="archive-year">
+
+    								<strong>	<a href="http://blog.kaggle.com/2011/">2011</a></strong> <span class="bull">•</span>
+
+    									<a href="http://blog.kaggle.com/2011/01/">Jan</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2011/02/">Feb</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2011/03/">Mar</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2011/04/">Apr</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2011/05/">May</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2011/06/">Jun</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2011/07/">Jul</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2011/08/">Aug</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2011/09/">Sep</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2011/10/">Oct</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2011/11/">Nov</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2011/12/">Dec</a> <span class="bull">•</span> 
+
+    							</div>
+
+    						
+
+    							    							
+    							<div class="archive-year">
+
+    								<strong>	<a href="http://blog.kaggle.com/2010/">2010</a></strong> <span class="bull">•</span>
+
+    									<a href="http://blog.kaggle.com/2010/04/">Apr</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2010/05/">May</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2010/06/">Jun</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2010/07/">Jul</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2010/08/">Aug</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2010/09/">Sep</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2010/10/">Oct</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2010/11/">Nov</a> <span class="bull">•</span> 
+	<a href="http://blog.kaggle.com/2010/12/">Dec</a> <span class="bull">•</span> 
+
+    							</div>
+
+    						
+    						</div>
+
+    					</div>
+					</div>
+				</div>
+
+				<div id="search" class="header-menu-item">
+					<form role="search" method="get" id="searchform" action="http://blog.kaggle.com/">
+        <input type="text" value="" name="s" id="search" placeholder="">
+</form>				</div>
+			</div>
+
+			<script type="text/javascript">
+			    jQuery(function($){
+    			        $('.archive-link').click(function(){
+        			        $('#archive-inside').toggle();
+        			        if ($('#header-menu .inside:visible').length) { $('#menu-overlay').fadeIn(50); } else { $('#menu-overlay').fadeOut(10); }
+    			        });
+
+    			        $('body').on('click','#menu-overlay', function(){
+            				$(this).hide();
+            				$('#header-menu .inside:visible').hide();
+            			});
+
+			    });
+			</script>
+
+		</div></header>
+
+		<section id="content" role="main">
+				<article id="post-4458" class="post-4458 post type-post status-publish format-standard has-post-thumbnail hentry category-dojo tag-critical-reading tag-pandas tag-python">
+				<!-- <div class="previous-post"><a href="http://blog.kaggle.com/2013/01/14/webapps-for-data-scientists-building-your-first-crud/" rel="prev">&#9664;</a> </div>
+				<div class="next-post"><a href="http://blog.kaggle.com/2013/01/29/explorer-long-distance-kagglationships/" rel="next">&#9654;</a></div> -->
+
+
+				
+				<div class="article-header" style="">
+
+					<div class="article-header-inside">
+						<div class="categories"><a href="http://blog.kaggle.com/category/dojo/" rel="category tag">Tutorials and Winners' Interviews</a></div>
+						<h1>Getting Started with Pandas - Predicting SAT Scores for New York City Schools</h1>
+						<div class="entry-meta">
+							<span class="meta-prep meta-prep-author">Posted on</span> <span class="entry-date"><a href="http://blog.kaggle.com/2013/01/" title="View Archives for January 2013" rel="bookmark">January</a> <a href="http://blog.kaggle.com/2013/01/17/" title="View Archives for January 17 2013" rel="bookmark">17</a> <a href="http://blog.kaggle.com/2013/" title="View Archives for 2013" rel="bookmark">2013</a></span> <span class="meta-sep">by</span> <span class="author vcard"><a class="url fn n" href="http://blog.kaggle.com/author/chrisclark/" title="View all posts by Chris Clark">Chris Clark</a></span>						</div><!-- .entry-meta -->
+					</div>
+				</div>
+
+
+					<div class="entry-content">
+						<p class="childless"><em>Crossposted from <a href="http://blog.untrod.com/2013/01/getting-started-with-pandas-predicting.html">blog.untrod.com</a></em></p>
+<h3>An Introduction to Pandas</h3>
+<p class="childless">This tutorial will get you started with Pandas - a data analysis library for Python that is great for data preparation, joining, and ultimately generating well-formed, tabular data that's easy to use in a variety of visualization tools or (as we will see here) machine learning applications. This tutorial assumes a solid understanding of core Python functionality, but nothing about machine learning or Pandas.</p>
+<h3>Goals</h3>
+<ol>
+<li>Using data from <a href="https://data.cityofnewyork.us/">NYC Open Data</a>, build a unified, tabular dataset ready for use with machine learning algorithms to predict student SAT scores on a per school basis.</li>
+<li>Learn and use the Pandas data analysis package.</li>
+<li>Learn how data is typically prepared for machine learning algorithms (ingestion, cleaning, joining, feature generation).</li>
+</ol>
+<p class="childless">First, let's ingest the data and get the lay of the land. You can download the data sets referenced below from&nbsp;<a href="https://nycopendata.socrata.com/" target="_blank">NYC Open Data</a>, or directly download a&nbsp;<a href="http://www.untrod.com/NYC_Schools.zip" target="_blank">zip file</a>&nbsp;with the relevant data.</p>
+<p class="childless">In&nbsp;[8]:</p>
+<pre><code class="python"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="comment"># Load the data</span>
+dsProgReports = pd.read_csv(<span class="string">'C:/data/NYC_Schools/School_Progress_Reports_-_All_Schools_-_2009-10.csv'</span>)
+dsDistrict = pd.read_csv(<span class="string">'C:/data/NYC_Schools/School_District_Breakdowns.csv'</span>)
+dsClassSize = pd.read_csv(<span class="string">'C:/data/NYC_Schools/2009-10_Class_Size_-_School-level_Detail.csv'</span>)
+dsAttendEnroll = pd.read_csv(<span class="string">'C:/data/NYC_Schools/School_Attendance_and_Enrollment_Statistics_by_District__2010-11_.csv'</span>)[:-<span class="number">2</span>] <span class="comment">#last two rows are bad</span>
+dsSATs = pd.read_csv(<span class="string">'C:/data/NYC_Schools/SAT__College_Board__2010_School_Level_Results.csv'</span>) <span class="comment"># Dependent</span>
+</code></pre>
+<p class="childless">In&nbsp;[9]:</p>
+<pre>dsSATs.info()</pre>
+<p class="childless">Out[9]:</p>
+<pre>Int64Index: 460 entries, 0 to 459
+Data columns:
+DBN                      460  non-null values
+School Name              460  non-null values
+Number of Test Takers    460  non-null values
+Critical Reading Mean    460  non-null values
+Mathematics Mean         460  non-null values
+Writing Mean             460  non-null values
+dtypes: object(6)</pre>
+<h3>Outline</h3>
+<p class="childless">Pandas has read the data files without issue. Next let's create a rough map of where we are going.</p>
+<p class="childless">We have five datasets here, each with information about either schools or districts. We're going to need to join all of this information together into a tabular file, with one row for each school, joined with as much information we can gather about that school &amp; its district, including our dependent variables, which will be the mean SAT scores for each school in 2010.</p>
+<p class="childless">Drilling down one level of detail, let's look at the dataset dsSATs, which contains the target variables:</p>
+<p class="childless">In [10]:</p>
+<pre><code class="http"><span class="attribute">dsSATs.info()</span></code></pre>
+<p class="childless">Out[10]:</p>
+<pre><code class="cs">Int64Index: <span class="number">460</span> entries, <span class="number">0</span> to <span class="number">459</span>
+Data columns:
+DBN                      <span class="number">460</span>  non-<span class="keyword">null</span> values
+School Name              <span class="number">460</span>  non-<span class="keyword">null</span> values
+Number of Test Takers    <span class="number">460</span>  non-<span class="keyword">null</span> values
+Critical Reading Mean    <span class="number">460</span>  non-<span class="keyword">null</span> values
+Mathematics Mean         <span class="number">460</span>  non-<span class="keyword">null</span> values
+Writing Mean             <span class="number">460</span>  non-<span class="keyword">null</span> values
+dtypes: <span class="keyword">object</span>(<span class="number">6</span>)</code></pre>
+<h3>Target Variable and Joining Strategy</h3>
+<p class="childless">We are going to build a dataset to predict Critical Reading Mean, Mathematics Mean, and Writing Mean for each school (identified by DBN).<br>
+After digging around in Excel (or just taking my word for it) we identify the following join strategy (using SQL-esque pseudocode):</p>
+<pre><code class="cs">dsSATS <span class="keyword">join</span> dsClassSize on dsSATs[<span class="string">'DBN'</span>] = dsClassSize[<span class="string">'SCHOOL CODE'</span>]
+<span class="keyword">join</span> dsProgReports on dsSATs[<span class="string">'DBN'</span>] = dsProgReports[<span class="string">'DBN'</span>]
+<span class="keyword">join</span> dsDistrct on dsProgReports[<span class="string">'DISTRICT'</span>] = dsDistrict[<span class="string">'JURISDICTION NAME'</span>]
+<span class="keyword">join</span> dsAttendEnroll on dsProgReports[<span class="string">'DISTRICT'</span>] = dsAttendEnroll[<span class="string">'District'</span>]</code></pre>
+<div style="border: 0px; font-size: 14.5px; padding: 0px; vertical-align: baseline;">Now that we have the strategy identified at a high level, there are a number of details we have to identify and take care of first.</div>
+<div style="border: 0px; font-size: 14.5px; padding: 0px; vertical-align: baseline;"></div>
+<h3>Primary Keys - Schools</h3>
+<p class="childless">Before we can join these three datasets together, we need to normalize their primary keys. Below we see the mismatch between the way the DBN (school id) field is represented in the different datasets. We then write code to normalize the keys and correct this problem.</p>
+<p class="childless">In&nbsp;[11]:</p>
+<pre><code class="http"><span class="attribute">pd.DataFrame(data=[dsProgReports['DBN'].take(range(5)), dsSATs['DBN'].take(range(5)), dsClassSize['SCHOOL CODE'].take(range(5))])</span></code></pre>
+<p class="childless">Out[11]:</p>
+<table class="dataframe" border="1">
+<thead>
+<tr style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 0px; text-align: right; vertical-align: baseline;">
+<th style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; text-align: left; vertical-align: middle;"></th>
+<th style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; text-align: left; vertical-align: middle;">0</th>
+<th style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; text-align: left; vertical-align: middle;">1</th>
+<th style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; text-align: left; vertical-align: middle;">2</th>
+<th style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; text-align: left; vertical-align: middle;">3</th>
+<th style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; text-align: left; vertical-align: middle;">4</th>
+</tr>
+</thead>
+<tbody style="border: 0px; font-size: 14.5px; margin: 0px; padding: 0px; vertical-align: baseline;">
+<tr style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 0px; vertical-align: baseline;">
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;"><strong style="border: 0px; font-size: 14.5px; margin: 0px; padding: 0px; vertical-align: baseline;">DBN</strong></td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">01M015</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">01M019</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">01M020</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">01M034</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">01M063</td>
+</tr>
+<tr style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 0px; vertical-align: baseline;">
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;"><strong style="border: 0px; font-size: 14.5px; margin: 0px; padding: 0px; vertical-align: baseline;">DBN</strong></td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">01M292</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">01M448</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">01M450</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">01M458</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">01M509</td>
+</tr>
+<tr style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 0px; vertical-align: baseline;">
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;"><strong style="border: 0px; font-size: 14.5px; margin: 0px; padding: 0px; vertical-align: baseline;">SCHOOL CODE</strong></td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">M015</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">M015</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">M015</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">M015</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">M015</td>
+</tr>
+</tbody>
+</table>
+<p class="childless">In&nbsp;[12]:</p>
+<pre><code class="ruby"><span class="comment">#Strip the first two characters off the DBNs so we can join to School Code</span>
+<span class="identifier">dsProgReports</span>.<span class="constant">DBN</span> = <span class="identifier">dsProgReports</span>.<span class="constant">DBN</span>.<span class="identifier"><span class="keymethods">map</span></span>(<span class="identifier"><span class="keymethods">lambda</span></span> <span class="identifier">x</span><span class="symbol">:</span> <span class="identifier">x</span>[<span class="number">2</span><span class="symbol">:</span>])
+<span class="identifier">dsSATs</span>.<span class="constant">DBN</span> = <span class="identifier">dsSATs</span>.<span class="constant">DBN</span>.<span class="identifier"><span class="keymethods">map</span></span>(<span class="identifier"><span class="keymethods">lambda</span></span> <span class="identifier">x</span><span class="symbol">:</span> <span class="identifier">x</span>[<span class="number">2</span><span class="symbol">:</span>])
+
+<span class="comment">#We can now see the keys match</span>
+<span class="identifier">pd</span>.<span class="constant">DataFrame</span>(<span class="identifier">data</span>=[<span class="identifier">dsProgReports</span>[<span class="string">'DBN'</span>].<span class="identifier">take</span>(<span class="identifier">range</span>(<span class="number">5</span>)), <span class="identifier">dsSATs</span>[<span class="string">'DBN'</span>].<span class="identifier">take</span>(<span class="identifier">range</span>(<span class="number">5</span>)), <span class="identifier">dsClassSize</span>[<span class="string">'SCHOOL CODE'</span>].<span class="identifier">take</span>(<span class="identifier">range</span>(<span class="number">5</span>))])
+</code></pre>
+<p class="childless">Out [12]:</p>
+<table class="dataframe" style="border-collapse: collapse; border-spacing: 0px; border: 1px solid black; font-size: 14.5px; margin: 1em 2em; padding: 0px; vertical-align: baseline;" border="1">
+<thead style="border: 0px; font-size: 14.5px; margin: 0px; padding: 0px; vertical-align: baseline;">
+<tr style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 0px; text-align: right; vertical-align: baseline;">
+<th style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; text-align: left; vertical-align: middle;"></th>
+<th style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; text-align: left; vertical-align: middle;">0</th>
+<th style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; text-align: left; vertical-align: middle;">1</th>
+<th style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; text-align: left; vertical-align: middle;">2</th>
+<th style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; text-align: left; vertical-align: middle;">3</th>
+<th style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; text-align: left; vertical-align: middle;">4</th>
+</tr>
+</thead>
+<tbody style="border: 0px; font-size: 14.5px; margin: 0px; padding: 0px; vertical-align: baseline;">
+<tr style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 0px; vertical-align: baseline;">
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;"><strong style="border: 0px; font-size: 14.5px; margin: 0px; padding: 0px; vertical-align: baseline;">DBN</strong></td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">M015</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">M019</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">M020</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">M034</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">M063</td>
+</tr>
+<tr style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 0px; vertical-align: baseline;">
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;"><strong style="border: 0px; font-size: 14.5px; margin: 0px; padding: 0px; vertical-align: baseline;">DBN</strong></td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">M292</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">M448</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">M450</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">M458</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">M509</td>
+</tr>
+<tr style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 0px; vertical-align: baseline;">
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;"><strong style="border: 0px; font-size: 14.5px; margin: 0px; padding: 0px; vertical-align: baseline;">SCHOOL CODE</strong></td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">M015</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">M015</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">M015</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">M015</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">M015</td>
+</tr>
+</tbody>
+</table>
+<h3>Primary Keys - Districts</h3>
+<p class="childless">We have a similar story with the district foreign keys. Again, we need to normalize the keys. The only additional complexity here is that dsProgReports['DISTRICT'] is typed numerically, whereas the other two district keys are typed as string. We do some type conversions following the key munging.</p>
+<p class="childless">In&nbsp;[13]:</p>
+<pre><code class="bash"><span class="comment">#Show the key mismatchs</span>
+<span class="comment">#For variety's sake, using slicing ([:3]) syntax instead of .take()</span>
+pd.DataFrame(data=[dsProgReports[<span class="string">'DISTRICT'</span>][:<span class="number">3</span>], dsDistrict[<span class="string">'JURISDICTION NAME'</span>][:<span class="number">3</span>], dsAttendEnroll[<span class="string">'District'</span>][:<span class="number">3</span>]])</code></pre>
+<p class="childless">Out[13]:</p>
+<table class="dataframe" style="border-collapse: collapse; border-spacing: 0px; border: 1px solid black; font-size: 14.5px; margin: 1em 2em; padding: 0px; vertical-align: baseline;" border="1">
+<thead style="border: 0px; font-size: 14.5px; margin: 0px; padding: 0px; vertical-align: baseline;">
+<tr style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 0px; text-align: right; vertical-align: baseline;">
+<th style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; text-align: left; vertical-align: middle;"></th>
+<th style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; text-align: left; vertical-align: middle;">0</th>
+<th style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; text-align: left; vertical-align: middle;">1</th>
+<th style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; text-align: left; vertical-align: middle;">2</th>
+</tr>
+</thead>
+<tbody style="border: 0px; font-size: 14.5px; margin: 0px; padding: 0px; vertical-align: baseline;">
+<tr style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 0px; vertical-align: baseline;">
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;"><strong style="border: 0px; font-size: 14.5px; margin: 0px; padding: 0px; vertical-align: baseline;">DISTRICT</strong></td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">1</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">1</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">1</td>
+</tr>
+<tr style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 0px; vertical-align: baseline;">
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;"><strong style="border: 0px; font-size: 14.5px; margin: 0px; padding: 0px; vertical-align: baseline;">JURISDICTION NAME</strong></td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">CSD 01 Manhattan</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">CSD 02 Manhattan</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">CSD 03 Manhattan</td>
+</tr>
+<tr style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 0px; vertical-align: baseline;">
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;"><strong style="border: 0px; font-size: 14.5px; margin: 0px; padding: 0px; vertical-align: baseline;">District</strong></td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">DISTRICT 01</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">DISTRICT 02</td>
+<td style="border: 1px solid black; font-size: 14.5px; margin: 0px; padding: 4px; vertical-align: middle;">DISTRICT 03</td>
+</tr>
+</tbody>
+</table>
+<p class="childless">In [14]:</p>
+<pre><code class="python"><span class="comment">#Extract well-formed district key values</span>
+<span class="comment">#Note the astype(int) at the end of these lines to coerce the column to a numeric type</span>
+<span class="keyword">import</span> re
+dsDistrict[<span class="string">'JURISDICTION NAME'</span>] = dsDistrict[<span class="string">'JURISDICTION NAME'</span>].map(<span class="keyword">lambda</span> x: re.match( <span class="string">r'([A-Za-z]*\s)([0-9]*)'</span>, x).group(<span class="number">2</span>)).astype(int)
+dsAttendEnroll.District = dsAttendEnroll.District.map(<span class="keyword">lambda</span> x: x[-<span class="number">2</span>:]).astype(int)
+
+<span class="comment">#We can now see the keys match</span>
+pd.DataFrame(data=[dsProgReports[<span class="string">'DISTRICT'</span>][:<span class="number">3</span>], dsDistrict[<span class="string">'JURISDICTION NAME'</span>][:<span class="number">3</span>], dsAttendEnroll[<span class="string">'District'</span>][:<span class="number">3</span>]])</code></pre>
+<p class="childless">Out[14]:</p>
+<pre><code class="undefined">0 1 2
+DISTRICT 1 1 1
+JURISDICTION NAME 1 2 3
+District 1 2 3</code></pre>
+<h3>Additional Cleanup</h3>
+<p class="childless">At this point we could do the joins, but there is messiness in the data still. First let's reindex the DataFrames so the semantics come out a bit cleaner. Pandas indexing is beyond the scope of this tutorial, but suffice it to say it makes these operations easier.</p>
+<p class="childless">In [15]:</p>
+<pre><code class="bash"><span class="comment">#Reindexing</span>
+dsProgReports = dsProgReports.set_index(<span class="string">'DBN'</span>)
+dsDistrict = dsDistrict.set_index(<span class="string">'JURISDICTION NAME'</span>)
+dsClassSize = dsClassSize.set_index(<span class="string">'SCHOOL CODE'</span>)
+dsAttendEnroll = dsAttendEnroll.set_index(<span class="string">'District'</span>)
+dsSATs = dsSATs.set_index(<span class="string">'DBN'</span>)</code></pre>
+<p class="childless">Let's take a look at one of our target variables. Right away we see the "s" value, which shouldn't be there.<br>
+We'll filter out the rows without data.</p>
+<p class="childless">In [16]:</p>
+<pre><code class="css"><span class="id">#We</span> <span class="tag">can</span> <span class="tag">see</span> <span class="tag">the</span> <span class="tag">bad</span> <span class="tag">value</span>
+<span class="tag">dsSATs</span><span class="attr_selector">['Critical Reading Mean']</span><span class="class">.take</span>(<span class="tag">range</span>(5))</code></pre>
+<p class="childless">Out[16]:</p>
+<pre><code class="undefined">DBN
+M292    391
+M448    394
+M450    418
+M458    385
+M509      s
+Name: Critical Reading Mean</code></pre>
+<p class="childless">In [17]:</p>
+<pre><code class="perl"><span class="comment">#Now we filter it out</span>
+
+<span class="comment">#We create a boolean vector mask. Open question as to whether this semantically ideal...</span>
+mask = dsSATs[<span class="string">'Number of Test Takers'</span>].<span class="keyword">map</span>(lambda <span class="keyword">x</span>: <span class="keyword">x</span> != <span class="string">'s'</span>)
+dsSATs = dsSATs[mask]
+<span class="comment">#Cast fields to integers. Ideally we should not need to be this explicit.</span>
+dsSATs[<span class="string">'Number of Test Takers'</span>] = dsSATs[<span class="string">'Number of Test Takers'</span>].astype(<span class="keyword">int</span>)
+dsSATs[<span class="string">'Critical Reading Mean'</span>] = dsSATs[<span class="string">'Critical Reading Mean'</span>].astype(<span class="keyword">int</span>)
+dsSATs[<span class="string">'Mathematics Mean'</span>] = dsSATs[<span class="string">'Mathematics Mean'</span>].astype(<span class="keyword">int</span>)
+dsSATs[<span class="string">'Writing Mean'</span>] = dsSATs[<span class="string">'Writing Mean'</span>].astype(<span class="keyword">int</span>)
+
+<span class="comment">#We can see those values are gone</span>
+dsSATs[<span class="string">'Critical Reading Mean'</span>].take(range(<span class="number">5</span>))</code></pre>
+<p class="childless">Out[17]:</p>
+<pre><code class="undefined">DBN
+M292    391
+M448    394
+M450    418
+M458    385
+M515    314
+Name: Critical Reading Mean
+Feature Construction</code></pre>
+<p class="childless">dsClassSize will be a many-to-one join with dsSATs because dsClassSize contains multiple entries per school. We need to summarize and build features from this data in order to get one row per school that will join neatly to dsSATs.</p>
+<p class="childless">Additionally, the data has an irregular format, consisting of a number of rows per school describing different class sizes, then a final row for that school which contains no data except for a number in the final column, SCHOOLWIDE PUPIL-TEACHER RATIO.</p>
+<p class="childless">We need to extract the SCHOOLWIDE PUPIL-TEACHER RATIO rows, at which point we'll have a regular format and can build features via aggregate functions. We'll also drop any features that can't be easily summarized or aggregated and likely have no bearing on the SAT scores (like School Name).</p>
+<p class="childless">In [18]:</p>
+<pre><code class="php"><span class="comment">#The shape of the data</span>
+<span class="keyword">print</span> dsClassSize.columns
+<span class="keyword">print</span> dsClassSize.take([<span class="number">0</span>,<span class="number">1</span>,<span class="number">10</span>]).values
+<span class="keyword">array</span>([BORO, CSD, SCHOOL NAME, GRADE , PROGRAM TYPE,
+       CORE SUBJECT (MS CORE <span class="keyword">and</span> <span class="number">9</span>-<span class="number">12</span> ONLY),
+       CORE COURSE (MS CORE <span class="keyword">and</span> <span class="number">9</span>-<span class="number">12</span> ONLY), SERVICE CATEGORY(K-<span class="number">9</span>* ONLY),
+       NUMBER OF CLASSES, TOTAL REGISTER, AVERAGE <span class="class"><span class="keyword">CLASS</span> <span class="title">SIZE</span>,
+       <span class="title">SIZE</span> <span class="title">OF</span> <span class="title">SMALLEST</span> <span class="title">CLASS</span>, <span class="title">SIZE</span> <span class="title">OF</span> <span class="title">LARGEST</span> <span class="title">CLASS</span>, <span class="title">DATA</span> <span class="title">SOURCE</span>,
+       <span class="title">SCHOOLWIDE</span> <span class="title">PUPIL</span>-<span class="title">TEACHER</span> <span class="title">RATIO</span>], <span class="title">dtype</span>=<span class="title">object</span>)
+[[<span class="title">M</span> 1 <span class="title">P</span>.<span class="title">S</span>. 015 <span class="title">ROBERTO</span> <span class="title">CLEMENTE</span> 0<span class="title">K</span> <span class="title">GEN</span> <span class="title">ED</span> - - - 1.0 21.0 21.0 21.0 21.0 <span class="title">ATS</span>
+  <span class="title">nan</span>]
+ [<span class="title">M</span> 1 <span class="title">P</span>.<span class="title">S</span>. 015 <span class="title">ROBERTO</span> <span class="title">CLEMENTE</span> 0<span class="title">K</span> <span class="title">CTT</span> - - - 1.0 21.0 21.0 21.0 21.0 <span class="title">ATS</span>
+  <span class="title">nan</span>]
+ [<span class="title">M</span> 1 <span class="title">P</span>.<span class="title">S</span>. 015 <span class="title">ROBERTO</span> <span class="title">CLEMENTE</span> <span class="title">nan</span> <span class="title">nan</span> <span class="title">nan</span> <span class="title">nan</span> <span class="title">nan</span> <span class="title">nan</span> <span class="title">nan</span> <span class="title">nan</span> <span class="title">nan</span> <span class="title">nan</span> <span class="title">nan</span>
+  8.9]]</span></code></pre>
+<p class="childless">In [19]:</p>
+<pre><code class="php"><span class="comment">#Extracting the Pupil-Teacher Ratio</span>
+
+<span class="comment">#Take the column</span>
+dsPupilTeacher = dsClassSize.filter([<span class="string">'SCHOOLWIDE PUPIL-TEACHER RATIO'</span>])
+<span class="comment">#And filter out blank rows</span>
+mask = dsPupilTeacher[<span class="string">'SCHOOLWIDE PUPIL-TEACHER RATIO'</span>].map(lambda x: x &gt; <span class="number">0</span>)
+dsPupilTeacher = dsPupilTeacher[mask]
+<span class="comment">#Then drop from the original dataset</span>
+dsClassSize = dsClassSize.drop(<span class="string">'SCHOOLWIDE PUPIL-TEACHER RATIO'</span>, axis=<span class="number">1</span>)
+
+<span class="comment">#Drop non-numeric fields</span>
+dsClassSize = dsClassSize.drop([<span class="string">'BORO'</span>,<span class="string">'CSD'</span>,<span class="string">'SCHOOL NAME'</span>,<span class="string">'GRADE '</span>,<span class="string">'PROGRAM TYPE'</span>,\
+<span class="string">'CORE SUBJECT (MS CORE and 9-12 ONLY)'</span>,<span class="string">'CORE COURSE (MS CORE and 9-12 ONLY)'</span>,\
+<span class="string">'SERVICE CATEGORY(K-9* ONLY)'</span>,<span class="string">'DATA SOURCE'</span>], axis=<span class="number">1</span>)
+
+<span class="comment">#Build features from dsClassSize</span>
+<span class="comment">#In this case, we'll take the max, min, and mean</span>
+<span class="comment">#Semantically equivalent to select min(*), max(*), mean(*) from dsClassSize group by SCHOOL NAME</span>
+<span class="comment">#Note that SCHOOL NAME is not referenced explicitly below because it is the index of the dataframe</span>
+grouped = dsClassSize.groupby(level=<span class="number">0</span>)
+dsClassSize = grouped.aggregate(np.max).\
+    join(grouped.aggregate(np.min), lsuffix=<span class="string">".max"</span>).\
+    join(grouped.aggregate(np.mean), lsuffix=<span class="string">".min"</span>, rsuffix=<span class="string">".mean"</span>).\
+    join(dsPupilTeacher)
+
+<span class="keyword">print</span> dsClassSize.columns
+<span class="keyword">array</span>([NUMBER OF CLASSES.max, TOTAL REGISTER.max, AVERAGE <span class="class"><span class="keyword">CLASS</span> <span class="title">SIZE</span>.<span class="title">max</span>,
+       <span class="title">SIZE</span> <span class="title">OF</span> <span class="title">SMALLEST</span> <span class="title">CLASS</span>.<span class="title">max</span>, <span class="title">SIZE</span> <span class="title">OF</span> <span class="title">LARGEST</span> <span class="title">CLASS</span>.<span class="title">max</span>,
+       <span class="title">NUMBER</span> <span class="title">OF</span> <span class="title">CLASSES</span>.<span class="title">min</span>, <span class="title">TOTAL</span> <span class="title">REGISTER</span>.<span class="title">min</span>, <span class="title">AVERAGE</span> <span class="title">CLASS</span> <span class="title">SIZE</span>.<span class="title">min</span>,
+       <span class="title">SIZE</span> <span class="title">OF</span> <span class="title">SMALLEST</span> <span class="title">CLASS</span>.<span class="title">min</span>, <span class="title">SIZE</span> <span class="title">OF</span> <span class="title">LARGEST</span> <span class="title">CLASS</span>.<span class="title">min</span>,
+       <span class="title">NUMBER</span> <span class="title">OF</span> <span class="title">CLASSES</span>.<span class="title">mean</span>, <span class="title">TOTAL</span> <span class="title">REGISTER</span>.<span class="title">mean</span>,
+       <span class="title">AVERAGE</span> <span class="title">CLASS</span> <span class="title">SIZE</span>.<span class="title">mean</span>, <span class="title">SIZE</span> <span class="title">OF</span> <span class="title">SMALLEST</span> <span class="title">CLASS</span>.<span class="title">mean</span>,
+       <span class="title">SIZE</span> <span class="title">OF</span> <span class="title">LARGEST</span> <span class="title">CLASS</span>.<span class="title">mean</span>, <span class="title">SCHOOLWIDE</span> <span class="title">PUPIL</span>-<span class="title">TEACHER</span> <span class="title">RATIO</span>], <span class="title">dtype</span>=<span class="title">object</span>)</span></code></pre>
+<h3>Joining</h3>
+<p class="childless">One final thing before we join - dsProgReports contains distinct rows for separate grade level blocks within one school. For instance one school (one DBN) might have two rows: one for middle school and one for high school. We'll just drop everything that isn't high school.</p>
+<p class="childless">And finally we can join our data. Note these are inner joins, so district data get joined to each school in that district.</p>
+<p class="childless">In [20]:</p>
+<pre><code class="ini"><span class="setting">mask = <span class="value">dsProgReports['SCHOOL LEVEL*'].map(lambda x: x == 'High School')</span></span>
+<span class="setting">dsProgReports = <span class="value">dsProgReports[mask]</span></span></code></pre>
+<p class="childless">In [21]:</p>
+<pre><code class="ruby"><span class="identifier">final</span> = <span class="identifier">dsSATs</span>.<span class="identifier"><span class="keymethods">join</span></span>(<span class="identifier">dsClassSize</span>).\
+<span class="identifier"><span class="keymethods">join</span></span>(<span class="identifier">dsProgReports</span>).\
+<span class="identifier"><span class="keymethods">merge</span></span>(<span class="identifier">dsDistrict</span>, <span class="identifier">left_on</span>=<span class="string">'DISTRICT'</span>, <span class="identifier">right_index</span>=<span class="constant">True</span>).\
+<span class="identifier"><span class="keymethods">merge</span></span>(<span class="identifier">dsAttendEnroll</span>, <span class="identifier">left_on</span>=<span class="string">'DISTRICT'</span>, <span class="identifier">right_index</span>=<span class="constant">True</span>)</code></pre>
+<h3>(Even More) Additional Cleanup</h3>
+<p class="childless">We should be in a position to build a predictive model for our target variables right away but unfortunately there is still messy data floating around in the dataframe that machine learning algorithms will choke on. A pure feature matrix should have only numeric features, but we can see that isn't the case. However for many of these columns, the right approach is obvious once we've dug in.</p>
+<p class="childless">In [22]:</p>
+<pre><code class="java"><span class="keyword">final</span>.dtypes[<span class="keyword">final</span>.dtypes.map(lambda x: x==<span class="string">'object'</span>)]</code></pre>
+<p class="childless">Out[22]:</p>
+<pre><code class="cs">School Name                      <span class="keyword">object</span>
+SCHOOL                           <span class="keyword">object</span>
+PRINCIPAL                        <span class="keyword">object</span>
+PROGRESS REPORT TYPE             <span class="keyword">object</span>
+SCHOOL LEVEL*                    <span class="keyword">object</span>
+<span class="number">2009</span>-<span class="number">2010</span> OVERALL GRADE          <span class="keyword">object</span>
+<span class="number">2009</span>-<span class="number">2010</span> ENVIRONMENT GRADE      <span class="keyword">object</span>
+<span class="number">2009</span>-<span class="number">2010</span> PERFORMANCE GRADE      <span class="keyword">object</span>
+<span class="number">2009</span>-<span class="number">2010</span> PROGRESS GRADE         <span class="keyword">object</span>
+<span class="number">2008</span>-<span class="number">09</span> PROGRESS REPORT GRADE    <span class="keyword">object</span>
+YTD % Attendance (Avg)           <span class="keyword">object</span></code></pre>
+<p class="childless">In [23]:</p>
+<pre><code class="php"><span class="comment">#Just drop string columns.</span>
+<span class="comment">#In theory we could build features out of some of these, but it is impractical here</span>
+<span class="keyword">final</span> = <span class="keyword">final</span>.drop([<span class="string">'School Name'</span>,<span class="string">'SCHOOL'</span>,<span class="string">'PRINCIPAL'</span>,<span class="string">'SCHOOL LEVEL*'</span>,<span class="string">'PROGRESS REPORT TYPE'</span>],axis=<span class="number">1</span>)
+
+<span class="comment">#Remove % signs and convert to float</span>
+<span class="keyword">final</span>[<span class="string">'YTD % Attendance (Avg)'</span>] = <span class="keyword">final</span>[<span class="string">'YTD % Attendance (Avg)'</span>].map(lambda x: x.replace(<span class="string">"%"</span>,<span class="string">""</span>)).astype(float)
+
+<span class="comment">#The last few columns we still have to deal with</span>
+<span class="keyword">final</span>.dtypes[<span class="keyword">final</span>.dtypes.map(lambda x: x==<span class="string">'object'</span>)]</code></pre>
+<h3>Categorical Variables</h3>
+<p class="childless">We can see above that the remaining non-numeric field are grades . Intuitively, they might be important so we don't want to drop them, but in order to get a pure feature matrix we need numeric values. The approach we'll use here is to explode these into multiple boolean columns. Some machine learning libraries effectively do this for you under the covers, but when the cardinality of the categorical variable is relatively low, it's nice to be explicit about it.</p>
+<p class="childless">In [24]:</p>
+<pre><code class="ruby"><span class="identifier">gradeCols</span> = [<span class="string">'2009-2010 OVERALL GRADE'</span>,<span class="string">'2009-2010 ENVIRONMENT GRADE'</span>,<span class="string">'2009-2010 PERFORMANCE GRADE'</span>,<span class="string">'2009-2010 PROGRESS GRADE'</span>,<span class="string">'2008-09 PROGRESS REPORT GRADE'</span>]
+
+<span class="identifier">grades</span> = <span class="identifier">np</span>.<span class="identifier">unique</span>(<span class="identifier">final</span>[<span class="identifier">gradeCols</span>].<span class="identifier"><span class="keymethods">values</span></span>) <span class="comment">#[nan, A, B, C, D, F]</span>
+
+<span class="identifier"><span class="keyword">for</span></span> <span class="identifier">c</span> <span class="identifier"><span class="keyword">in</span></span> <span class="identifier">gradeCols</span><span class="symbol">:</span>
+    <span class="identifier"><span class="keyword">for</span></span> <span class="identifier">g</span> <span class="identifier"><span class="keyword">in</span></span> <span class="identifier">grades</span><span class="symbol">:</span>
+        <span class="identifier">final</span> = <span class="identifier">final</span>.<span class="identifier"><span class="keymethods">join</span></span>(<span class="identifier">pd</span>.<span class="constant">Series</span>(<span class="identifier">data</span>=<span class="identifier">final</span>
+.<span class="identifier"><span class="keymethods">map</span></span>(<span class="identifier"><span class="keymethods">lambda</span></span> <span class="identifier">x</span><span class="symbol">:</span> <span class="number">1</span> <span class="identifier"><span class="keyword">if</span></span> <span class="identifier">x</span> <span class="identifier">is</span> <span class="identifier">g</span> <span class="identifier"><span class="keyword">else</span></span> <span class="number">0</span>), <span class="identifier"><span class="keymethods">name</span></span>=<span class="identifier">c</span> + <span class="string">"_is_"</span> + <span class="identifier">str</span>(<span class="identifier">g</span>))) </code>
+
+<code>
+final = final.drop(gradeCols, axis=1) 
+
+#Uncomment to generate csv files 
+#final.drop(['Critical Reading Mean','Mathematics Mean','Writing Mean'],axis=1).to_csv('C:/data/NYC_Schools/train.csv') 
+#final.filter(['Critical Reading Mean','Mathematics Mean','Writing Mean']).to_csv('C:/data/NYC_Schools/target.csv')</code></pre>
+<p class="childless">That's it!</p>
+<p class="childless">We now have a feature matrix that's trivial to use with any number of machine learning algorithms. Feel free to stop here and run the two lines of code below to get nice CSV files written to disk that you can easily use in Excel, Tableau, etc. Or run the larger block of code to see how easy it is to build a random forest model against this data, and look at which variables are most important.</p>
+<p class="childless">In [25]:</p>
+<pre><code class="bash"><span class="comment">#Uncomment to generate csv files</span>
+<span class="comment">#final.drop(['Critical Reading Mean','Mathematics Mean','Writing Mean'],axis=1).to_csv('C:/data/NYC_Schools/train.csv')</span>
+<span class="comment">#final.filter(['Critical Reading Mean','Mathematics Mean','Writing Mean']).to_csv('C:/data/NYC_Schools/target.csv')</span></code></pre>
+<p class="childless">In [26]:</p>
+<pre><code class="php">from sklearn.ensemble import RandomForestRegressor
+
+target = <span class="keyword">final</span>.filter([<span class="string">'Critical Reading Mean'</span>])
+<span class="comment">#We drop all three dependent variables because we don't want them used when trying to make a prediction.</span>
+train = <span class="keyword">final</span>.drop([<span class="string">'Critical Reading Mean'</span>,<span class="string">'Writing Mean'</span>,<span class="string">'Mathematics Mean'</span>],axis=<span class="number">1</span>)
+model = RandomForestRegressor(n_estimators=<span class="number">100</span>, n_jobs=-<span class="number">1</span>, compute_importances = <span class="keyword">True</span>)
+model.fit(train, target)
+
+predictions = np.<span class="keyword">array</span>(model.predict(train))
+rmse = math.sqrt(np.mean((np.<span class="keyword">array</span>(target.values) - predictions)**<span class="number">2</span>))
+imp = sorted(zip(train.columns, model.feature_importances_), key=lambda tup: tup[<span class="number">1</span>], reverse=<span class="keyword">True</span>)
+
+<span class="keyword">print</span> <span class="string">"RMSE: "</span> + str(rmse)
+<span class="keyword">print</span> <span class="string">"10 Most Important Variables:"</span> + str(imp[:<span class="number">10</span>])
+RMSE: <span class="number">80.13105688</span>
+<span class="number">10</span> Most Important Variables:[(<span class="string">'PEER INDEX*'</span>, <span class="number">0.81424747874371173</span>), (<span class="string">'TOTAL REGISTER.min'</span>, <span class="number">0.060086333792196724</span>), (<span class="string">'2009-2010 ENVIRONMENT CATEGORY SCORE'</span>, <span class="number">0.023810405565050669</span>), (<span class="string">'2009-2010 ADDITIONAL CREDIT'</span>, <span class="number">0.021788425210174274</span>), (<span class="string">'2009-2010 OVERALL SCORE'</span>, <span class="number">0.019046860376900468</span>), (<span class="string">'AVERAGE CLASS SIZE.mean'</span>, <span class="number">0.0094882658926829649</span>), (<span class="string">'2009-2010 PROGRESS CATEGORY SCORE'</span>, <span class="number">0.0094678349064146652</span>), (<span class="string">'AVERAGE CLASS SIZE.min'</span>, <span class="number">0.0063723026953534942</span>), (<span class="string">'2009-2010 OVERALL GRADE_is_nan'</span>, <span class="number">0.0057710237481254567</span>), (<span class="string">'Number of Test Takers'</span>, <span class="number">0.0053660239780210584</span>)]</code></pre>
+<p class="photo-credit childless"><a href="http://www.flickr.com/photos/st3f4n/3412315710/">photo by Stefan</a> on Flickr</p>
+											</div><!-- .entry-content -->
+					<footer id="entry-author-info">
+						<img alt="" src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/7ded083043f54bd5b4afd2430133504f" srcset="http://1.gravatar.com/avatar/7ded083043f54bd5b4afd2430133504f?s=160&amp;d=identicon&amp;r=pg 2x" class="avatar avatar-80 photo" height="80" width="80">						<div>
+						<span class="author-link"><a href="http://blog.kaggle.com/author/chrisclark/">Chris Clark</a></span>
+						Chris Clark is director of product and engineering at Kaggle. He has a degree in computer science from Vanderbilt University, and is also the owner of Oberon Socks.  He is the author of blog.untrod.com
+													<div class="twitter">
+							<iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/follow_button.1ecc0b9d19121196ab4a673df6de883b.en.html" class="twitter-follow-button twitter-follow-button" title="Twitter Follow Button" data-twttr-rendered="true" style="position: static; visibility: visible; width: 131px; height: 28px;"></iframe>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+							</div>
+						
+						</div>
+					</footer><!-- #entry-author-info -->
+
+					<div class="entry-utility">
+						<div class="categories">
+							<a href="http://blog.kaggle.com/category/dojo/" rel="category tag">Tutorials and Winners' Interviews</a>						</div>
+													<div class="tags">
+								<span class="ss-tag"></span>
+								<a href="http://blog.kaggle.com/tag/critical-reading/" rel="tag">Critical Reading</a><a href="http://blog.kaggle.com/tag/pandas/" rel="tag">Pandas</a><a href="http://blog.kaggle.com/tag/python/" rel="tag">Python</a>							</div>
+											</div>
+
+				</article><!-- #post-## -->
+
+				<!--
+				<nav id="nav-below" class="navigation">
+					<div class="nav-previous"><a href="http://blog.kaggle.com/2013/01/14/webapps-for-data-scientists-building-your-first-crud/" rel="prev"><span class="meta-nav">&larr;</span> Webapps for Data Scientists - Building your first CRUD</a></div>
+					<div class="nav-next"><a href="http://blog.kaggle.com/2013/01/29/explorer-long-distance-kagglationships/" rel="next">Explorer: Long Distance Kagglationships <span class="meta-nav">&rarr;</span></a></div>
+				</nav>
+				-->
+				<div id="comments">
+				
+<div id="disqus_thread"><iframe id="dsq-2" data-disqus-uid="2" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/saved_resource.html" style="width: 100% !important; border: none !important; overflow: hidden !important; height: 1910px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div>
+
+<script type="text/javascript">
+var disqus_url = 'http://blog.kaggle.com/2013/01/17/getting-started-with-pandas-predicting-sat-scores-for-new-york-city-schools/';
+var disqus_identifier = '4458 http://blog.kaggle.com/?p=4458';
+var disqus_container_id = 'disqus_thread';
+var disqus_shortname = 'kaggle';
+var disqus_title = "Getting Started with Pandas - Predicting SAT Scores for New York City Schools";
+var disqus_config_custom = window.disqus_config;
+var disqus_config = function () {
+    /*
+    All currently supported events:
+    onReady: fires when everything is ready,
+    onNewComment: fires when a new comment is posted,
+    onIdentify: fires when user is authenticated
+    */
+    
+    
+    this.language = '';
+        this.callbacks.onReady.push(function () {
+
+        // sync comments in the background so we don't block the page
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = '?cf_action=sync_comments&post_id=4458';
+
+        var firstScript = document.getElementsByTagName('script')[0];
+        firstScript.parentNode.insertBefore(script, firstScript);
+    });
+    
+    if (disqus_config_custom) {
+        disqus_config_custom.call(this);
+    }
+};
+
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+
+				</div>
+
+				
+
+
+<script type="text/javascript">
+
+(function($) {
+
+    /*
+    function resizePres() {
+    	$('.entry-content pre:has(code)').each(function(){
+
+        	newMaxWidth = $(window).width()-20;
+        	$(this).css('text-align','center');
+
+        	$(this).find('code').css('min-width',$('.entry-content').width()-48);
+        	$(this).css('width','100%');
+
+        	preWidth = $(this).innerWidth();
+
+        	$('.full-width-pre').offset({left:10}).width($(window).width()-20);
+
+    	});
+
+    }
+    $('.entry-content pre:has(code)').wrap('<div class="full-width-pre" />');
+    resizePres();
+
+    $(window).resize(function(){ resizePres(); });
+    */
+
+    $('.entry-content p').not(':has(img,iframe,div,object)').addClass('childless');
+
+})( jQuery );
+</script>
+
+		</section><!-- #main -->
+		<footer id="site-footer" role="contentinfo">
+			
+
+			<p>
+			<a class="site-link" href="http://blog.kaggle.com/" title="no free hunch" rel="home">no free hunch</a><br>
+			is <a href="http://www.kaggle.com/" target="_blank">kaggle</a>'s blog covering the sport of data science.<br>
+			follow us on <a href="http://www.twitter.com/kaggle" target="_blank">twitter</a> &amp; <a href="http://www.facebook.com/kaggle">facebook</a>.
+			</p>
+
+			<p>
+				<!-- Begin MailChimp Signup Form -->
+				</p><div id="mc_embed_signup">
+				<form action="http://kaggle.us1.list-manage1.com/subscribe/post?u=e4c8fb8b43860678deab268e5&id=f42f9df1e1" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+					<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="enter your email to join our newsletter" required="">
+					<input type="image" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/news-arrow.png">
+				</form>
+				</div>
+
+				<!--End mc_embed_signup-->
+			<p></p>
+
+			<p class="small">
+			© 2015 kaggle inc. <a href="http://blog.kaggle.com/feed/">rss</a>
+			</p>
+
+		</footer><!-- footer -->
+
+	<div id="menu-overlay"></div>
+
+	<img src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/animated1.gif" style="display:none"> <!-- preload this -->
+
+	<script type="text/javascript">
+	(function ($) {
+
+		var showingBG;
+
+		function showBG() {
+			showingBG = true;
+			$('#site-header').addClass('hover');
+		}
+
+		function hideBG() {
+			showingBG = false;
+			$('#site-header').removeClass('hover');
+		}
+
+		$(document).ready(function(){
+
+			$('#header-menu > div > img').click(function(e){
+				e.preventDefault();
+
+				$('#header-menu .inside:visible').not($(this).parent().find('.inside')).hide();
+				$(this).parent().find('.inside').toggle();
+
+				if ($('#header-menu .inside:visible').length) { $('#menu-overlay').fadeIn(50); } else { $('#menu-overlay').fadeOut(10); }
+
+				$("header input:text:visible:first").focus();
+			});
+
+
+
+
+			$('body').on('click','#menu-overlay', function(){
+				$(this).hide();
+				$('#header-menu .inside:visible').hide();
+			});
+
+			$('.homepage-posts-ul .wp-post-image').hover(function(){
+				$(this).parents('li').find('h1').addClass('hover');
+			}, function() {
+				$(this).parents('li').find('h1').removeClass('hover');
+			});
+
+
+		});
+
+	})(jQuery);
+
+	</script>
+
+	<script src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/ss-standard.js"></script>
+	<script src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/highlight.min.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+        <script type="text/javascript">
+        // <![CDATA[
+        var disqus_shortname = 'kaggle';
+        (function () {
+            var nodes = document.getElementsByTagName('span');
+            for (var i = 0, url; i < nodes.length; i++) {
+                if (nodes[i].className.indexOf('dsq-postid') != -1) {
+                    nodes[i].parentNode.setAttribute('data-disqus-identifier', nodes[i].getAttribute('data-dsqidentifier'));
+                    url = nodes[i].parentNode.href.split('#', 1);
+                    if (url.length == 1) { url = url[0]; }
+                    else { url = url[1]; }
+                    nodes[i].parentNode.href = url + '#disqus_thread';
+                }
+            }
+            var s = document.createElement('script'); 
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+        // ]]>
+        </script>
+        <script type="text/javascript" src="./Getting Started with Pandas – Predicting SAT Scores for New York City Schools _ no free hunch_files/comment-reply.min.js"></script>
+	
+
+<!-- Served from: blog.kaggle.com @ 2015-05-04 23:26:58 by W3 Total Cache --><div id="stimuli_overlay" style="display: none;"></div><div id="stimuli_lightbox" style="display: none;"><div id="stimuli_outerImageContainer" style="width: 250px; height: 250px;"><div id="stimuli_imageContainer"><img id="stimuli_lightboxImage"><div id="stimuli_hoverNav"><a id="stimuli_prevLink" href="http://blog.kaggle.com/2013/01/17/getting-started-with-pandas-predicting-sat-scores-for-new-york-city-schools/#"></a><a id="stimuli_nextLink" href="http://blog.kaggle.com/2013/01/17/getting-started-with-pandas-predicting-sat-scores-for-new-york-city-schools/#"></a></div><div id="stimuli_loading"><a id="stimuli_loadingLink" href="http://blog.kaggle.com/2013/01/17/getting-started-with-pandas-predicting-sat-scores-for-new-york-city-schools/#"></a></div></div></div><div id="stimuli_imageDataContainer"><div id="stimuli_imageData"><div id="stimuli_imageDetails"><span id="stimuli_caption"></span><span id="stimuli_numberDisplay"></span></div><div id="stimuli_bottomNav"><a id="stimuli_bottomNavClose" href="http://blog.kaggle.com/2013/01/17/getting-started-with-pandas-predicting-sat-scores-for-new-york-city-schools/#"></a></div></div></div></div></body></html>

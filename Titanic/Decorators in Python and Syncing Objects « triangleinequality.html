@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<!-- saved from url=(0093)https://triangleinequality.wordpress.com/2013/08/19/decorators-in-python-and-syncing-objects/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<title>Decorators in Python and Syncing Objects « triangleinequality</title>
+
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://triangleinequality.wordpress.com/xmlrpc.php">
+
+<link rel="alternate" type="application/rss+xml" title="triangleinequality » Feed" href="https://triangleinequality.wordpress.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="triangleinequality » Comments Feed" href="https://triangleinequality.wordpress.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="triangleinequality » Decorators in Python and Syncing Objects Comments Feed" href="https://triangleinequality.wordpress.com/2013/08/19/decorators-in-python-and-syncing-objects/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel="stylesheet" id="all-css-0" href="./Decorators in Python and Syncing Objects « triangleinequality_files/saved_resource" type="text/css" media="all">
+<script type="text/javascript">
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Decorators in Python and Syncing Objects « triangleinequality_files/saved_resource(1)"></script>
+<link rel="stylesheet" id="all-css-0" href="./Decorators in Python and Syncing Objects « triangleinequality_files/style.css" type="text/css" media="all">
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='https://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://triangleinequality.wordpress.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://s1.wp.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="A First Taste of Object Orientated Programming with Python" href="https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/">
+<link rel="next" title="Graphs as Objects in Python" href="https://triangleinequality.wordpress.com/2013/08/21/graphs-as-objects-in-python/">
+<meta name="generator" content="WordPress.com">
+<link rel="canonical" href="./Decorators in Python and Syncing Objects « triangleinequality_files/Decorators in Python and Syncing Objects « triangleinequality.html">
+<link rel="shortlink" href="http://wp.me/p3xjVg-1u">
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=json&url=https%3A%2F%2Ftriangleinequality.wordpress.com%2F2013%2F08%2F19%2Fdecorators-in-python-and-syncing-objects%2F&for=wpcom-auto-discovery"><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=xml&url=https%3A%2F%2Ftriangleinequality.wordpress.com%2F2013%2F08%2F19%2Fdecorators-in-python-and-syncing-objects%2F&for=wpcom-auto-discovery">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Decorators in Python and Syncing Objects">
+<meta property="og:url" content="https://triangleinequality.wordpress.com/2013/08/19/decorators-in-python-and-syncing-objects/">
+<meta property="og:description" content="1. Functions returning functions Today we&#39;re going to learn about decorators, and do an interesting example showing how objects in Python can communicate with each other. I first heard about decora...">
+<meta property="article:published_time" content="2013-08-19T19:34:28+00:00">
+<meta property="article:modified_time" content="2013-09-01T09:51:54+00:00">
+<meta property="article:author" content="https://triangleinequality.wordpress.com/author/triangleinequality/">
+<meta property="og:site_name" content="triangleinequality">
+<meta property="og:image" content="https://triangleinequality.files.wordpress.com/2013/08/decorators.jpeg">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:site" content="@wordpressdotcom">
+<meta name="twitter:image" content="https://triangleinequality.files.wordpress.com/2013/08/decorators.jpeg?w=240">
+<meta name="twitter:card" content="summary">
+<meta property="fb:app_id" content="249643311490">
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom">
+<link rel="shortcut icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="apple-touch-icon-precomposed" href="https://s0.wp.com/i/webclip.png">
+<link rel="openid.server" href="https://triangleinequality.wordpress.com/?openidserver=1">
+<link rel="openid.delegate" href="https://triangleinequality.wordpress.com/">
+<link rel="search" type="application/opensearchdescription+xml" href="https://triangleinequality.wordpress.com/osd.xml" title="triangleinequality">
+<link rel="search" type="application/opensearchdescription+xml" href="https://wordpress.com/opensearch.xml" title="WordPress.com">
+<meta name="application-name" content="triangleinequality"><meta name="msapplication-window" content="width=device-width;height=device-height"><meta name="msapplication-tooltip" content="for matters mathematical"><meta name="msapplication-task" content="name=Subscribe;action-uri=https://triangleinequality.wordpress.com/feed/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="title" content="Decorators in Python and Syncing Objects | triangleinequality on WordPress.com">
+<meta name="description" content="1. Functions returning functions Today we&#39;re going to learn about decorators, and do an interesting example showing how objects in Python can communicate with each other. I first heard about decorators from a very interesting post on dynamic programming, where you give functions a &#39;memory&#39;. so that they remember the computations they do given particular…">
+	<style type="text/css">
+			#site-title a,
+		#site-description {
+			color: #545454 !important;
+		}
+		</style>
+	<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #999999; }
+</style>
+<link rel="stylesheet" type="text/css" href="./Decorators in Python and Syncing Objects « triangleinequality_files/shCore.css"><link rel="stylesheet" type="text/css" href="./Decorators in Python and Syncing Objects « triangleinequality_files/shThemeDefault.css"><style type="text/css" id="syntaxhighlighteranchor"></style>
+<link rel="stylesheet" type="text/css" id="gravatar-card-css" href="./Decorators in Python and Syncing Objects « triangleinequality_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="./Decorators in Python and Syncing Objects « triangleinequality_files/services.css"></head>
+<body class="single single-post postid-92 single-format-standard custom-background mp6 customizer-styles-applied column-full column-right highlander-enabled highlander-light">
+	<div id="wrap">
+		<div id="header" class="clearfix">
+
+			<div id="main-nav">
+				<div class="menu"><ul><li><a href="https://triangleinequality.wordpress.com/">Home</a></li><li class="page_item page-item-1"><a href="https://triangleinequality.wordpress.com/about/">About</a></li><li class="page_item page-item-233"><a href="https://triangleinequality.wordpress.com/contents/">Contents</a></li></ul></div>
+			</div><!-- end #main-nav -->
+
+			<div id="logo">
+				<h1 id="site-title">
+					<a href="https://triangleinequality.wordpress.com/" title="triangleinequality - for matters mathematical" rel="home">
+						triangleinequality					</a>
+				</h1>
+				<p id="site-description">for matters mathematical</p>
+			</div><!-- end #logo -->
+
+			<div id="search">
+				<form method="get" id="searchform" action="https://triangleinequality.wordpress.com/">
+	<label for="s" class="assistive-text hidden">Search</label>
+	<input id="s" type="text" name="s" placeholder="Search">
+	<button id="searchsubmit" name="submit" type="submit">Search</button>
+</form>			</div><!-- end #search -->
+
+			
+<div id="social">
+	<ul>
+			</ul>
+</div>
+		</div><!-- end #header -->
+
+		<hr class="sepinside">
+<div id="content" class="clearfix">
+
+	
+	<div class="column column-title">
+		<div id="crumbs">
+	<p><a href="https://triangleinequality.wordpress.com/">Home</a> » <a href="https://triangleinequality.wordpress.com/category/python/">python</a> » <span class="current">Decorators in Python and Syncing&nbsp;Objects</span></p>
+</div><!-- end #crumbs -->		<h1 class="title-header">Decorators in Python and Syncing&nbsp;Objects</h1>	</div><!-- end .column-title -->
+
+	
+	<div class="column column-content single">
+
+		
+<div id="post-92" class="post-92 post type-post status-publish format-standard has-post-thumbnail hentry category-python tag-decorators tag-programming tag-python">
+
+	<div class="entry-content clearfix">
+		<p style="text-align:center;"><a href="./Decorators in Python and Syncing Objects « triangleinequality_files/2Q=="><img class="aligncenter" alt="" src="./Decorators in Python and Syncing Objects « triangleinequality_files/2Q==" width="225" height="224" scale="0"></a></p>
+<p><b>1. Functions returning functions </b></p>
+<p>Today we’re going to learn about decorators, and do an interesting example showing how objects in Python can communicate with each other. I first heard about decorators from a <a href="http://jeremykun.com/2012/01/12/a-spoonful-of-python/">very interesting post</a> on dynamic programming, where you give functions a ‘memory’. so that they remember the computations they do given particular arguments, and so avoid repeated calculuations -very useful for improving the efficiency of recursive functions!</p>
+<p>The first thing to note is that functions are objects too, in fact, practically everything is an object in Python. So we can pass a function as an argument to a function, do some stuff involving that function, and then return a new function. Something you might want to do, for debugging purposes say, is have the console print out the name of a function every time it is executed, which we do like this:</p>
+<div><div id="highlighter_396305" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">def</code> <code class="python plain">announce_function(input_function):</code></div><div class="line number2 index1 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">new_function():</code></div><div class="line number3 index2 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">print</code> <code class="python string">'Executing function: %s'</code> <code class="python keyword">%</code><code class="python plain">input_function.func_name</code></div><div class="line number4 index3 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">input_function()</code></div><div class="line number5 index4 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python plain">new_function</code></div></div></td></tr></tbody></table></div></div>
+<p>Notice how we are returning a function, not simply calling it. Now let’s think of a function to announce. How about telling the time? It’s pretty easy to do using the time module, as follows:</p>
+<div><div id="highlighter_533808" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">import</code> <code class="python plain">time</code></div><div class="line number2 index1 alt1"><code class="python keyword">def</code> <code class="python plain">tell_time():</code></div><div class="line number3 index2 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">print</code> <code class="python string">"The time is: "</code><code class="python plain">, time.asctime(time.localtime(time.time()))</code></div><div class="line number4 index3 alt1">&nbsp;</div><div class="line number5 index4 alt2"><code class="python plain">tell_time()</code></div><div class="line number6 index5 alt1">&nbsp;</div><div class="line number7 index6 alt2"><code class="python plain">The time </code><code class="python keyword">is</code><code class="python plain">:&nbsp; Mon Aug </code><code class="python value">19</code> <code class="python value">19</code><code class="python plain">:</code><code class="python value">18</code><code class="python plain">:</code><code class="python value">01</code> <code class="python value">2013</code></div></div></td></tr></tbody></table></div></div>
+<p>the ‘time.asctime’ part just formats the time tuple nicely.</p>
+<p>Now let’s try out our announcer:</p>
+<div><div id="highlighter_490900" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python plain">announce_function(tell_time)()</code></div><div class="line number2 index1 alt1">&nbsp;</div><div class="line number3 index2 alt2"><code class="python plain">Executing function: tell_time</code></div><div class="line number4 index3 alt1"><code class="python plain">The time </code><code class="python keyword">is</code><code class="python plain">:&nbsp; Mon Aug </code><code class="python value">19</code> <code class="python value">19</code><code class="python plain">:</code><code class="python value">18</code><code class="python plain">:</code><code class="python value">01</code> <code class="python value">2013</code></div></div></td></tr></tbody></table></div></div>
+<p>so it works! That’s fine if you only want to announce specific call of a function, but what if you want to announce <em>every</em> call of the function? Or of every function in your code? It seems like a lot of typing! But Python has a handy syntax doing it automagically:</p>
+<div><div id="highlighter_902624" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python decorator">@announce_function</code></div><div class="line number2 index1 alt1"><code class="python keyword">def</code> <code class="python plain">tell_time():</code></div><div class="line number3 index2 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">print</code> <code class="python string">"The time is: "</code><code class="python plain">, time.asctime(time.localtime(time.time()))</code></div><div class="line number4 index3 alt1">&nbsp;</div><div class="line number5 index4 alt2"><code class="python plain">tell_time()</code></div><div class="line number6 index5 alt1">&nbsp;</div><div class="line number7 index6 alt2"><code class="python plain">Executing function: tell_time</code></div><div class="line number8 index7 alt1"><code class="python plain">The time </code><code class="python keyword">is</code><code class="python plain">:&nbsp; Mon Aug </code><code class="python value">19</code> <code class="python value">19</code><code class="python plain">:</code><code class="python value">18</code><code class="python plain">:</code><code class="python value">01</code> <code class="python value">2013</code></div></div></td></tr></tbody></table></div></div>
+<p>Neat! Now you may be thinking: hey that’s nice and all, but what about the <em>arguments</em>? We really want our <em>decorator</em> to be seperate from the function it decorates, and so it shouldn’t need to know anything about what kinds and numbers of arguments they expect, it should work for any function.</p>
+<p><b>2. Args and Kwargs </b></p>
+<p>This allows you to grab the arguments from a function and pass them to a new one. Let’s see how this works by example.</p>
+<div><div id="highlighter_344949" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">def</code> <code class="python plain">argument_show(</code><code class="python keyword">*</code><code class="python plain">args, </code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs):</code></div><div class="line number2 index1 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">print</code> <code class="python string">'Printing args'</code><code class="python plain">, args</code></div><div class="line number3 index2 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">print</code> <code class="python string">'Printing kwargs '</code><code class="python plain">, kwargs</code></div><div class="line number4 index3 alt1">&nbsp;</div><div class="line number5 index4 alt2"><code class="python plain">argument_show(</code><code class="python value">1</code><code class="python plain">,</code><code class="python value">2</code><code class="python plain">, </code><code class="python string">'cats'</code><code class="python plain">, holiday</code><code class="python keyword">=</code><code class="python string">'Christmas'</code><code class="python plain">)</code></div><div class="line number6 index5 alt1">&nbsp;</div><div class="line number7 index6 alt2"><code class="python plain">Printing args (</code><code class="python value">1</code><code class="python plain">, </code><code class="python value">2</code><code class="python plain">, </code><code class="python string">'cats'</code><code class="python plain">)</code></div><div class="line number8 index7 alt1"><code class="python plain">Printing kwargs&nbsp; {</code><code class="python string">'holiday'</code><code class="python plain">: </code><code class="python string">'Christmas'</code><code class="python plain">}</code></div></div></td></tr></tbody></table></div></div>
+<p>You see that args refers to arguments that are passed by position to the function, and kwargs refers to keyword arguments that are named as they are passed.</p>
+<p>Now let’s put this to work in a decorator that will work with any function, and create a new functon to showcase it.</p>
+<div><div id="highlighter_519869" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">def</code> <code class="python plain">adding_list(list_to_add):</code></div><div class="line number2 index1 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">print</code> <code class="python functions">reduce</code><code class="python plain">(</code><code class="python keyword">lambda</code> <code class="python plain">x,y: x</code><code class="python keyword">+</code><code class="python plain">y, list_to_add)</code></div><div class="line number3 index2 alt2">&nbsp;</div><div class="line number4 index3 alt1"><code class="python plain">adding_list([</code><code class="python value">1</code><code class="python plain">,</code><code class="python value">2</code><code class="python plain">,</code><code class="python value">3</code><code class="python plain">])</code></div><div class="line number5 index4 alt2">&nbsp;</div><div class="line number6 index5 alt1"><code class="python value">6</code></div><div class="line number7 index6 alt2">&nbsp;</div><div class="line number8 index7 alt1"><code class="python keyword">def</code> <code class="python plain">announce_function(input_function):</code></div><div class="line number9 index8 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">new_function(</code><code class="python keyword">*</code><code class="python plain">args,</code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs):</code></div><div class="line number10 index9 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">print</code> <code class="python string">'Executing function: %s'</code> <code class="python keyword">%</code><code class="python plain">input_function.func_name</code></div><div class="line number11 index10 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">input_function(</code><code class="python keyword">*</code><code class="python plain">args,</code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs)</code></div><div class="line number12 index11 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python plain">new_function</code></div><div class="line number13 index12 alt2">&nbsp;</div><div class="line number14 index13 alt1"><code class="python decorator">@announce_function</code></div><div class="line number15 index14 alt2"><code class="python keyword">def</code> <code class="python plain">adding_list(list_to_add):</code></div><div class="line number16 index15 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">print</code> <code class="python functions">reduce</code><code class="python plain">(</code><code class="python keyword">lambda</code> <code class="python plain">x,y: x</code><code class="python keyword">+</code><code class="python plain">y, list_to_add)</code></div><div class="line number17 index16 alt2">&nbsp;</div><div class="line number18 index17 alt1"><code class="python plain">adding_list([</code><code class="python value">1</code><code class="python plain">,</code><code class="python value">2</code><code class="python plain">,</code><code class="python value">3</code><code class="python plain">])</code></div><div class="line number19 index18 alt2">&nbsp;</div><div class="line number20 index19 alt1"><code class="python plain">Executing function: adding_list</code></div><div class="line number21 index20 alt2"><code class="python value">6</code></div></div></td></tr></tbody></table></div></div>
+<p><b>3. Communication between objects with decorators </b></p>
+<p>Now we’re going to put this to work in a simple example that nonetheless demonstrates some very interesting ideas. Next time we’re going to start implementing graphs as objects, and one of the things I wanted to implement is the notion of a subgraph as an object. The nontrivial part of this is getting the two objects to communicate, for instance, when we delete an edge in a subgraph, naturally the edge should be deleted from the supergraph, and when we delete an edge in the supergraph <em>that is also in the subgraph</em>, the subgraph should also be informed of this. However when we create edges or vertices, the changes should travel up (to supergraphs), but not down (to subgraphs).</p>
+<p>I thought this behaviour was worth looking at on its own, and so we abstract the essence of the problem to a toy example.</p>
+<p>The specification is we want a car object with attribute colour. We also want car shops that have cars and buy and sell them. Furthermore we want to be able to create `subcarshops’ that have a subset of the cars with the following behaviours: when the subshop buys or sells, the supershop is updated, and when the supershop sells, but not buys, the subshop is updated.</p>
+<p>This can be accomplished by using decorators that tell class methods how to update up and down the lattice of shops. They use a nifty function called `getattr’ that allows us to access class methods on the fly, by name. Let’s make these first.</p>
+<div><div id="highlighter_295898" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">def</code> <code class="python plain">update_up(class_method):</code></div><div class="line number2 index1 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">inner(</code><code class="python color1">self</code><code class="python plain">, </code><code class="python keyword">*</code><code class="python plain">args, </code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs):</code></div><div class="line number3 index2 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">method_name </code><code class="python keyword">=</code> <code class="python plain">class_method.func_name</code></div><div class="line number4 index3 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">class_method(</code><code class="python color1">self</code><code class="python plain">, </code><code class="python keyword">*</code><code class="python plain">args, </code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs)</code></div><div class="line number5 index4 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">for</code> <code class="python plain">super_shop </code><code class="python keyword">in</code> <code class="python color1">self</code><code class="python plain">.super_shops:</code></div><div class="line number6 index5 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">getattr</code><code class="python plain">(super_shop, method_name)(</code><code class="python keyword">*</code><code class="python plain">args, </code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs)</code></div><div class="line number7 index6 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python plain">inner</code></div><div class="line number8 index7 alt1">&nbsp;</div><div class="line number9 index8 alt2"><code class="python keyword">def</code> <code class="python plain">update_up_down(class_method):</code></div><div class="line number10 index9 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">inner(</code><code class="python color1">self</code><code class="python plain">, </code><code class="python keyword">*</code><code class="python plain">args, </code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs):</code></div><div class="line number11 index10 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">method_name </code><code class="python keyword">=</code> <code class="python plain">class_method.func_name</code></div><div class="line number12 index11 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python plain">class_method(</code><code class="python color1">self</code><code class="python plain">, </code><code class="python keyword">*</code><code class="python plain">args, </code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs):</code></div><div class="line number13 index12 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">for</code> <code class="python plain">super_shop </code><code class="python keyword">in</code> <code class="python color1">self</code><code class="python plain">.super_shops:</code></div><div class="line number14 index13 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">getattr</code><code class="python plain">(super_shop, method_name)(</code><code class="python keyword">*</code><code class="python plain">args, </code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs)</code></div><div class="line number15 index14 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">for</code> <code class="python plain">sub_shop </code><code class="python keyword">in</code> <code class="python color1">self</code><code class="python plain">.sub_shops:</code></div><div class="line number16 index15 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">getattr</code><code class="python plain">(sub_shop, method_name)(</code><code class="python keyword">*</code><code class="python plain">args, </code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs)</code></div><div class="line number17 index16 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python plain">inner</code></div></div></td></tr></tbody></table></div></div>
+<p>These ping updates up and down until everybody in the whole lattice of shops knows about the changes. Just like in recursive functions, we have to give stopping conditions for the update_up_down so we don’t go on forever. This will all make sense when you see it in action:</p>
+<div><div id="highlighter_916742" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">class</code> <code class="python plain">Car():</code></div><div class="line number2 index1 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">__init__(</code><code class="python color1">self</code><code class="python plain">, color):</code></div><div class="line number3 index2 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.color </code><code class="python keyword">=</code> <code class="python plain">color</code></div><div class="line number4 index3 alt1">&nbsp;</div><div class="line number5 index4 alt2"><code class="python keyword">class</code> <code class="python plain">CarsForSale(</code><code class="python functions">object</code><code class="python plain">):</code></div><div class="line number6 index5 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">__init__(</code><code class="python color1">self</code><code class="python plain">, list_cars</code><code class="python keyword">=</code><code class="python color1">None</code><code class="python plain">, sub_shops</code><code class="python keyword">=</code><code class="python color1">None</code><code class="python plain">, super_shops</code><code class="python keyword">=</code><code class="python color1">None</code><code class="python plain">):</code></div><div class="line number7 index6 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.available_cars </code><code class="python keyword">=</code> <code class="python plain">list_cars</code></div><div class="line number8 index7 alt1">&nbsp;</div><div class="line number9 index8 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python plain">sub_shops </code><code class="python keyword">is</code> <code class="python color1">None</code><code class="python plain">:</code></div><div class="line number10 index9 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.sub_shops </code><code class="python keyword">=</code> <code class="python plain">[]</code></div><div class="line number11 index10 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">else</code><code class="python plain">:</code></div><div class="line number12 index11 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.sub_shops</code><code class="python keyword">=</code><code class="python plain">sub_shops</code></div><div class="line number13 index12 alt2">&nbsp;</div><div class="line number14 index13 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python plain">super_shops </code><code class="python keyword">is</code> <code class="python color1">None</code><code class="python plain">:</code></div><div class="line number15 index14 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.super_shops </code><code class="python keyword">=</code> <code class="python plain">[]</code></div><div class="line number16 index15 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">else</code><code class="python plain">:</code></div><div class="line number17 index16 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.super_shops</code><code class="python keyword">=</code><code class="python plain">super_shops</code></div><div class="line number18 index17 alt1">&nbsp;</div><div class="line number19 index18 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python functions">len</code><code class="python plain">(</code><code class="python color1">self</code><code class="python plain">.super_shops)!</code><code class="python keyword">=</code> <code class="python value">0</code><code class="python plain">:</code></div><div class="line number20 index19 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">for</code> <code class="python functions">Super</code> <code class="python keyword">in</code> <code class="python color1">self</code><code class="python plain">.super_shops:</code></div><div class="line number21 index20 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">Super</code><code class="python plain">.add_sub_shop(</code><code class="python color1">self</code><code class="python plain">)</code></div><div class="line number22 index21 alt1">&nbsp;</div><div class="line number23 index22 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python functions">len</code><code class="python plain">(</code><code class="python color1">self</code><code class="python plain">.sub_shops)!</code><code class="python keyword">=</code> <code class="python value">0</code><code class="python plain">:</code></div><div class="line number24 index23 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">for</code> <code class="python plain">Sub </code><code class="python keyword">in</code> <code class="python color1">self</code><code class="python plain">.sub_shops:</code></div><div class="line number25 index24 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">Sub.add_super_shop(</code><code class="python color1">self</code><code class="python plain">)</code></div><div class="line number26 index25 alt1">&nbsp;</div><div class="line number27 index26 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python decorator">@update_up_down</code></div><div class="line number28 index27 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">sell_car(</code><code class="python color1">self</code><code class="python plain">,car):</code></div><div class="line number29 index28 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python plain">car </code><code class="python keyword">not</code> <code class="python keyword">in</code> <code class="python color1">self</code><code class="python plain">.available_cars:</code></div><div class="line number30 index29 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python color1">False</code></div><div class="line number31 index30 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.available_cars.remove(car)</code></div><div class="line number32 index31 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python color1">True</code></div><div class="line number33 index32 alt2">&nbsp;</div><div class="line number34 index33 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python decorator">@update_up</code></div><div class="line number35 index34 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">buy_car(</code><code class="python color1">self</code><code class="python plain">,car):</code></div><div class="line number36 index35 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python plain">car </code><code class="python keyword">in</code> <code class="python color1">self</code><code class="python plain">.available_cars:</code></div><div class="line number37 index36 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code></div><div class="line number38 index37 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.available_cars.append(car)</code></div><div class="line number39 index38 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code></div><div class="line number40 index39 alt1">&nbsp;</div><div class="line number41 index40 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">add_sub_shop(</code><code class="python color1">self</code><code class="python plain">, sub_shop):</code></div><div class="line number42 index41 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.sub_shops.append(sub_shop)</code></div><div class="line number43 index42 alt2">&nbsp;</div><div class="line number44 index43 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">add_super_shop(</code><code class="python color1">self</code><code class="python plain">, super_shop):</code></div><div class="line number45 index44 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.super_shops.append(super_shop)</code></div></div></td></tr></tbody></table></div></div>
+<p>Now better put the code through its paces by testing the behaviours we were seeking.<br>
+Starting with making some red and blue cars, a car shop with these cars, and a subshop with all the red cars.</p>
+<div><div id="highlighter_773574" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python plain">cars </code><code class="python keyword">=</code><code class="python plain">[]</code></div><div class="line number2 index1 alt1"><code class="python plain">testcar </code><code class="python keyword">=</code> <code class="python plain">Car(</code><code class="python string">'blue'</code><code class="python plain">)</code></div><div class="line number3 index2 alt2"><code class="python keyword">for</code> <code class="python plain">i </code><code class="python keyword">in</code> <code class="python functions">range</code><code class="python plain">(</code><code class="python value">5</code><code class="python plain">):</code></div><div class="line number4 index3 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">newcar </code><code class="python keyword">=</code> <code class="python plain">Car(</code><code class="python string">'red'</code><code class="python plain">)</code></div><div class="line number5 index4 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">cars.append(newcar)</code></div><div class="line number6 index5 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">newcar </code><code class="python keyword">=</code> <code class="python plain">Car(</code><code class="python string">'blue'</code><code class="python plain">)</code></div><div class="line number7 index6 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">cars.append(newcar)</code></div><div class="line number8 index7 alt1"><code class="python plain">carShop </code><code class="python keyword">=</code> <code class="python plain">CarsForSale(list_cars</code><code class="python keyword">=</code><code class="python plain">cars)</code></div><div class="line number9 index8 alt2"><code class="python plain">redCars </code><code class="python keyword">=</code> <code class="python functions">filter</code><code class="python plain">(</code><code class="python keyword">lambda</code> <code class="python plain">x: x.color</code><code class="python keyword">=</code><code class="python keyword">=</code><code class="python string">'red'</code><code class="python plain">,carShop.available_cars)</code></div><div class="line number10 index9 alt1">&nbsp;</div><div class="line number11 index10 alt2"><code class="python plain">subShop </code><code class="python keyword">=</code> <code class="python plain">CarsForSale(super_shops</code><code class="python keyword">=</code><code class="python plain">[carShop], list_cars</code><code class="python keyword">=</code><code class="python plain">redCars)</code></div><div class="line number12 index11 alt1"><code class="python functions">print</code> <code class="python string">'Initial State:'</code></div><div class="line number13 index12 alt2"><code class="python functions">print</code> <code class="python plain">[x.color </code><code class="python keyword">for</code> <code class="python plain">x </code><code class="python keyword">in</code> <code class="python plain">carShop.available_cars]</code></div><div class="line number14 index13 alt1"><code class="python functions">print</code> <code class="python plain">[x.color </code><code class="python keyword">for</code> <code class="python plain">x </code><code class="python keyword">in</code> <code class="python plain">subShop.available_cars]</code></div><div class="line number15 index14 alt2">&nbsp;</div><div class="line number16 index15 alt1"><code class="python plain">Initial State:</code></div><div class="line number17 index16 alt2"><code class="python plain">[</code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'blue'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'blue'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'blue'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'blue'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'blue'</code><code class="python plain">]</code></div><div class="line number18 index17 alt1"><code class="python plain">[</code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">]</code></div><div class="line number19 index18 alt2">&nbsp;</div><div class="line number20 index19 alt1"><code class="python functions">print</code> <code class="python string">'Selling a car in subshop:'</code></div><div class="line number21 index20 alt2"><code class="python plain">newcar </code><code class="python keyword">=</code> <code class="python plain">subShop.available_cars[</code><code class="python value">0</code><code class="python plain">]</code></div><div class="line number22 index21 alt1"><code class="python plain">subShop.sell_car(newcar)</code></div><div class="line number23 index22 alt2"><code class="python functions">print</code> <code class="python plain">[x.color </code><code class="python keyword">for</code> <code class="python plain">x </code><code class="python keyword">in</code> <code class="python plain">carShop.available_cars]</code></div><div class="line number24 index23 alt1"><code class="python functions">print</code> <code class="python plain">[x.color </code><code class="python keyword">for</code> <code class="python plain">x </code><code class="python keyword">in</code> <code class="python plain">subShop.available_cars]</code></div><div class="line number25 index24 alt2">&nbsp;</div><div class="line number26 index25 alt1"><code class="python plain">Selling a car </code><code class="python keyword">in</code> <code class="python plain">subshop:</code></div><div class="line number27 index26 alt2"><code class="python plain">[</code><code class="python string">'blue'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'blue'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'blue'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'blue'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'blue'</code><code class="python plain">]</code></div><div class="line number28 index27 alt1"><code class="python plain">[</code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">]</code></div><div class="line number29 index28 alt2">&nbsp;</div><div class="line number30 index29 alt1"><code class="python functions">print</code> <code class="python string">'Buying a car in subShop:'</code></div><div class="line number31 index30 alt2"><code class="python plain">redcar </code><code class="python keyword">=</code> <code class="python plain">Car(</code><code class="python string">'red'</code><code class="python plain">)</code></div><div class="line number32 index31 alt1"><code class="python plain">subShop.buy_car(redcar)</code></div><div class="line number33 index32 alt2"><code class="python functions">print</code> <code class="python plain">[x.color </code><code class="python keyword">for</code> <code class="python plain">x </code><code class="python keyword">in</code> <code class="python plain">carShop.available_cars]</code></div><div class="line number34 index33 alt1"><code class="python functions">print</code> <code class="python plain">[x.color </code><code class="python keyword">for</code> <code class="python plain">x </code><code class="python keyword">in</code> <code class="python plain">subShop.available_cars]</code></div><div class="line number35 index34 alt2">&nbsp;</div><div class="line number36 index35 alt1"><code class="python plain">Buying a car </code><code class="python keyword">in</code> <code class="python plain">subShop:</code></div><div class="line number37 index36 alt2"><code class="python plain">[</code><code class="python string">'blue'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'blue'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'blue'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'blue'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'blue'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">]</code></div><div class="line number38 index37 alt1"><code class="python plain">[</code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">]</code></div><div class="line number39 index38 alt2">&nbsp;</div><div class="line number40 index39 alt1"><code class="python functions">print</code><code class="python string">'Selling a Car in carShop, which is in the subshop:'</code></div><div class="line number41 index40 alt2"><code class="python plain">car </code><code class="python keyword">=</code> <code class="python plain">subShop.available_cars[</code><code class="python value">0</code><code class="python plain">]</code></div><div class="line number42 index41 alt1"><code class="python plain">carShop.sell_car(car)</code></div><div class="line number43 index42 alt2"><code class="python functions">print</code> <code class="python plain">[x.color </code><code class="python keyword">for</code> <code class="python plain">x </code><code class="python keyword">in</code> <code class="python plain">carShop.available_cars]</code></div><div class="line number44 index43 alt1"><code class="python functions">print</code> <code class="python plain">[x.color </code><code class="python keyword">for</code> <code class="python plain">x </code><code class="python keyword">in</code> <code class="python plain">subShop.available_cars]</code></div><div class="line number45 index44 alt2">&nbsp;</div><div class="line number46 index45 alt1"><code class="python plain">Selling a Car </code><code class="python keyword">in</code> <code class="python plain">carShop, which </code><code class="python keyword">is</code> <code class="python keyword">in</code> <code class="python plain">the subshop:</code></div><div class="line number47 index46 alt2"><code class="python plain">[</code><code class="python string">'blue'</code><code class="python plain">, </code><code class="python string">'blue'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'blue'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'blue'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'blue'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">]</code></div><div class="line number48 index47 alt1"><code class="python plain">[</code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">, </code><code class="python string">'red'</code><code class="python plain">]</code></div></div></td></tr></tbody></table></div></div>
+<p>Hurray it works!</p>
+<p>Please speak up if you have any questions, comments, improvements, criticisms, profanities etc…</p>
+<div><div id="highlighter_531264" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2">&nbsp;</div></div></td></tr></tbody></table></div></div>
+<h6 class="zemanta-related-title" style="font-size:1em;">Related articles</h6>
+<ul class="zemanta-article-ul">
+<li class="zemanta-article-ul-li"><a href="http://freepythontips.wordpress.com/2013/08/04/args-and-kwargs-in-python-explained/" target="_blank">*args and **kwargs in python explained</a> (freepythontips.wordpress.com)</li>
+</ul>
+<div id="jp-post-flair" class="sharedaddy sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow" class="share-twitter sd-button share-icon" href="https://triangleinequality.wordpress.com/2013/08/19/decorators-in-python-and-syncing-objects/?share=twitter&nb=1" title="Click to share on Twitter" id="sharing-twitter-92"><span>Twitter<span class="share-count">1</span></span></a></li><li class="share-facebook"><a rel="nofollow" class="share-facebook sd-button share-icon" href="https://triangleinequality.wordpress.com/2013/08/19/decorators-in-python-and-syncing-objects/?share=facebook&nb=1" title="Share on Facebook" id="sharing-facebook-92"><span>Facebook</span></a></li><li class="share-google-plus-1"><a rel="nofollow" class="share-google-plus-1 sd-button share-icon" href="https://triangleinequality.wordpress.com/2013/08/19/decorators-in-python-and-syncing-objects/?share=google-plus-1&nb=1" title="Click to share on Google+" id="sharing-google-92"><span>Google</span></a></li><li class="share-end"></li></ul></div></div></div><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-loaded" id="like-post-wrapper-52270418-92-55486461430ef" data-src="//widgets.wp.com/likes/#blog_id=52270418&amp;post_id=92&amp;origin=triangleinequality.wordpress.com&amp;obj_id=52270418-92-55486461430ef" data-name="like-post-frame-52270418-92-55486461430ef"><h3 class="sd-title">Like this:</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height: 55px; display: none;"><span class="button"><span>Like</span></span> <span class="loading">Loading...</span></div><iframe class="post-likes-widget jetpack-likes-widget" name="like-post-frame-52270418-92-55486461430ef" height="55px" width="100%" frameborder="0" src="./Decorators in Python and Syncing Objects « triangleinequality_files/saved_resource(7).html"></iframe><span class="sd-text-color"></span><a class="sd-link-color"></a></div>
+<div id="jp-relatedposts" class="jp-relatedposts" style="display: block;">
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+<div class="jp-relatedposts-items jp-relatedposts-items-minimal"><p class="jp-relatedposts-post jp-relatedposts-post0" data-post-id="81" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/" title="A First Taste of Object Orientated Programming with Python
+
+1. Objects, attributes, methods and __init__ A class is a recipe for an object, objects are instantiations of a class. For instance the class may be &#39;Person&#39;, and the instantiation might be &#39;Bob&#39;. Objects give us a natural way of thinking about code, instead of just having functions and variables,…" rel="nofollow" data-origin="92" data-position="0">A First Taste of Object Orientated Programming with Python</a></span><span class="jp-relatedposts-post-context">In "python"</span></p><p class="jp-relatedposts-post jp-relatedposts-post1" data-post-id="1128" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://triangleinequality.wordpress.com/2014/08/12/theano-autoencoders-and-mnist/" title="Theano, Autoencoders and MNIST
+
+Recently I have finally upgraded my ancient laptop. Other than the ability for me to play the occasional video game, this means that I now have a dedicated Nvidia graphics card, in particular one that supports something called CUDA. Now that I have the hardware, I thought that it would…" rel="nofollow" data-origin="92" data-position="1">Theano, Autoencoders and MNIST</a></span><span class="jp-relatedposts-post-context">In "machine learning"</span></p><p class="jp-relatedposts-post jp-relatedposts-post2" data-post-id="104" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://triangleinequality.wordpress.com/2013/08/21/graphs-as-objects-in-python/" title="Graphs as Objects in Python
+
+This time we are going to combine the lessons learned about objects and decorators in Python, and about graph theory, to represent graphs as objects. Let&#39;s jump right in and create classes of vertices and edges. We&#39;ll start with a vertex: This is pretty self-explanatory, but notice the philosophy of…" rel="nofollow" data-origin="92" data-position="2">Graphs as Objects in Python</a></span><span class="jp-relatedposts-post-context">In "graph theory"</span></p></div></div></div>	</div><!-- end .entry-content -->
+
+	<div class="entry-meta">
+		<p class="tags"><strong>Tags:</strong> <a href="https://triangleinequality.wordpress.com/tag/decorators/" rel="tag">Decorators</a>, <a href="https://triangleinequality.wordpress.com/tag/programming/" rel="tag">Programming</a>, <a href="https://triangleinequality.wordpress.com/tag/python/" rel="tag">python</a></p><span class="by-author">By <span class="author vcard"><a class="url fn n" href="https://triangleinequality.wordpress.com/author/triangleinequality/" title="View all posts by triangleinequality" rel="author">triangleinequality</a></span> </span>in <span class="category"><a href="https://triangleinequality.wordpress.com/category/python/" rel="category tag">python</a></span> on <span class="datetime"><a href="./Decorators in Python and Syncing Objects « triangleinequality_files/Decorators in Python and Syncing Objects « triangleinequality.html" title="7:34 pm" rel="bookmark"><time class="entry-date" datetime="2013-08-19T19:34:28+00:00" pubdate="">August 19, 2013</time></a></span>.	</div><!-- end .entry-meta -->
+
+</div><!-- end #post-## -->
+		<div class="navigation clearfix">
+			<span class="alignleft"><a href="https://triangleinequality.wordpress.com/2013/06/03/a-first-taste-of-object-orientated-programming-with-python/" rel="prev"><span class="meta-nav">←</span> A First Taste of Object Orientated Programming with&nbsp;Python</a></span>			<span class="alignright"><a href="https://triangleinequality.wordpress.com/2013/08/21/graphs-as-objects-in-python/" rel="next">Graphs as Objects in&nbsp;Python <span class="meta-nav">→</span></a></span>		</div><!-- end .navigation -->
+
+		
+<div id="comments">
+
+	
+		<hr>
+		<h2>2 Comments</h2>
+
+		<ol class="commentlist">
+					<li class="pingback even thread-even depth-1 highlander-comment" id="comment-10">
+				<div id="div-comment-10" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href="https://triangleinequality.wordpress.com/2013/08/21/graphs-as-objects-in-python/" rel="external nofollow" class="url">Graphs as Objects in Python | triangleinequality</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://triangleinequality.wordpress.com/2013/08/19/decorators-in-python-and-syncing-objects/comment-page-1/#comment-10">
+			August 21, 2013 at 7:30 pm</a>		</div>
+
+		<p>[…] time we are going to combine the lessons learned about objects and decorators in Python, and about graph theory, to represent graphs as […]</p>
+
+		<div class="reply"><a class="comment-reply-link" href="https://triangleinequality.wordpress.com/2013/08/19/decorators-in-python-and-syncing-objects/?replytocom=10#respond" onclick="return addComment.moveForm( &quot;div-comment-10&quot;, &quot;10&quot;, &quot;respond&quot;, &quot;92&quot; )" aria-label="Reply to Graphs as Objects in Python | triangleinequality">Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-26">
+				<div id="div-comment-26" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href="https://triangleinequality.wordpress.com/2013/09/05/a-complete-guide-to-getting-0-79903-in-kaggles-titanic-competition-with-python/" rel="external nofollow" class="url">A complete guide to getting 0.79903 in Kaggle’s Titanic Competition with Python « triangleinequality</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://triangleinequality.wordpress.com/2013/08/19/decorators-in-python-and-syncing-objects/comment-page-1/#comment-26">
+			September 5, 2013 at 12:16 pm</a>		</div>
+
+		<p>[…] in python programming, you can read about object orientated programming here, decorators in python here, and how to represent graphs in python here and here. Note that to produce plots of the graphs, you […]</p>
+
+		<div class="reply"><a class="comment-reply-link" href="https://triangleinequality.wordpress.com/2013/08/19/decorators-in-python-and-syncing-objects/?replytocom=26#respond" onclick="return addComment.moveForm( &quot;div-comment-26&quot;, &quot;26&quot;, &quot;respond&quot;, &quot;92&quot; )" aria-label="Reply to A complete guide to getting 0.79903 in Kaggle’s Titanic Competition with Python « triangleinequality">Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		</ol>
+
+								<div id="respond" class="comment-respond js">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="https://triangleinequality.wordpress.com/2013/08/19/decorators-in-python-and-syncing-objects/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="https://triangleinequality.wordpress.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																										
+
+
+												<input type="hidden" id="highlander_comment_nonce" name="highlander_comment_nonce" value="9b3f4ae146"><input type="hidden" name="_wp_http_referer" value="/2013/08/19/decorators-in-python-and-syncing-objects/">
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest">
+
+<div class="comment-form-field comment-textarea">
+	
+	<div id="comment-form-comment"><textarea tabindex="-1" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px; padding: 0px; box-sizing: content-box; word-wrap: break-word; overflow: hidden; -webkit-transition: none; transition: none; height: 0px !important; min-height: 0px !important; font-family: Helvetica, Arial, Tahoma, sans-serif; font-size: 14px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; text-decoration: none; word-spacing: 0px; text-indent: 0px; line-height: normal; width: 938px;" class="autosizejs "></textarea><textarea id="comment" name="comment" title="Enter your comment here..." placeholder="Enter your comment here..." style="height: 36px; overflow: hidden; word-wrap: break-word; resize: none;"></textarea></div>
+</div>
+
+<div id="comment-form-identity" style="display: none;">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="https://triangleinequality.wordpress.com/2013/08/19/decorators-in-python-and-syncing-objects/#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://triangleinequality.wordpress.com/2013/08/19/decorators-in-python-and-syncing-objects/#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://triangleinequality.wordpress.com/2013/08/19/decorators-in-python-and-syncing-objects/#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://triangleinequality.wordpress.com/2013/08/19/decorators-in-python-and-syncing-objects/#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+			<li>
+			<iframe id="googleplus-sign-in" name="googleplus-sign-in" src="./Decorators in Python and Syncing Objects « triangleinequality_files/saved_resource.html" width="24" height="24" scrolling="no" allowtransparency="true" seamless="seamless" frameborder="0"></iframe>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank">				<img src="./Decorators in Python and Syncing Objects « triangleinequality_files/ad516503a11cd5ca435acc9bb6523536" alt="Gravatar" width="25" class="no-grav" originals="25" src-orig="https://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" scale="2">
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text" value=""></div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./Decorators in Python and Syncing Objects « triangleinequality_files/wplogo.png" alt="WordPress.com Logo" width="25" class="no-grav" scale="0">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="">
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your WordPress.com account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'wordpress' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://triangleinequality.wordpress.com/2013/08/19/decorators-in-python-and-syncing-objects/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./Decorators in Python and Syncing Objects « triangleinequality_files/ad516503a11cd5ca435acc9bb6523536(1)" alt="Twitter picture" width="25" class="no-grav" originals="25" scale="2">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="">
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'twitter' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://triangleinequality.wordpress.com/2013/08/19/decorators-in-python-and-syncing-objects/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./Decorators in Python and Syncing Objects « triangleinequality_files/ad516503a11cd5ca435acc9bb6523536(1)" alt="Facebook photo" width="25" class="no-grav" originals="25" scale="2">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="">
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'facebook' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://triangleinequality.wordpress.com/2013/08/19/decorators-in-python-and-syncing-objects/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./Decorators in Python and Syncing Objects « triangleinequality_files/ad516503a11cd5ca435acc9bb6523536(1)" alt="Google+ photo" width="25" class="no-grav" originals="25" scale="2">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="">
+				<p class="comment-form-posting-as pa-googleplus"><strong></strong> You are commenting using your Google+ account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'googleplus' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://triangleinequality.wordpress.com/2013/08/19/decorators-in-python-and-syncing-objects/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div id="comment-form-subscribe" style="display: none;">
+	<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6"> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of new comments via email.</label></p></div>
+
+												<p class="form-submit" style="display: none;">
+							<input name="submit" type="submit" id="comment-submit" class="submit" value="Post Comment">
+							<input type="hidden" name="comment_post_ID" value="92" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+						</p>
+						<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="5788a4564d"></p>
+<input type="hidden" name="genseq" value="1430807649">
+<p style="display: none;"></p>					<input type="hidden" id="ak_js" name="ak_js" value="1430808151831"></form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>
+</div><!-- #comments -->
+	</div><!-- end .column-content -->
+
+	
+	
+</div><!-- end #content -->
+
+			<div id="footer" class="clearfix">
+				
+								<p class="copy">
+					<a href="https://wordpress.com/?ref=footer_website">Create a free website or blog at WordPress.com</a>.<span class="sep"> / </span>
+					<a href="https://wordpress.com/themes/academica/" title="Learn more about this theme">The Academica Theme</a>.				</p>
+			</div><!-- end #footer -->
+		</div><!-- end #wrap -->
+
+		<!-- wpcom_wp_footer -->
+<script type="text/javascript" src="./Decorators in Python and Syncing Objects « triangleinequality_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Decorators in Python and Syncing Objects « triangleinequality_files/wpgroho.js"></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+
+			if (typeof Gravatar === "undefined"){
+				return;
+			}
+
+			if ( typeof Gravatar.init !== "function" ) {
+				return;
+			}			
+
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"https:\/\/triangleinequality.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"https:\/\/triangleinequality.wordpress.com\/wp-login.php?action=logout&_wpnonce=4327dc2202","homeURL":"https:\/\/triangleinequality.wordpress.com\/","postID":"92","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"0","userIsLoggedIn":"","isJetpack":"0","text_direction":"ltr"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Decorators in Python and Syncing Objects « triangleinequality_files/saved_resource(2)"></script>
+
+	<div id="bit" class="loggedout-follow-normal" style="bottom: -260px;">
+		<a class="bsub" href="javascript:void(0)"><span id="bsub-text">Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow “triangleinequality”</label></h3>
+
+			<form action="https://subscribe.wordpress.com/" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+						<p class="bit-follow-count">Join 38 other followers</p>
+			<p><input type="email" name="email" value="Enter your email address" onfocus="this.value=(this.value==&quot;Enter your email address&quot;) ? &quot;&quot; : this.value;" onblur="this.value=(this.value==&quot;&quot;) ? &quot;Enter your email address&quot; : this.value;" id="loggedout-follow-field"></p>
+
+			<input type="hidden" name="action" value="subscribe">
+			<input type="hidden" name="blog_id" value="52270418">
+			<input type="hidden" name="source" value="https://triangleinequality.wordpress.com/2013/08/19/decorators-in-python-and-syncing-objects/">
+			<input type="hidden" name="sub-type" value="loggedout-follow">
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="9692dc94a5"><input type="hidden" name="_wp_http_referer" value="/2013/08/19/decorators-in-python-and-syncing-objects/">
+			<p id="bsub-subscribe-button"><input type="submit" value="Sign me up"></p>
+			</form>
+					<div id="bsub-credit"><a href="https://wordpress.com/?ref=lof">Build a website with WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"https:\/\/triangleinequality.wordpress.com\/2013\/08\/19\/decorators-in-python-and-syncing-objects\/":92};
+		window.WPCOM_site_ID = 52270418;
+	</script>
+		<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-google-plus-1' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=480,height=550' );
+				return false;
+			});
+		});
+		</script>
+				<iframe src="./Decorators in Python and Syncing Objects « triangleinequality_files/master.html" scrolling="no" id="likes-master" name="likes-master" style="display:none;"></iframe>
+		<div id="likes-other-gravatars"><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type="text/javascript">
+		//<![CDATA[
+			var jetpackLikesWidgetQueue = [];
+			var jetpackLikesWidgetBatch = [];
+			var jetpackLikesMasterReady = false;
+
+			function JetpackLikespostMessage( message, target ) {
+				if ( "string" === typeof message ){
+					try{
+						message = JSON.parse( message );
+					}
+					catch(e) {
+						return;
+					}
+				}
+
+				pm( {
+					target: target,
+					type: 'likesMessage',
+					data: message,
+					origin: '*'
+				} );
+			}
+
+			function JetpackLikesBatchHandler() {
+				var requests = [];
+				jQuery( 'div.jetpack-likes-widget-unloaded' ).each( function( i ) {
+					if ( jetpackLikesWidgetBatch.indexOf( this.id ) > -1 )
+						return;
+					jetpackLikesWidgetBatch.push( this.id );
+					var regex = /like-(post|comment)-wrapper-(\d+)-(\d+)-(\w+)/;
+					var match = regex.exec( this.id );
+					if ( ! match || match.length != 5 )
+						return;
+
+					var info = {
+						blog_id: match[2],
+						width:   this.width
+					};
+
+					if ( 'post' == match[1] ) {
+						info.post_id = match[3];
+					} else if ( 'comment' == match[1] ) {
+						info.comment_id = match[3];
+					}
+
+					info.obj_id = match[4];
+
+					requests.push( info );
+				});
+
+				if ( requests.length > 0 ) {
+					JetpackLikespostMessage( { event: 'initialBatch', requests: requests }, window.frames['likes-master'] );
+				}
+			}
+
+			function JetpackLikesMessageListener( event ) {
+				if ( "undefined" == typeof event.event )
+					return;
+
+				if ( 'masterReady' == event.event ) {
+					jQuery( document ).ready( function() {
+						jetpackLikesMasterReady = true;
+
+						var stylesData = {
+								event: 'injectStyles'
+						};
+
+						if ( jQuery( 'iframe.admin-bar-likes-widget' ).length > 0 ) {
+							JetpackLikespostMessage( { event: 'adminBarEnabled' }, window.frames[ 'likes-master' ] );
+
+							stylesData.adminBarStyles = {
+								background: jQuery( '#wpadminbar .quicklinks li#wp-admin-bar-wpl-like > a' ).css( 'background' ),
+								isRtl: ( 'rtl' == jQuery( '#wpadminbar' ).css( 'direction' ) )
+							};
+						}
+
+						if ( !window.addEventListener )
+							jQuery( '#wp-admin-bar-admin-bar-likes-widget' ).hide();
+
+						stylesData.textStyles = {
+							color: jQuery( '.sd-text-color').css( 'color' ),
+							fontFamily: jQuery( '.sd-text-color' ).css( 'font-family' ),
+							fontSize: jQuery( '.sd-text-color' ).css( 'font-size' ),
+							direction: jQuery( '.sd-text-color' ).css( 'direction' ),
+							fontWeight: jQuery( '.sd-text-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-text-color' ).css( 'font-style' ),
+							textDecoration: jQuery( '.sd-text-color' ).css('text-decoration')
+						};
+
+						stylesData.linkStyles = {
+							color: jQuery( '.sd-link-color' ).css('color'),
+							fontFamily: jQuery( '.sd-link-color' ).css('font-family'),
+							fontSize: jQuery( '.sd-link-color' ).css('font-size'),
+							textDecoration: jQuery( '.sd-link-color' ).css('text-decoration'),
+							fontWeight: jQuery( '.sd-link-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-link-color' ).css( 'font-style' )
+						};
+
+						JetpackLikespostMessage( stylesData, window.frames[ 'likes-master' ] );
+
+						JetpackLikesBatchHandler();
+
+						jQuery( document ).on( 'inview', 'div.jetpack-likes-widget-unloaded', function() {
+							jetpackLikesWidgetQueue.push( this.id );
+						});
+					});
+				}
+
+				if ( 'showLikeWidget' == event.event ) {
+					jQuery( '#' + event.id + ' .post-likes-widget-placeholder'  ).fadeOut( 'fast', function() {
+						jQuery( '#' + event.id + ' .post-likes-widget' ).fadeIn( 'fast', function() {
+							JetpackLikespostMessage( { event: 'likeWidgetDisplayed', blog_id: event.blog_id, post_id: event.post_id, obj_id: event.obj_id }, window.frames['likes-master'] );
+						});
+					});
+				}
+
+				if ( 'clickReblogFlair' == event.event ) {
+					wpcom_reblog.toggle_reblog_box_flair( event.obj_id );
+				}
+
+				if ( 'showOtherGravatars' == event.event ) {
+					var $container = jQuery( '#likes-other-gravatars' );
+					var $list = $container.find( 'ul' );
+
+					$container.hide();
+					$list.html( '' );
+
+					$container.find( '.likes-text span' ).text( event.total );
+
+					jQuery.each( event.likers, function( i, liker ) {
+						$list.append( '<li class="' + liker.css_class + '"><a href="' + liker.profile_URL + '" class="wpl-liker" rel="nofollow" target="_parent"><img src="' + liker.avatar_URL + '" alt="' + liker.name + '" width="30" height="30" style="padding-right: 3px;" /></a></li>');
+					} );
+
+					var offset = jQuery( "[name='" + event.parent + "']" ).offset();
+
+					$container.css( 'left', offset.left + event.position.left - 10 + 'px' );
+					$container.css( 'top', offset.top + event.position.top - 33 + 'px' );
+
+					var rowLength = Math.floor( event.width / 37 );
+					var height = ( Math.ceil( event.likers.length / rowLength ) * 37 ) + 13;
+					if ( height > 204 ) {
+						height = 204;
+					}
+
+					$container.css( 'height', height + 'px' );
+					$container.css( 'width', rowLength * 37 - 7 + 'px' );
+
+					$list.css( 'width', rowLength * 37 + 'px' );
+
+					$container.fadeIn( 'slow' );
+
+					var scrollbarWidth = $list[0].offsetWidth - $list[0].clientWidth;
+					if ( scrollbarWidth > 0 ) {
+						$container.width( $container.width() + scrollbarWidth );
+						$list.width( $list.width() + scrollbarWidth );
+					}
+				}
+			}
+
+			pm.bind( 'likesMessage', function(e) { JetpackLikesMessageListener(e); } );
+
+			jQuery( document ).click( function( e ) {
+				var $container = jQuery( '#likes-other-gravatars' );
+
+				if ( $container.has( e.target ).length === 0 ) {
+					$container.fadeOut( 'slow' );
+				}
+			});
+
+			function JetpackLikesWidgetQueueHandler() {
+				var wrapperID;
+				if ( ! jetpackLikesMasterReady ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				if ( jetpackLikesWidgetQueue.length > 0 ) {
+					// We may have a widget that needs creating now
+					var found = false;
+					while( jetpackLikesWidgetQueue.length > 0 ) {
+						// Grab the first member of the queue that isn't already loading.
+						wrapperID = jetpackLikesWidgetQueue.splice( 0, 1 )[0];
+						if ( jQuery( '#' + wrapperID ).hasClass( 'jetpack-likes-widget-unloaded' ) ) {
+							found = true;
+							break;
+						}
+					}
+					if ( ! found ) {
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				} else if ( jQuery( 'div.jetpack-likes-widget-unloaded' ).length > 0 ) {
+					// Grab any unloaded widgets for a batch request
+					JetpackLikesBatchHandler();
+
+					// Get the next unloaded widget
+					wrapperID = jQuery( 'div.jetpack-likes-widget-unloaded' ).first()[0].id;
+					if ( ! wrapperID ) {
+						// Everything is currently loaded
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				}
+
+				if ( 'undefined' === typeof wrapperID ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				var $wrapper = jQuery( '#' + wrapperID );
+				$wrapper.find( 'iframe' ).remove();
+
+				if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='22px' width='68px' frameBorder='0' scrolling='no' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				} else {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='55px' width='100%' frameBorder='0' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				}
+
+				$wrapper.removeClass( 'jetpack-likes-widget-unloaded' ).addClass( 'jetpack-likes-widget-loading' );
+
+				$wrapper.find( 'iframe' ).load( function( e ) {
+					var $iframe = jQuery( e.target );
+					$wrapper.removeClass( 'jetpack-likes-widget-loading' ).addClass( 'jetpack-likes-widget-loaded' );
+
+					JetpackLikespostMessage( { event: 'loadLikeWidget', name: $iframe.attr( 'name' ), width: $iframe.width() }, window.frames[ 'likes-master' ] );
+
+					if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+						$wrapper.find( 'iframe' ).Jetpack( 'resizeable' );
+					}
+				});
+				setTimeout( JetpackLikesWidgetQueueHandler, 250 );
+			}
+			JetpackLikesWidgetQueueHandler();
+		//]]>
+		</script>
+<script type="text/javascript" src="./Decorators in Python and Syncing Objects « triangleinequality_files/form.js"></script>
+<script type="text/javascript" src="./Decorators in Python and Syncing Objects « triangleinequality_files/saved_resource(3)"></script>
+<script type="text/javascript">
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "https://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.9b";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "https://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?m=1363304414g&amp;ver=3.0.9b";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var JetpackEmojiSettings = {"base_url":"https:\/\/s0.wp.com\/wp-content\/mu-plugins\/emoji\/twemoji\/"};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Decorators in Python and Syncing Objects « triangleinequality_files/saved_resource(4)"></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="./Decorators in Python and Syncing Objects « triangleinequality_files/w.js" type="text/javascript" async="" defer=""></script>
+<script type="text/javascript">
+_tkq = window._tkq || [];
+_stq = window._stq || [];
+_tkq.push(['storeContext', {'blog_id':'52270418','blog_tz':'0','user_lang':'en','blog_lang':'en','user_id':'0'}]);
+_stq.push(['view', {'blog':'52270418','v':'wpcom','tz':'0','user_id':'0','post':'92','subd':'triangleinequality'}]);
+_stq.push(['extra', {'crypt':'UE40eW5QN0p8M2Y/RE1lYixwbDJzR2UxfERBOWN1WEZPJjlNT1B8Sz9dMlkld0Q9WTZdOSt0cmp4Qk9OX2dZQ1tIV3RCbTg0N2NacUc5WlRBYW5hQV1UT21vSVgmMUdMJUpuSyZ0L2ZVJS1YWlAxLmUrN19JQnJoeGtyZVFTbEFOeVsyWEc3UGVXTURLSEVHbkhmMj9QVDU0bEUycnBbT2hJcj81Vy1xPXV1UzlhWUJNNWZUaXQ0dm9zeFtxNGNWJjguMFRKU3FLSC5wUi8xJTk3MF9PL1VKSHZlLFZuL1txXWJoQTBhdVdhZW5rUmFUbDhUPXA4V3JxeE11VS94N21nPU9aZ3pHK2ctSTJoW1RRalpGM0owLFB4Sk1GUU5KcFswYXJrQi8yLz9BS35GPUtKOGhLeGtjZlA='}]);
+_stq.push([ 'clickTrackerInit', '52270418', '92' ]);
+	</script>
+<noscript>&lt;img src="https://pixel.wp.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /&gt;</noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//pixel.wp.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>	
+
+<!--
+	generated in 0.372 seconds
+	78233 bytes batcached for 300 seconds
+-->
+<img src="./Decorators in Python and Syncing Objects « triangleinequality_files/g.gif" id="wpstats" scale="0"></body></html>

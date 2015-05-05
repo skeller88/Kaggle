@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<!-- saved from url=(0091)https://triangleinequality.wordpress.com/2013/08/22/special-graphs-and-dynamic-inheritance/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<title>Special Graphs and Dynamic Inheritance « triangleinequality</title>
+
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://triangleinequality.wordpress.com/xmlrpc.php">
+
+<link rel="alternate" type="application/rss+xml" title="triangleinequality » Feed" href="https://triangleinequality.wordpress.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="triangleinequality » Comments Feed" href="https://triangleinequality.wordpress.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="triangleinequality » Special Graphs and Dynamic Inheritance Comments Feed" href="https://triangleinequality.wordpress.com/2013/08/22/special-graphs-and-dynamic-inheritance/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel="stylesheet" id="all-css-0" href="./Special Graphs and Dynamic Inheritance « triangleinequality_files/saved_resource" type="text/css" media="all">
+<script type="text/javascript">
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Special Graphs and Dynamic Inheritance « triangleinequality_files/saved_resource(1)"></script>
+<link rel="stylesheet" id="all-css-0" href="./Special Graphs and Dynamic Inheritance « triangleinequality_files/style.css" type="text/css" media="all">
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='https://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://triangleinequality.wordpress.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://s1.wp.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Graphs as Objects in Python" href="https://triangleinequality.wordpress.com/2013/08/21/graphs-as-objects-in-python/">
+<link rel="next" title="Decision Trees Part 1: Representation" href="https://triangleinequality.wordpress.com/2013/08/24/decision-trees-part-1-representation/">
+<meta name="generator" content="WordPress.com">
+<link rel="canonical" href="./Special Graphs and Dynamic Inheritance « triangleinequality_files/Special Graphs and Dynamic Inheritance « triangleinequality.html">
+<link rel="shortlink" href="http://wp.me/p3xjVg-1Q">
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=json&url=https%3A%2F%2Ftriangleinequality.wordpress.com%2F2013%2F08%2F22%2Fspecial-graphs-and-dynamic-inheritance%2F&for=wpcom-auto-discovery"><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=xml&url=https%3A%2F%2Ftriangleinequality.wordpress.com%2F2013%2F08%2F22%2Fspecial-graphs-and-dynamic-inheritance%2F&for=wpcom-auto-discovery">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Special Graphs and Dynamic Inheritance">
+<meta property="og:url" content="https://triangleinequality.wordpress.com/2013/08/22/special-graphs-and-dynamic-inheritance/">
+<meta property="og:description" content="Welcome back! Last time we introduced the Vertex, Edge, Graph, DirGraph and UnDirGraph classes, now we are going to have some fun and introduce the special graphs like linear, cycle, complete and s...">
+<meta property="article:published_time" content="2013-08-22T12:01:33+00:00">
+<meta property="article:modified_time" content="2013-09-01T09:45:10+00:00">
+<meta property="article:author" content="https://triangleinequality.wordpress.com/author/triangleinequality/">
+<meta property="og:site_name" content="triangleinequality">
+<meta property="og:image" content="https://triangleinequality.files.wordpress.com/2013/06/narytree.png">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:site" content="@wordpressdotcom">
+<meta name="twitter:image:src" content="https://triangleinequality.files.wordpress.com/2013/06/narytree.png?w=640">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="fb:app_id" content="249643311490">
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom">
+<link rel="shortcut icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="apple-touch-icon-precomposed" href="https://s0.wp.com/i/webclip.png">
+<link rel="openid.server" href="https://triangleinequality.wordpress.com/?openidserver=1">
+<link rel="openid.delegate" href="https://triangleinequality.wordpress.com/">
+<link rel="search" type="application/opensearchdescription+xml" href="https://triangleinequality.wordpress.com/osd.xml" title="triangleinequality">
+<link rel="search" type="application/opensearchdescription+xml" href="https://wordpress.com/opensearch.xml" title="WordPress.com">
+<meta name="application-name" content="triangleinequality"><meta name="msapplication-window" content="width=device-width;height=device-height"><meta name="msapplication-tooltip" content="for matters mathematical"><meta name="msapplication-task" content="name=Subscribe;action-uri=https://triangleinequality.wordpress.com/feed/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="title" content="Special Graphs and Dynamic Inheritance | triangleinequality on WordPress.com">
+<meta name="description" content="Welcome back! Last time we introduced the Vertex, Edge, Graph, DirGraph and UnDirGraph classes, now we are going to have some fun and introduce the special graphs like linear, cycle, complete and so on. If you want to refresh your memory on the special graphs, we discussed them here. There is also a wider programming…">
+	<style type="text/css">
+			#site-title a,
+		#site-description {
+			color: #545454 !important;
+		}
+		</style>
+	<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #999999; }
+</style>
+
+<script type="text/javascript" src="./Special Graphs and Dynamic Inheritance « triangleinequality_files/google_service.js">
+</script>
+<script type="text/javascript">
+if ( typeof GS_googleAddAdSenseService == 'function' ) { GS_googleAddAdSenseService("ca-pub-3443918307802676"); }
+if ( typeof GS_googleEnableAllServices == 'function' ) { GS_googleEnableAllServices() };
+</script><script src="https://securepubads.g.doubleclick.net/gampad/google_ads.js"></script>
+<script type="text/javascript" src="https://c.amazon-adsystem.com/aax2/amzn_ads.js"></script>
+<script type="text/javascript">
+try { amznads.getAds("3033","300x250"); } catch(e) { /* ignore */ }
+</script>
+<script type="text/javascript">
+var amznKeys = amznads.getKeys();
+if (typeof amznKeys != "undefined" && amznKeys != "") { for (var i =0; i < amznKeys.length; i++) { var key = amznKeys[i]; GA_googleAddAttr("amzn", key);} }
+document.close();
+</script>
+<script type="text/javascript">
+if ( typeof GA_googleAddSlot == 'function' ) { GA_googleAddSlot("ca-pub-3443918307802676", "wpcom_below_post"); }
+</script>
+<script type="text/javascript">
+if ( typeof GA_googleFetchAds == 'function' ) { GA_googleFetchAds(); }
+</script>
+
+<script type="text/javascript">
+var wpcom_ads = { bid: 52270418, pt: 'permalink', wa: 0, as: 0, domain: 'triangleinequality.wordpress.com', url: 'https://triangleinequality.wordpress.com/2013/08/22/special-graphs-and-dynamic-inheritance/', gid: '', };
+</script>
+<link rel="stylesheet" type="text/css" href="./Special Graphs and Dynamic Inheritance « triangleinequality_files/shCore.css"><link rel="stylesheet" type="text/css" href="./Special Graphs and Dynamic Inheritance « triangleinequality_files/shThemeDefault.css"><style type="text/css" id="syntaxhighlighteranchor"></style>
+<script type="text/javascript">
+	window.google_analytics_uacct = "UA-52447-2";
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_setDomainName', 'wordpress.com']);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script><script type="text/javascript" async="" src="./Special Graphs and Dynamic Inheritance « triangleinequality_files/ga.js"></script>
+<link rel="stylesheet" type="text/css" id="gravatar-card-css" href="./Special Graphs and Dynamic Inheritance « triangleinequality_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="./Special Graphs and Dynamic Inheritance « triangleinequality_files/services.css"></head>
+<body class="single single-post postid-114 single-format-standard custom-background mp6 customizer-styles-applied column-full column-right highlander-enabled highlander-light">
+	<div id="wrap">
+		<div id="header" class="clearfix">
+
+			<div id="main-nav">
+				<div class="menu"><ul><li><a href="https://triangleinequality.wordpress.com/">Home</a></li><li class="page_item page-item-1"><a href="https://triangleinequality.wordpress.com/about/">About</a></li><li class="page_item page-item-233"><a href="https://triangleinequality.wordpress.com/contents/">Contents</a></li></ul></div>
+			</div><!-- end #main-nav -->
+
+			<div id="logo">
+				<h1 id="site-title">
+					<a href="https://triangleinequality.wordpress.com/" title="triangleinequality - for matters mathematical" rel="home">
+						triangleinequality					</a>
+				</h1>
+				<p id="site-description">for matters mathematical</p>
+			</div><!-- end #logo -->
+
+			<div id="search">
+				<form method="get" id="searchform" action="https://triangleinequality.wordpress.com/">
+	<label for="s" class="assistive-text hidden">Search</label>
+	<input id="s" type="text" name="s" placeholder="Search">
+	<button id="searchsubmit" name="submit" type="submit">Search</button>
+</form>			</div><!-- end #search -->
+
+			
+<div id="social">
+	<ul>
+			</ul>
+</div>
+		</div><!-- end #header -->
+
+		<hr class="sepinside">
+<div id="content" class="clearfix">
+
+	
+	<div class="column column-title">
+		<div id="crumbs">
+	<p><a href="https://triangleinequality.wordpress.com/">Home</a> » <a href="https://triangleinequality.wordpress.com/category/maths/">maths</a> » <a href="https://triangleinequality.wordpress.com/category/maths/graph-theory/">graph theory</a> » <span class="current">Special Graphs and Dynamic&nbsp;Inheritance</span></p>
+</div><!-- end #crumbs -->		<h1 class="title-header">Special Graphs and Dynamic&nbsp;Inheritance</h1>	</div><!-- end .column-title -->
+
+	
+	<div class="column column-content single">
+
+		
+<div id="post-114" class="post-114 post type-post status-publish format-standard has-post-thumbnail hentry category-graph-theory category-maths category-python tag-complete-graph tag-cycle-graph tag-directed-graph tag-graph-mathematics tag-path-graph tag-python">
+
+	<div class="entry-content clearfix">
+		<p>Welcome back! <a title="Graphs as Objects in Python" href="https://triangleinequality.wordpress.com/2013/08/21/graphs-as-objects-in-python/">Last time</a> we introduced the Vertex, Edge, Graph, DirGraph and UnDirGraph classes, now we are going to have some fun and introduce the special graphs like linear, cycle, complete and so on. If you want to refresh your memory on the special graphs, we discussed them <a title="A First Taste of Graph Theory" href="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/">here</a>.</p>
+<p>There is also a wider programming lesson to be learned concerning ‘dynamic inheritance’. Each of these special graphs, take the linear graph for instance, might want to be directed or undirected, but how to model this? We want a general notion of a linear graph, that changes depending upon whether it is directed or undirected, meaning we would like a class that can somehow choose to inherit from different classes.</p>
+<p>My solution for this problem is to wrap our class definition in a function, and so inheritance is decided at runtime! If you know of a better one, please let me know! Let’s see how it works for a linear graph.</p>
+<div><div id="highlighter_224470" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python comments">#This is a wrapper to a class definition, deciding whether to inherit</code></div><div class="line number2 index1 alt1"><code class="python comments">#from DirGraph or UnDirGraph at runtime. It can be initialised by</code></div><div class="line number3 index2 alt2"><code class="python comments">#number of vertices or the number of edges.</code></div><div class="line number4 index3 alt1">&nbsp;</div><div class="line number5 index4 alt2"><code class="python keyword">def</code> <code class="python plain">return_linear_class(directed</code><code class="python keyword">=</code><code class="python color1">False</code><code class="python plain">):</code></div><div class="line number6 index5 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python plain">directed:</code></div><div class="line number7 index6 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">base</code><code class="python keyword">=</code><code class="python plain">DirGraph</code></div><div class="line number8 index7 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">else</code><code class="python plain">:</code></div><div class="line number9 index8 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">base</code><code class="python keyword">=</code><code class="python plain">UnDirGraph</code></div><div class="line number10 index9 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">class</code> <code class="python plain">Linear(base, </code><code class="python functions">object</code><code class="python plain">):</code></div><div class="line number11 index10 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">__init__(</code><code class="python color1">self</code><code class="python plain">, number_vertices</code><code class="python keyword">=</code><code class="python value">0</code><code class="python plain">, number_edges</code><code class="python keyword">=</code><code class="python value">0</code><code class="python plain">, </code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs):</code></div><div class="line number12 index11 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">super</code><code class="python plain">(Linear, </code><code class="python color1">self</code><code class="python plain">).__init__(</code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs)</code></div><div class="line number13 index12 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.linear_generate(number_vertices, number_edges)</code></div><div class="line number14 index13 alt1">&nbsp;</div><div class="line number15 index14 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">linear_generate(</code><code class="python color1">self</code><code class="python plain">,number_vertices, number_edges):</code></div><div class="line number16 index15 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python plain">(</code><code class="python keyword">not</code> <code class="python plain">number_edges </code><code class="python keyword">=</code><code class="python keyword">=</code><code class="python value">0</code><code class="python plain">) </code><code class="python keyword">and</code> <code class="python plain">(</code><code class="python keyword">not</code> <code class="python plain">number_vertices</code><code class="python keyword">=</code><code class="python keyword">=</code><code class="python value">0</code><code class="python plain">):</code></div><div class="line number17 index16 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python keyword">not</code> <code class="python plain">number_vertices </code><code class="python keyword">=</code><code class="python keyword">=</code> <code class="python plain">number_edges</code><code class="python keyword">+</code><code class="python value">1</code><code class="python plain">:</code></div><div class="line number18 index17 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">print</code> <code class="python string">'Number of edges and vertices incompatible!'</code></div><div class="line number19 index18 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code></div><div class="line number20 index19 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">else</code><code class="python plain">:</code></div><div class="line number21 index20 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.number_vertices</code><code class="python keyword">=</code><code class="python plain">number_vertices</code></div><div class="line number22 index21 alt1">&nbsp;</div><div class="line number23 index22 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">elif</code> <code class="python keyword">not</code> <code class="python plain">number_edges</code><code class="python keyword">=</code><code class="python keyword">=</code><code class="python value">0</code><code class="python plain">:</code></div><div class="line number24 index23 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.number_vertices </code><code class="python keyword">=</code> <code class="python plain">number_edges </code><code class="python keyword">+</code><code class="python value">1</code></div><div class="line number25 index24 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">else</code><code class="python plain">:</code></div><div class="line number26 index25 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.number_vertices </code><code class="python keyword">=</code> <code class="python plain">number_vertices</code></div><div class="line number27 index26 alt2">&nbsp;</div><div class="line number28 index27 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.create_vertices(</code><code class="python color1">self</code><code class="python plain">.number_vertices)</code></div><div class="line number29 index28 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">for</code> <code class="python plain">index </code><code class="python keyword">in</code> <code class="python functions">range</code><code class="python plain">(</code><code class="python color1">self</code><code class="python plain">.number_vertices </code><code class="python keyword">-</code><code class="python value">1</code><code class="python plain">):</code></div><div class="line number30 index29 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">Source </code><code class="python keyword">=</code> <code class="python color1">self</code><code class="python plain">.vertices[index]</code></div><div class="line number31 index30 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">Target </code><code class="python keyword">=</code> <code class="python color1">self</code><code class="python plain">.vertices[index</code><code class="python keyword">+</code><code class="python value">1</code><code class="python plain">]</code></div><div class="line number32 index31 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.create_edge([Source, Target])</code></div><div class="line number33 index32 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python plain">Linear</code></div></div></td></tr></tbody></table></div></div>
+<p>Now this gives us a class definition, but we still need to instantiate the class, which we also do with a function, this is straightforward. Notice that we use **kwargs to pass down any regular Graph or UnDirGraph or DirGraph arguments you might want to specify.</p>
+<div><div id="highlighter_75650" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python comments">#This instantiates the Linear class.</code></div><div class="line number2 index1 alt1"><code class="python keyword">def</code> <code class="python plain">create_linear(directed</code><code class="python keyword">=</code><code class="python color1">False</code><code class="python plain">, number_vertices</code><code class="python keyword">=</code><code class="python value">0</code><code class="python plain">, number_edges</code><code class="python keyword">=</code><code class="python value">0</code><code class="python plain">,</code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs):</code></div><div class="line number3 index2 alt2"><code class="python plain">linear </code><code class="python keyword">=</code> <code class="python plain">return_linear_class(directed)(number_vertices, number_edges,</code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs)</code></div><div class="line number4 index3 alt1"><code class="python keyword">return</code> <code class="python plain">linear</code></div></div></td></tr></tbody></table></div></div>
+<p>And that is that. Now just so you believe that it works we will make a directed and undirected linear graph with 10 vertices and plot the results.</p>
+<div><div id="highlighter_811601" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python plain">testdir</code><code class="python keyword">=</code><code class="python plain">create_linear(number_vertices</code><code class="python keyword">=</code><code class="python value">10</code><code class="python plain">)</code></div><div class="line number2 index1 alt1"><code class="python plain">testundir</code><code class="python keyword">=</code><code class="python plain">create_linear(directed</code><code class="python keyword">=</code><code class="python color1">True</code><code class="python plain">,number_vertices</code><code class="python keyword">=</code><code class="python value">10</code><code class="python plain">)</code></div><div class="line number3 index2 alt2"><code class="python plain">testdir.plot()</code></div><div class="line number4 index3 alt1"><code class="python plain">testundir.plot()</code></div></div></td></tr></tbody></table></div></div>
+<p>Producing the following images:<br>
+<a href="https://triangleinequality.files.wordpress.com/2013/08/dirlinear10-e1377168997478.png"><img class="alignnone size-full wp-image-117" alt="undirlinear10" src="./Special Graphs and Dynamic Inheritance « triangleinequality_files/dirlinear10-e1377168997478.png" originalw="960" width="300" height="292" scale="2"></a><a href="https://triangleinequality.files.wordpress.com/2013/08/undirlinear10-e1377169058669.png"><img class="alignnone size-full wp-image-116" alt="dirlinear10" src="./Special Graphs and Dynamic Inheritance « triangleinequality_files/undirlinear10-e1377169058669.png" originalw="960" width="300" height="292" scale="2"></a></p>
+<p>Notice that the plotting in igraph is sometimes a bit random!</p>
+<p>Next up is cycle graphs, we do the same inheritance trick as before, and also we use object composition to build the cycle by joining the ends of a linear graph.</p>
+<div><div id="highlighter_163963" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python comments">#Class definition wrapper to dynamically inherti from DirGraph or UnDirGraph.</code></div><div class="line number2 index1 alt1"><code class="python comments">#Also has a composition from Linear, to create a cycle it joins the ends</code></div><div class="line number3 index2 alt2"><code class="python comments">#of a linear graph.</code></div><div class="line number4 index3 alt1"><code class="python keyword">def</code> <code class="python plain">return_cycle_class(directed</code><code class="python keyword">=</code><code class="python color1">False</code><code class="python plain">):</code></div><div class="line number5 index4 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python plain">directed:</code></div><div class="line number6 index5 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">base </code><code class="python keyword">=</code> <code class="python plain">DirGraph</code></div><div class="line number7 index6 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">else</code><code class="python plain">:</code></div><div class="line number8 index7 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">base </code><code class="python keyword">=</code> <code class="python plain">UnDirGraph</code></div><div class="line number9 index8 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">class</code> <code class="python plain">Cycle(base, </code><code class="python functions">object</code><code class="python plain">):</code></div><div class="line number10 index9 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">__init__(</code><code class="python color1">self</code><code class="python plain">, number_vertices</code><code class="python keyword">=</code><code class="python value">0</code><code class="python plain">, number_edges</code><code class="python keyword">=</code><code class="python value">0</code><code class="python plain">, </code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs):</code></div><div class="line number11 index10 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">super</code><code class="python plain">(Cycle, </code><code class="python color1">self</code><code class="python plain">).__init__(</code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs)</code></div><div class="line number12 index11 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python plain">(</code><code class="python keyword">not</code> <code class="python plain">number_edges</code><code class="python keyword">=</code><code class="python keyword">=</code><code class="python value">0</code><code class="python plain">) </code><code class="python keyword">and</code> <code class="python plain">(</code><code class="python keyword">not</code> <code class="python plain">number_vertices</code><code class="python keyword">=</code><code class="python keyword">=</code><code class="python value">0</code><code class="python plain">):</code></div><div class="line number13 index12 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python keyword">not</code> <code class="python plain">number_edges </code><code class="python keyword">=</code><code class="python keyword">=</code> <code class="python plain">number_vertices:</code></div><div class="line number14 index13 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">print</code> <code class="python string">'Numbers of edges and vertices incompatible!'</code></div><div class="line number15 index14 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code></div><div class="line number16 index15 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">elif</code> <code class="python keyword">not</code> <code class="python plain">number_edges </code><code class="python keyword">=</code><code class="python keyword">=</code><code class="python value">0</code><code class="python plain">:</code></div><div class="line number17 index16 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">number_vertices </code><code class="python keyword">=</code> <code class="python plain">number_edges</code></div><div class="line number18 index17 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">Linear_part </code><code class="python keyword">=</code> <code class="python plain">create_linear()</code></div><div class="line number19 index18 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">Linear_part.linear_generate(number_vertices, number_edges)</code></div><div class="line number20 index19 alt1">&nbsp;</div><div class="line number21 index20 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.vertices </code><code class="python keyword">=</code> <code class="python plain">Linear_part.vertices</code></div><div class="line number22 index21 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.edges </code><code class="python keyword">=</code> <code class="python plain">Linear_part.edges</code></div><div class="line number23 index22 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.cycle_generate(number_vertices)</code></div><div class="line number24 index23 alt1">&nbsp;</div><div class="line number25 index24 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">cycle_generate(</code><code class="python color1">self</code><code class="python plain">, number_vertices):</code></div><div class="line number26 index25 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">Target </code><code class="python keyword">=</code> <code class="python color1">self</code><code class="python plain">.vertices[</code><code class="python value">0</code><code class="python plain">]</code></div><div class="line number27 index26 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">Source </code><code class="python keyword">=</code> <code class="python color1">self</code><code class="python plain">.vertices[number_vertices</code><code class="python keyword">-</code><code class="python value">1</code><code class="python plain">]</code></div><div class="line number28 index27 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.create_edge(ends</code><code class="python keyword">=</code><code class="python plain">[Source, Target])</code></div><div class="line number29 index28 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python plain">Cycle</code></div></div></td></tr></tbody></table></div></div>
+<p>To test it I will show you an undirected cycle on 10 vertices.</p>
+<div><div id="highlighter_344353" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python plain">t</code><code class="python keyword">=</code><code class="python plain">create_cycle(number_edges</code><code class="python keyword">=</code><code class="python value">9</code><code class="python plain">)</code></div><div class="line number2 index1 alt1"><code class="python plain">t.plot()</code></div></div></td></tr></tbody></table></div></div>
+<p style="text-align:center;">Producing:<br>
+<a href="https://triangleinequality.files.wordpress.com/2013/05/cyclegraph10-e1377171028506.png"><img class="size-full wp-image-58 aligncenter" alt="cyclegraph10" src="./Special Graphs and Dynamic Inheritance « triangleinequality_files/cyclegraph10-e1377171028506.png" originalw="960" width="400" height="392" scale="2"></a></p>
+<p style="text-align:center;">as desired.</p>
+<p>Next up is the complete graph, very easy to do, I only made it for undirected graphs, but it could easily be altered to dynamically inherit.</p>
+<div><div id="highlighter_587142" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">class</code> <code class="python plain">Complete(UnDirGraph, </code><code class="python functions">object</code><code class="python plain">):</code></div><div class="line number2 index1 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">__init__(</code><code class="python color1">self</code><code class="python plain">,number_vertices</code><code class="python keyword">=</code><code class="python value">0</code><code class="python plain">, </code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs):</code></div><div class="line number3 index2 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">super</code><code class="python plain">(Complete, </code><code class="python color1">self</code><code class="python plain">).__init__(</code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs)</code></div><div class="line number4 index3 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.create_vertices(no_create</code><code class="python keyword">=</code><code class="python plain">number_vertices)</code></div><div class="line number5 index4 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">ends</code><code class="python keyword">=</code><code class="python plain">[]</code></div><div class="line number6 index5 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">for</code> <code class="python plain">Source </code><code class="python keyword">in</code> <code class="python color1">self</code><code class="python plain">.vertices:</code></div><div class="line number7 index6 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">for</code> <code class="python plain">Target </code><code class="python keyword">in</code> <code class="python color1">self</code><code class="python plain">.vertices:</code></div><div class="line number8 index7 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python plain">[Source,Target] </code><code class="python keyword">not</code> <code class="python keyword">in</code> <code class="python plain">ends:</code></div><div class="line number9 index8 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python keyword">not</code> <code class="python plain">Source </code><code class="python keyword">=</code><code class="python keyword">=</code> <code class="python plain">Target:</code></div><div class="line number10 index9 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.create_edge(ends</code><code class="python keyword">=</code><code class="python plain">[Source,Target])</code></div><div class="line number11 index10 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">ends.append([Source,Target])</code></div><div class="line number12 index11 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">ends.append([Target, Source])</code></div></div></td></tr></tbody></table></div></div>
+<p>Now writing</p>
+<div><div id="highlighter_6902" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python plain">t </code><code class="python keyword">=</code> <code class="python plain">Complete(number_vertices</code><code class="python keyword">=</code><code class="python value">10</code><code class="python plain">)</code></div><div class="line number2 index1 alt1"><code class="python plain">t.plot()</code></div></div></td></tr></tbody></table></div></div>
+<p>produces</p>
+<p><a href="https://triangleinequality.files.wordpress.com/2013/08/complete10.png"><img class="alignnone size-medium wp-image-126" alt="complete10" src="./Special Graphs and Dynamic Inheritance « triangleinequality_files/complete10.png" width="300" height="300" originalw="300" originalh="300" src-orig="https://triangleinequality.files.wordpress.com/2013/08/complete10.png?w=300&amp;h=300" scale="2"></a>.</p>
+<p>Now we create a Tree class, along with a subclass of nary-trees.</p>
+<div><div id="highlighter_513956" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">def</code> <code class="python plain">return_tree_class(directed</code><code class="python keyword">=</code><code class="python color1">False</code><code class="python plain">):</code></div><div class="line number2 index1 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python plain">directed:</code></div><div class="line number3 index2 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">base </code><code class="python keyword">=</code> <code class="python plain">DirGraph</code></div><div class="line number4 index3 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">else</code><code class="python plain">:</code></div><div class="line number5 index4 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">base </code><code class="python keyword">=</code> <code class="python plain">UnDirGraph</code></div><div class="line number6 index5 alt1">&nbsp;</div><div class="line number7 index6 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">class</code> <code class="python plain">Tree(base, </code><code class="python functions">object</code><code class="python plain">):</code></div><div class="line number8 index7 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">__init__(</code><code class="python color1">self</code><code class="python plain">, </code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs):</code></div><div class="line number9 index8 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">super</code><code class="python plain">(Tree, </code><code class="python color1">self</code><code class="python plain">).__init__(</code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs)</code></div><div class="line number10 index9 alt1">&nbsp;</div><div class="line number11 index10 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">is_leaf(</code><code class="python color1">self</code><code class="python plain">, vertex):</code></div><div class="line number12 index11 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python color1">self</code><code class="python plain">.get_degree(vertex) </code><code class="python keyword">=</code><code class="python keyword">=</code> <code class="python value">1</code><code class="python plain">:</code></div><div class="line number13 index12 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python color1">True</code></div><div class="line number14 index13 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">elif</code> <code class="python color1">self</code><code class="python plain">.get_number_vertices() </code><code class="python keyword">=</code><code class="python keyword">=</code><code class="python value">1</code><code class="python plain">:</code></div><div class="line number15 index14 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python color1">True</code></div><div class="line number16 index15 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">else</code><code class="python plain">:</code></div><div class="line number17 index16 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python color1">False</code></div><div class="line number18 index17 alt1">&nbsp;</div><div class="line number19 index18 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">set_root(</code><code class="python color1">self</code><code class="python plain">, vertex):</code></div><div class="line number20 index19 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python plain">vertex </code><code class="python keyword">in</code> <code class="python color1">self</code><code class="python plain">.vertices:</code></div><div class="line number21 index20 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.remove_vertex_label(</code><code class="python string">'Root'</code><code class="python plain">)</code></div><div class="line number22 index21 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.add_vertex_label(vertex, label</code><code class="python keyword">=</code><code class="python string">'Root'</code><code class="python plain">)</code></div><div class="line number23 index22 alt2">&nbsp;</div><div class="line number24 index23 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">get_root(</code><code class="python color1">self</code><code class="python plain">):</code></div><div class="line number25 index24 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python color1">self</code><code class="python plain">.get_vertex(</code><code class="python string">'Root'</code><code class="python plain">)</code></div><div class="line number26 index25 alt1">&nbsp;</div><div class="line number27 index26 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">get_leaves(</code><code class="python color1">self</code><code class="python plain">):</code></div><div class="line number28 index27 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">leaves </code><code class="python keyword">=</code> <code class="python functions">filter</code><code class="python plain">(</code><code class="python color1">self</code><code class="python plain">.is_leaf,</code><code class="python color1">self</code><code class="python plain">.vertices)</code></div><div class="line number29 index28 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python plain">leaves</code></div><div class="line number30 index29 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python plain">Tree</code></div><div class="line number31 index30 alt2">&nbsp;</div><div class="line number32 index31 alt1"><code class="python keyword">def</code> <code class="python plain">create_tree(directed</code><code class="python keyword">=</code><code class="python color1">False</code><code class="python plain">, </code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs):</code></div><div class="line number33 index32 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">tree </code><code class="python keyword">=</code> <code class="python plain">return_tree_class(directed)(</code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs)</code></div><div class="line number34 index33 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python plain">tree</code></div><div class="line number35 index34 alt2">&nbsp;</div><div class="line number36 index35 alt1"><code class="python keyword">def</code> <code class="python plain">return_nary_tree_class(directed</code><code class="python keyword">=</code><code class="python color1">False</code><code class="python plain">):</code></div><div class="line number37 index36 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">base </code><code class="python keyword">=</code> <code class="python plain">return_tree_class(directed)</code></div><div class="line number38 index37 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">class</code> <code class="python plain">NaryRootedTree(base,</code><code class="python functions">object</code><code class="python plain">):</code></div><div class="line number39 index38 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">__init__(</code><code class="python color1">self</code><code class="python plain">, N</code><code class="python keyword">=</code><code class="python value">0</code><code class="python plain">, </code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs):</code></div><div class="line number40 index39 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">super</code><code class="python plain">(NaryRootedTree, </code><code class="python color1">self</code><code class="python plain">).__init__(</code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs)</code></div><div class="line number41 index40 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.N </code><code class="python keyword">=</code> <code class="python plain">N</code></div><div class="line number42 index41 alt1">&nbsp;</div><div class="line number43 index42 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">split_vertex(</code><code class="python color1">self</code><code class="python plain">, vertex):</code></div><div class="line number44 index43 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python color1">self</code><code class="python plain">.is_leaf(vertex):</code></div><div class="line number45 index44 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">children </code><code class="python keyword">=</code> <code class="python plain">[</code><code class="python color1">self</code><code class="python plain">.Vertex() </code><code class="python keyword">for</code> <code class="python plain">i </code><code class="python keyword">in</code> <code class="python functions">range</code><code class="python plain">(</code><code class="python color1">self</code><code class="python plain">.N)]</code></div><div class="line number46 index45 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">vertex.children </code><code class="python keyword">=</code> <code class="python plain">children</code></div><div class="line number47 index46 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.leaves.discard(vertex)</code></div><div class="line number48 index47 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">for</code> <code class="python plain">Child </code><code class="python keyword">in</code> <code class="python plain">children:</code></div><div class="line number49 index48 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.add_vertex(Child)</code></div><div class="line number50 index49 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.leaves.add(Child)</code></div><div class="line number51 index50 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">Child.parent</code><code class="python keyword">=</code><code class="python plain">vertex</code></div><div class="line number52 index51 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.create_edge(ends</code><code class="python keyword">=</code><code class="python plain">[vertex, Child])</code></div><div class="line number53 index52 alt2">&nbsp;</div><div class="line number54 index53 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">fuse_vertex(</code><code class="python color1">self</code><code class="python plain">, vertex):</code></div><div class="line number55 index54 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">try</code><code class="python plain">:</code></div><div class="line number56 index55 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">children</code><code class="python keyword">=</code><code class="python plain">vertex.children</code></div><div class="line number57 index56 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">except</code> <code class="python plain">AttributeError:</code></div><div class="line number58 index57 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code></div><div class="line number59 index58 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.leaves.add(vertex)</code></div><div class="line number60 index59 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">for</code> <code class="python plain">child </code><code class="python keyword">in</code> <code class="python plain">children:</code></div><div class="line number61 index60 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.fuse_vertex(child)</code></div><div class="line number62 index61 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.remove_vertex(child)</code></div><div class="line number63 index62 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">child.parent </code><code class="python keyword">=</code> <code class="python color1">None</code></div><div class="line number64 index63 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">vertex.children </code><code class="python keyword">=</code> <code class="python color1">None</code></div><div class="line number65 index64 alt2">&nbsp;</div><div class="line number66 index65 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">create_full_n_level(</code><code class="python color1">self</code><code class="python plain">, n):</code></div><div class="line number67 index66 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.vertices </code><code class="python keyword">=</code><code class="python plain">[]</code></div><div class="line number68 index67 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.edges </code><code class="python keyword">=</code><code class="python functions">set</code><code class="python plain">([])</code></div><div class="line number69 index68 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.create_vertex()</code></div><div class="line number70 index69 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.set_root(</code><code class="python color1">self</code><code class="python plain">.vertices[</code><code class="python value">0</code><code class="python plain">])</code></div><div class="line number71 index70 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">for</code> <code class="python plain">level </code><code class="python keyword">in</code> <code class="python functions">range</code><code class="python plain">(n):</code></div><div class="line number72 index71 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">leaves</code><code class="python keyword">=</code><code class="python color1">self</code><code class="python plain">.find_leaves()</code></div><div class="line number73 index72 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">for</code> <code class="python plain">Leaf </code><code class="python keyword">in</code> <code class="python plain">leaves:</code></div><div class="line number74 index73 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.split_vertex(Leaf)</code></div><div class="line number75 index74 alt2">&nbsp;</div><div class="line number76 index75 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python plain">NaryRootedTree</code></div><div class="line number77 index76 alt2">&nbsp;</div><div class="line number78 index77 alt1"><code class="python keyword">def</code> <code class="python plain">create_nary_tree(directed</code><code class="python keyword">=</code><code class="python color1">False</code><code class="python plain">, N</code><code class="python keyword">=</code><code class="python value">0</code><code class="python plain">,</code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs):</code></div><div class="line number79 index78 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">nary_tree </code><code class="python keyword">=</code> <code class="python plain">return_nary_tree_class(directed)(N, </code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python plain">kwargs)</code></div><div class="line number80 index79 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python plain">nary_tree</code></div></div></td></tr></tbody></table></div></div>
+<p>Let’s make a binary tree, since we are doing computer science after all.</p>
+<div><div id="highlighter_457887" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python plain">t</code><code class="python keyword">=</code><code class="python plain">create_nary_tree(N</code><code class="python keyword">=</code><code class="python value">2</code><code class="python plain">)</code></div><div class="line number2 index1 alt1"><code class="python plain">t.create_full_n_level(n</code><code class="python keyword">=</code><code class="python value">6</code><code class="python plain">)</code></div><div class="line number3 index2 alt2"><code class="python plain">t.plot()</code></div></div></td></tr></tbody></table></div></div>
+<p>Which looks like:</p>
+<p><a href="https://triangleinequality.files.wordpress.com/2013/08/nary2to6.png"><img class="aligncenter size-medium wp-image-127" alt="nary2to6" src="./Special Graphs and Dynamic Inheritance « triangleinequality_files/nary2to6.png" width="300" height="300" originalw="300" originalh="300" src-orig="https://triangleinequality.files.wordpress.com/2013/08/nary2to6.png?w=300&amp;h=300" scale="2"></a></p>
+<p>And that’s all folks! You find all the code for the graph stuff so far <a href="http://sourceforge.net/projects/triangleinequal/files/Graph%20Theory/tigraphs.py/download">here</a>. Let me know what you think!</p>
+<p>Next time we will probably be looking at decision trees.</p>
+
+<div class="wpcnt">
+<div class="wpa">
+<a class="wpa-about" href="http://wordpress.com/about-these-ads/" rel="nofollow">About these ads</a>
+<script type="text/javascript">
+		var wpcom_adclk_hovering = false;
+		var wpcom_adclk_recorded = false;
+		var wpcom_adclk_theme = "Academica";
+		var wpcom_adclk_slot = "wpcom_below_post";
+		var wpcom_adclk_network = ( typeof wpcom_adclk_network === "undefined" ) ? "" : wpcom_adclk_network ;
+
+		jQuery(document).ready( function() {
+			function wpcom_adclk_hover_yes() { wpcom_adclk_hovering = true; }
+			function wpcom_adclk_hover_no() { wpcom_adclk_hovering = false; }
+			jQuery(".wpa").click(wpcom_adclk_click);
+			jQuery(".wpa iframe").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+			jQuery(".wpa object").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+
+			jQuery(window).blur( function() {
+				if ( wpcom_adclk_hovering ) { wpcom_adclk_click(); }
+			});
+		});
+
+		function wpcom_adclk_impression() {
+			var stat_gif = document.location.protocol + "//pixel.wp.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_imp_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_imp_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_imp_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_imp_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			return true;
+		}
+
+		function wpcom_adclk_click() {
+			if (wpcom_adclk_recorded) { return true; } // no double counting
+			var stat_gif = document.location.protocol + "//pixel.wp.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_click_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_click_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_click_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_click_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			wpcom_adclk_recorded = true;
+			var now=new Date(); var end=now.getTime()+250;
+			while(true){now=new Date();if(now.getTime()>end){break;}}
+			return true;
+		}
+	
+if ( typeof GA_googleAddAttr == 'function' ) {
+GA_googleAddAttr("AdOpt", "1");
+GA_googleAddAttr("Origin", "other");
+GA_googleAddAttr("LangId", "1");
+GA_googleAddAttr("Domain", "triangleinequality.wordpress.com");
+GA_googleAddAttr("BlogId", "52270418");
+GA_googleAddAttr("PageURL", "https://triangleinequality.wordpress.com/2013/08/22/special-graphs-and-dynamic-inheritance/");
+GA_googleAddAttr("Autotag", "science");
+GA_googleAddAttr("Tag", "graph-theory");
+GA_googleAddAttr("Tag", "maths");
+GA_googleAddAttr("Tag", "python");
+GA_googleAddAttr("Tag", "complete-graph");
+GA_googleAddAttr("Tag", "cycle-graph");
+GA_googleAddAttr("Tag", "directed-graph");
+GA_googleAddAttr("Tag", "graph-mathematics");
+GA_googleAddAttr("Tag", "path-graph");
+GA_googleAddAttr("Tag", "python");
+GA_googleAddAttr("theme_bg", "ffffff");
+GA_googleAddAttr("theme_text", "333333");
+GA_googleAddAttr("theme_link", "0c5390");
+GA_googleAddAttr("theme_border", "f99734");
+GA_googleAddAttr("theme_url", "f99734");
+GA_googleAddAdSensePageAttr("google_page_url", "https://triangleinequality.wordpress.com/2013/08/22/special-graphs-and-dynamic-inheritance/");
+GA_googleFillSlot("wpcom_below_post");
+}
+</script>
+</div>
+</div>
+
+<script type="text/javascript">
+jQuery( window ).load( function() {
+    if ( jQuery(".wpa script[src*='virool.com']").length > 0 || jQuery(".wpa script[src*='shareth.ru']").length > 0 || jQuery(".wpa iframe[src*='boomvideo.tv']").length > 0 || jQuery(".wpa iframe[src*='viewablemedia.net']").length > 0 || jQuery(".wpa .sharethrough-placement").length > 0 ) {
+        jQuery( '.wpa' ).css( 'width', '400px' );
+    }
+setTimeout(function(){if(typeof GS_googleAddAdSenseService !== 'function'){new Image().src=document.location.protocol+"//pixel.wp.com/g.gif?v=wpcom-no-pv&x_noads=adblock&baba="+Math.random()}},100);
+} );
+</script>
+
+<div id="jp-post-flair" class="sharedaddy sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow" class="share-twitter sd-button share-icon" href="https://triangleinequality.wordpress.com/2013/08/22/special-graphs-and-dynamic-inheritance/?share=twitter&nb=1" title="Click to share on Twitter" id="sharing-twitter-114"><span>Twitter</span></a></li><li class="share-facebook"><a rel="nofollow" class="share-facebook sd-button share-icon" href="https://triangleinequality.wordpress.com/2013/08/22/special-graphs-and-dynamic-inheritance/?share=facebook&nb=1" title="Share on Facebook" id="sharing-facebook-114"><span>Facebook</span></a></li><li class="share-google-plus-1"><a rel="nofollow" class="share-google-plus-1 sd-button share-icon" href="https://triangleinequality.wordpress.com/2013/08/22/special-graphs-and-dynamic-inheritance/?share=google-plus-1&nb=1" title="Click to share on Google+" id="sharing-google-114"><span>Google</span></a></li><li class="share-end"></li></ul></div></div></div><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-loaded" id="like-post-wrapper-52270418-114-5548645a0afa4" data-src="//widgets.wp.com/likes/#blog_id=52270418&amp;post_id=114&amp;origin=triangleinequality.wordpress.com&amp;obj_id=52270418-114-5548645a0afa4" data-name="like-post-frame-52270418-114-5548645a0afa4"><h3 class="sd-title">Like this:</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height: 55px; display: none;"><span class="button"><span>Like</span></span> <span class="loading">Loading...</span></div><iframe class="post-likes-widget jetpack-likes-widget" name="like-post-frame-52270418-114-5548645a0afa4" height="55px" width="100%" frameborder="0" src="./Special Graphs and Dynamic Inheritance « triangleinequality_files/saved_resource(7).html"></iframe><span class="sd-text-color"></span><a class="sd-link-color"></a></div>
+<div id="jp-relatedposts" class="jp-relatedposts" style="display: block;">
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+<div class="jp-relatedposts-items jp-relatedposts-items-minimal"><p class="jp-relatedposts-post jp-relatedposts-post0" data-post-id="64" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/" title="A First Taste of Graph Theory
+
+1. Motivation Welcome back. So far we&#39;ve learnt how to clean data, and do some basic plotting. Now we really want to move on to some machine learning proper and make some models. If you recall we were looking at the titanic data, and trying to split the data using…" rel="nofollow" data-origin="114" data-position="0">A First Taste of Graph Theory</a></span><span class="jp-relatedposts-post-context">In "graph theory"</span></p><p class="jp-relatedposts-post jp-relatedposts-post1" data-post-id="104" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://triangleinequality.wordpress.com/2013/08/21/graphs-as-objects-in-python/" title="Graphs as Objects in Python
+
+This time we are going to combine the lessons learned about objects and decorators in Python, and about graph theory, to represent graphs as objects. Let&#39;s jump right in and create classes of vertices and edges. We&#39;ll start with a vertex: This is pretty self-explanatory, but notice the philosophy of…" rel="nofollow" data-origin="114" data-position="1">Graphs as Objects in Python</a></span><span class="jp-relatedposts-post-context">In "graph theory"</span></p><p class="jp-relatedposts-post jp-relatedposts-post2" data-post-id="510" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://triangleinequality.wordpress.com/2013/10/07/turning-a-graph-into-a-triangulation/" title="Turning a graph into a Triangulation
+
+Ok so last time we introduced the data structure for representing a triangulation of a manifold, and here we showed how to find the triangles in a graph. Today we discuss how to take a graph and turn it into the triangulation data structure. [SPOILERS:  Of course a graph cannot…" rel="nofollow" data-origin="114" data-position="2">Turning a graph into a Triangulation</a></span><span class="jp-relatedposts-post-context">In "graph theory"</span></p></div></div></div>	</div><!-- end .entry-content -->
+
+	<div class="entry-meta">
+		<p class="tags"><strong>Tags:</strong> <a href="https://triangleinequality.wordpress.com/tag/complete-graph/" rel="tag">Complete graph</a>, <a href="https://triangleinequality.wordpress.com/tag/cycle-graph/" rel="tag">Cycle graph</a>, <a href="https://triangleinequality.wordpress.com/tag/directed-graph/" rel="tag">Directed graph</a>, <a href="https://triangleinequality.wordpress.com/tag/graph-mathematics/" rel="tag">Graph (mathematics)</a>, <a href="https://triangleinequality.wordpress.com/tag/path-graph/" rel="tag">Path graph</a>, <a href="https://triangleinequality.wordpress.com/tag/python/" rel="tag">python</a></p><span class="by-author">By <span class="author vcard"><a class="url fn n" href="https://triangleinequality.wordpress.com/author/triangleinequality/" title="View all posts by triangleinequality" rel="author">triangleinequality</a></span> </span>in <span class="category"><a href="https://triangleinequality.wordpress.com/category/maths/graph-theory/" rel="category tag">graph theory</a>, <a href="https://triangleinequality.wordpress.com/category/maths/" rel="category tag">maths</a>, <a href="https://triangleinequality.wordpress.com/category/python/" rel="category tag">python</a></span> on <span class="datetime"><a href="./Special Graphs and Dynamic Inheritance « triangleinequality_files/Special Graphs and Dynamic Inheritance « triangleinequality.html" title="12:01 pm" rel="bookmark"><time class="entry-date" datetime="2013-08-22T12:01:33+00:00" pubdate="">August 22, 2013</time></a></span>.	</div><!-- end .entry-meta -->
+
+</div><!-- end #post-## -->
+		<div class="navigation clearfix">
+			<span class="alignleft"><a href="https://triangleinequality.wordpress.com/2013/08/21/graphs-as-objects-in-python/" rel="prev"><span class="meta-nav">←</span> Graphs as Objects in&nbsp;Python</a></span>			<span class="alignright"><a href="https://triangleinequality.wordpress.com/2013/08/24/decision-trees-part-1-representation/" rel="next">Decision Trees Part 1:&nbsp;Representation <span class="meta-nav">→</span></a></span>		</div><!-- end .navigation -->
+
+		
+<div id="comments">
+
+	
+		<hr>
+		<h2>4 Comments</h2>
+
+		<ol class="commentlist">
+					<li class="pingback even thread-even depth-1 highlander-comment" id="comment-14">
+				<div id="div-comment-14" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href="https://triangleinequality.wordpress.com/2013/08/24/decision-trees-part-1-representation/" rel="external nofollow" class="url">Decision Trees Part 1: Representation | triangleinequality</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://triangleinequality.wordpress.com/2013/08/22/special-graphs-and-dynamic-inheritance/comment-page-1/#comment-14">
+			August 24, 2013 at 1:44 pm</a>		</div>
+
+		<p>[…] we’ll create a binary tree, inheriting from the nary-tree class we made last time and also using our new DecisionNode […]</p>
+
+		<div class="reply"><a class="comment-reply-link" href="https://triangleinequality.wordpress.com/2013/08/22/special-graphs-and-dynamic-inheritance/?replytocom=14#respond" onclick="return addComment.moveForm( &quot;div-comment-14&quot;, &quot;14&quot;, &quot;respond&quot;, &quot;114&quot; )" aria-label="Reply to Decision Trees Part 1: Representation | triangleinequality">Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-16">
+				<div id="div-comment-16" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="./Special Graphs and Dynamic Inheritance « triangleinequality_files/6cf2d8b8e076d32e5c710922cd5b8767" class="avatar avatar-40" height="40" width="40" originals="40" src-orig="https://secure.gravatar.com/blavatar/6cf2d8b8e076d32e5c710922cd5b8767?s=40" scale="2">			<cite class="fn"><a href="http://eventuallyalmosteverywhere.wordpress.com/2013/08/27/the-configuration-model/" rel="external nofollow" class="url">The Configuration Model | Eventually Almost Everywhere</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://triangleinequality.wordpress.com/2013/08/22/special-graphs-and-dynamic-inheritance/comment-page-1/#comment-16">
+			August 27, 2013 at 7:45 am</a>		</div>
+
+		<p>[…] Special Graphs and Dynamic Inheritance (triangleinequality.wordpress.com) […]</p>
+
+		<div class="reply"><a class="comment-reply-link" href="https://triangleinequality.wordpress.com/2013/08/22/special-graphs-and-dynamic-inheritance/?replytocom=16#respond" onclick="return addComment.moveForm( &quot;div-comment-16&quot;, &quot;16&quot;, &quot;respond&quot;, &quot;114&quot; )" aria-label="Reply to The Configuration Model | Eventually Almost Everywhere">Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback even thread-even depth-1 highlander-comment" id="comment-20">
+				<div id="div-comment-20" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href="https://triangleinequality.wordpress.com/2013/09/01/decision-trees-part-3-pruning-your-tree/" rel="external nofollow" class="url">Decision Trees Part 3: Pruning your Tree | triangleinequality</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://triangleinequality.wordpress.com/2013/08/22/special-graphs-and-dynamic-inheritance/comment-page-1/#comment-20">
+			September 1, 2013 at 8:55 am</a>		</div>
+
+		<p>[…] Special Graphs and Dynamic Inheritance (triangleinequality.wordpress.com) […]</p>
+
+		<div class="reply"><a class="comment-reply-link" href="https://triangleinequality.wordpress.com/2013/08/22/special-graphs-and-dynamic-inheritance/?replytocom=20#respond" onclick="return addComment.moveForm( &quot;div-comment-20&quot;, &quot;20&quot;, &quot;respond&quot;, &quot;114&quot; )" aria-label="Reply to Decision Trees Part 3: Pruning your Tree | triangleinequality">Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-28">
+				<div id="div-comment-28" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href="https://triangleinequality.wordpress.com/2013/09/05/a-complete-guide-to-getting-0-79903-in-kaggles-titanic-competition-with-python/" rel="external nofollow" class="url">A complete guide to getting 0.79903 in Kaggle’s Titanic Competition with Python « triangleinequality</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://triangleinequality.wordpress.com/2013/08/22/special-graphs-and-dynamic-inheritance/comment-page-1/#comment-28">
+			September 5, 2013 at 12:16 pm</a>		</div>
+
+		<p>[…] programming here, decorators in python here, and how to represent graphs in python here and here. Note that to produce plots of the graphs, you will need the igraph module for […]</p>
+
+		<div class="reply"><a class="comment-reply-link" href="https://triangleinequality.wordpress.com/2013/08/22/special-graphs-and-dynamic-inheritance/?replytocom=28#respond" onclick="return addComment.moveForm( &quot;div-comment-28&quot;, &quot;28&quot;, &quot;respond&quot;, &quot;114&quot; )" aria-label="Reply to A complete guide to getting 0.79903 in Kaggle’s Titanic Competition with Python « triangleinequality">Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		</ol>
+
+								<div id="respond" class="comment-respond js">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="https://triangleinequality.wordpress.com/2013/08/22/special-graphs-and-dynamic-inheritance/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="https://triangleinequality.wordpress.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																										
+
+
+												<input type="hidden" id="highlander_comment_nonce" name="highlander_comment_nonce" value="9b3f4ae146"><input type="hidden" name="_wp_http_referer" value="/2013/08/22/special-graphs-and-dynamic-inheritance/">
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest">
+
+<div class="comment-form-field comment-textarea">
+	
+	<div id="comment-form-comment"><textarea tabindex="-1" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px; padding: 0px; box-sizing: content-box; word-wrap: break-word; overflow: hidden; -webkit-transition: none; transition: none; height: 0px !important; min-height: 0px !important; font-family: Helvetica, Arial, Tahoma, sans-serif; font-size: 14px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; text-decoration: none; word-spacing: 0px; text-indent: 0px; line-height: normal; width: 938px;" class="autosizejs "></textarea><textarea id="comment" name="comment" title="Enter your comment here..." placeholder="Enter your comment here..." style="height: 36px; overflow: hidden; word-wrap: break-word; resize: none;"></textarea></div>
+</div>
+
+<div id="comment-form-identity" style="display: none;">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="https://triangleinequality.wordpress.com/2013/08/22/special-graphs-and-dynamic-inheritance/#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://triangleinequality.wordpress.com/2013/08/22/special-graphs-and-dynamic-inheritance/#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://triangleinequality.wordpress.com/2013/08/22/special-graphs-and-dynamic-inheritance/#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://triangleinequality.wordpress.com/2013/08/22/special-graphs-and-dynamic-inheritance/#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+			<li>
+			<iframe id="googleplus-sign-in" name="googleplus-sign-in" src="./Special Graphs and Dynamic Inheritance « triangleinequality_files/saved_resource.html" width="24" height="24" scrolling="no" allowtransparency="true" seamless="seamless" frameborder="0"></iframe>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank">				<img src="./Special Graphs and Dynamic Inheritance « triangleinequality_files/ad516503a11cd5ca435acc9bb6523536" alt="Gravatar" width="25" class="no-grav" originals="25" src-orig="https://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" scale="2">
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text" value=""></div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./Special Graphs and Dynamic Inheritance « triangleinequality_files/wplogo.png" alt="WordPress.com Logo" width="25" class="no-grav" scale="0">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="">
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your WordPress.com account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'wordpress' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://triangleinequality.wordpress.com/2013/08/22/special-graphs-and-dynamic-inheritance/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./Special Graphs and Dynamic Inheritance « triangleinequality_files/ad516503a11cd5ca435acc9bb6523536(1)" alt="Twitter picture" width="25" class="no-grav" originals="25" scale="2">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="">
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'twitter' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://triangleinequality.wordpress.com/2013/08/22/special-graphs-and-dynamic-inheritance/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./Special Graphs and Dynamic Inheritance « triangleinequality_files/ad516503a11cd5ca435acc9bb6523536(1)" alt="Facebook photo" width="25" class="no-grav" originals="25" scale="2">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="">
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'facebook' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://triangleinequality.wordpress.com/2013/08/22/special-graphs-and-dynamic-inheritance/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./Special Graphs and Dynamic Inheritance « triangleinequality_files/ad516503a11cd5ca435acc9bb6523536(1)" alt="Google+ photo" width="25" class="no-grav" originals="25" scale="2">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="">
+				<p class="comment-form-posting-as pa-googleplus"><strong></strong> You are commenting using your Google+ account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'googleplus' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://triangleinequality.wordpress.com/2013/08/22/special-graphs-and-dynamic-inheritance/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div id="comment-form-subscribe" style="display: none;">
+	<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6"> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of new comments via email.</label></p></div>
+
+												<p class="form-submit" style="display: none;">
+							<input name="submit" type="submit" id="comment-submit" class="submit" value="Post Comment">
+							<input type="hidden" name="comment_post_ID" value="114" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+						</p>
+						<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="bacb97efd9"></p>
+<input type="hidden" name="genseq" value="1430807642">
+<p style="display: none;"></p>					<input type="hidden" id="ak_js" name="ak_js" value="1430808144683"></form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>
+</div><!-- #comments -->
+	</div><!-- end .column-content -->
+
+	
+	
+</div><!-- end #content -->
+
+			<div id="footer" class="clearfix">
+				
+								<p class="copy">
+					<a href="https://wordpress.com/?ref=footer_blog">Blog at WordPress.com</a>.<span class="sep"> / </span>
+					<a href="https://wordpress.com/themes/academica/" title="Learn more about this theme">The Academica Theme</a>.				</p>
+			</div><!-- end #footer -->
+		</div><!-- end #wrap -->
+
+		<!-- wpcom_wp_footer -->
+<script type="text/javascript" src="./Special Graphs and Dynamic Inheritance « triangleinequality_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Special Graphs and Dynamic Inheritance « triangleinequality_files/wpgroho.js"></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+
+			if (typeof Gravatar === "undefined"){
+				return;
+			}
+
+			if ( typeof Gravatar.init !== "function" ) {
+				return;
+			}			
+
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"https:\/\/triangleinequality.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"https:\/\/triangleinequality.wordpress.com\/wp-login.php?action=logout&_wpnonce=4327dc2202","homeURL":"https:\/\/triangleinequality.wordpress.com\/","postID":"114","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"0","userIsLoggedIn":"","isJetpack":"0","text_direction":"ltr"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Special Graphs and Dynamic Inheritance « triangleinequality_files/saved_resource(2)"></script>
+
+	<div id="bit" class="loggedout-follow-normal" style="bottom: -260px;">
+		<a class="bsub" href="javascript:void(0)"><span id="bsub-text">Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow “triangleinequality”</label></h3>
+
+			<form action="https://subscribe.wordpress.com/" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+						<p class="bit-follow-count">Join 38 other followers</p>
+			<p><input type="email" name="email" value="Enter your email address" onfocus="this.value=(this.value==&quot;Enter your email address&quot;) ? &quot;&quot; : this.value;" onblur="this.value=(this.value==&quot;&quot;) ? &quot;Enter your email address&quot; : this.value;" id="loggedout-follow-field"></p>
+
+			<input type="hidden" name="action" value="subscribe">
+			<input type="hidden" name="blog_id" value="52270418">
+			<input type="hidden" name="source" value="https://triangleinequality.wordpress.com/2013/08/22/special-graphs-and-dynamic-inheritance/">
+			<input type="hidden" name="sub-type" value="loggedout-follow">
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="9692dc94a5"><input type="hidden" name="_wp_http_referer" value="/2013/08/22/special-graphs-and-dynamic-inheritance/">
+			<p id="bsub-subscribe-button"><input type="submit" value="Sign me up"></p>
+			</form>
+					<div id="bsub-credit"><a href="https://wordpress.com/?ref=lof">Build a website with WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"https:\/\/triangleinequality.wordpress.com\/2013\/08\/22\/special-graphs-and-dynamic-inheritance\/":114};
+		window.WPCOM_site_ID = 52270418;
+	</script>
+		<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-google-plus-1' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=480,height=550' );
+				return false;
+			});
+		});
+		</script>
+				<iframe src="./Special Graphs and Dynamic Inheritance « triangleinequality_files/master.html" scrolling="no" id="likes-master" name="likes-master" style="display:none;"></iframe>
+		<div id="likes-other-gravatars"><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type="text/javascript">
+		//<![CDATA[
+			var jetpackLikesWidgetQueue = [];
+			var jetpackLikesWidgetBatch = [];
+			var jetpackLikesMasterReady = false;
+
+			function JetpackLikespostMessage( message, target ) {
+				if ( "string" === typeof message ){
+					try{
+						message = JSON.parse( message );
+					}
+					catch(e) {
+						return;
+					}
+				}
+
+				pm( {
+					target: target,
+					type: 'likesMessage',
+					data: message,
+					origin: '*'
+				} );
+			}
+
+			function JetpackLikesBatchHandler() {
+				var requests = [];
+				jQuery( 'div.jetpack-likes-widget-unloaded' ).each( function( i ) {
+					if ( jetpackLikesWidgetBatch.indexOf( this.id ) > -1 )
+						return;
+					jetpackLikesWidgetBatch.push( this.id );
+					var regex = /like-(post|comment)-wrapper-(\d+)-(\d+)-(\w+)/;
+					var match = regex.exec( this.id );
+					if ( ! match || match.length != 5 )
+						return;
+
+					var info = {
+						blog_id: match[2],
+						width:   this.width
+					};
+
+					if ( 'post' == match[1] ) {
+						info.post_id = match[3];
+					} else if ( 'comment' == match[1] ) {
+						info.comment_id = match[3];
+					}
+
+					info.obj_id = match[4];
+
+					requests.push( info );
+				});
+
+				if ( requests.length > 0 ) {
+					JetpackLikespostMessage( { event: 'initialBatch', requests: requests }, window.frames['likes-master'] );
+				}
+			}
+
+			function JetpackLikesMessageListener( event ) {
+				if ( "undefined" == typeof event.event )
+					return;
+
+				if ( 'masterReady' == event.event ) {
+					jQuery( document ).ready( function() {
+						jetpackLikesMasterReady = true;
+
+						var stylesData = {
+								event: 'injectStyles'
+						};
+
+						if ( jQuery( 'iframe.admin-bar-likes-widget' ).length > 0 ) {
+							JetpackLikespostMessage( { event: 'adminBarEnabled' }, window.frames[ 'likes-master' ] );
+
+							stylesData.adminBarStyles = {
+								background: jQuery( '#wpadminbar .quicklinks li#wp-admin-bar-wpl-like > a' ).css( 'background' ),
+								isRtl: ( 'rtl' == jQuery( '#wpadminbar' ).css( 'direction' ) )
+							};
+						}
+
+						if ( !window.addEventListener )
+							jQuery( '#wp-admin-bar-admin-bar-likes-widget' ).hide();
+
+						stylesData.textStyles = {
+							color: jQuery( '.sd-text-color').css( 'color' ),
+							fontFamily: jQuery( '.sd-text-color' ).css( 'font-family' ),
+							fontSize: jQuery( '.sd-text-color' ).css( 'font-size' ),
+							direction: jQuery( '.sd-text-color' ).css( 'direction' ),
+							fontWeight: jQuery( '.sd-text-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-text-color' ).css( 'font-style' ),
+							textDecoration: jQuery( '.sd-text-color' ).css('text-decoration')
+						};
+
+						stylesData.linkStyles = {
+							color: jQuery( '.sd-link-color' ).css('color'),
+							fontFamily: jQuery( '.sd-link-color' ).css('font-family'),
+							fontSize: jQuery( '.sd-link-color' ).css('font-size'),
+							textDecoration: jQuery( '.sd-link-color' ).css('text-decoration'),
+							fontWeight: jQuery( '.sd-link-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-link-color' ).css( 'font-style' )
+						};
+
+						JetpackLikespostMessage( stylesData, window.frames[ 'likes-master' ] );
+
+						JetpackLikesBatchHandler();
+
+						jQuery( document ).on( 'inview', 'div.jetpack-likes-widget-unloaded', function() {
+							jetpackLikesWidgetQueue.push( this.id );
+						});
+					});
+				}
+
+				if ( 'showLikeWidget' == event.event ) {
+					jQuery( '#' + event.id + ' .post-likes-widget-placeholder'  ).fadeOut( 'fast', function() {
+						jQuery( '#' + event.id + ' .post-likes-widget' ).fadeIn( 'fast', function() {
+							JetpackLikespostMessage( { event: 'likeWidgetDisplayed', blog_id: event.blog_id, post_id: event.post_id, obj_id: event.obj_id }, window.frames['likes-master'] );
+						});
+					});
+				}
+
+				if ( 'clickReblogFlair' == event.event ) {
+					wpcom_reblog.toggle_reblog_box_flair( event.obj_id );
+				}
+
+				if ( 'showOtherGravatars' == event.event ) {
+					var $container = jQuery( '#likes-other-gravatars' );
+					var $list = $container.find( 'ul' );
+
+					$container.hide();
+					$list.html( '' );
+
+					$container.find( '.likes-text span' ).text( event.total );
+
+					jQuery.each( event.likers, function( i, liker ) {
+						$list.append( '<li class="' + liker.css_class + '"><a href="' + liker.profile_URL + '" class="wpl-liker" rel="nofollow" target="_parent"><img src="' + liker.avatar_URL + '" alt="' + liker.name + '" width="30" height="30" style="padding-right: 3px;" /></a></li>');
+					} );
+
+					var offset = jQuery( "[name='" + event.parent + "']" ).offset();
+
+					$container.css( 'left', offset.left + event.position.left - 10 + 'px' );
+					$container.css( 'top', offset.top + event.position.top - 33 + 'px' );
+
+					var rowLength = Math.floor( event.width / 37 );
+					var height = ( Math.ceil( event.likers.length / rowLength ) * 37 ) + 13;
+					if ( height > 204 ) {
+						height = 204;
+					}
+
+					$container.css( 'height', height + 'px' );
+					$container.css( 'width', rowLength * 37 - 7 + 'px' );
+
+					$list.css( 'width', rowLength * 37 + 'px' );
+
+					$container.fadeIn( 'slow' );
+
+					var scrollbarWidth = $list[0].offsetWidth - $list[0].clientWidth;
+					if ( scrollbarWidth > 0 ) {
+						$container.width( $container.width() + scrollbarWidth );
+						$list.width( $list.width() + scrollbarWidth );
+					}
+				}
+			}
+
+			pm.bind( 'likesMessage', function(e) { JetpackLikesMessageListener(e); } );
+
+			jQuery( document ).click( function( e ) {
+				var $container = jQuery( '#likes-other-gravatars' );
+
+				if ( $container.has( e.target ).length === 0 ) {
+					$container.fadeOut( 'slow' );
+				}
+			});
+
+			function JetpackLikesWidgetQueueHandler() {
+				var wrapperID;
+				if ( ! jetpackLikesMasterReady ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				if ( jetpackLikesWidgetQueue.length > 0 ) {
+					// We may have a widget that needs creating now
+					var found = false;
+					while( jetpackLikesWidgetQueue.length > 0 ) {
+						// Grab the first member of the queue that isn't already loading.
+						wrapperID = jetpackLikesWidgetQueue.splice( 0, 1 )[0];
+						if ( jQuery( '#' + wrapperID ).hasClass( 'jetpack-likes-widget-unloaded' ) ) {
+							found = true;
+							break;
+						}
+					}
+					if ( ! found ) {
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				} else if ( jQuery( 'div.jetpack-likes-widget-unloaded' ).length > 0 ) {
+					// Grab any unloaded widgets for a batch request
+					JetpackLikesBatchHandler();
+
+					// Get the next unloaded widget
+					wrapperID = jQuery( 'div.jetpack-likes-widget-unloaded' ).first()[0].id;
+					if ( ! wrapperID ) {
+						// Everything is currently loaded
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				}
+
+				if ( 'undefined' === typeof wrapperID ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				var $wrapper = jQuery( '#' + wrapperID );
+				$wrapper.find( 'iframe' ).remove();
+
+				if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='22px' width='68px' frameBorder='0' scrolling='no' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				} else {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='55px' width='100%' frameBorder='0' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				}
+
+				$wrapper.removeClass( 'jetpack-likes-widget-unloaded' ).addClass( 'jetpack-likes-widget-loading' );
+
+				$wrapper.find( 'iframe' ).load( function( e ) {
+					var $iframe = jQuery( e.target );
+					$wrapper.removeClass( 'jetpack-likes-widget-loading' ).addClass( 'jetpack-likes-widget-loaded' );
+
+					JetpackLikespostMessage( { event: 'loadLikeWidget', name: $iframe.attr( 'name' ), width: $iframe.width() }, window.frames[ 'likes-master' ] );
+
+					if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+						$wrapper.find( 'iframe' ).Jetpack( 'resizeable' );
+					}
+				});
+				setTimeout( JetpackLikesWidgetQueueHandler, 250 );
+			}
+			JetpackLikesWidgetQueueHandler();
+		//]]>
+		</script>
+<script type="text/javascript" src="./Special Graphs and Dynamic Inheritance « triangleinequality_files/form.js"></script>
+<script type="text/javascript" src="./Special Graphs and Dynamic Inheritance « triangleinequality_files/saved_resource(3)"></script>
+<script type="text/javascript">
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "https://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.9b";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "https://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?m=1363304414g&amp;ver=3.0.9b";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var JetpackEmojiSettings = {"base_url":"https:\/\/s0.wp.com\/wp-content\/mu-plugins\/emoji\/twemoji\/"};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Special Graphs and Dynamic Inheritance « triangleinequality_files/saved_resource(4)"></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="./Special Graphs and Dynamic Inheritance « triangleinequality_files/w.js" type="text/javascript" async="" defer=""></script>
+<script type="text/javascript">
+_tkq = window._tkq || [];
+_stq = window._stq || [];
+_tkq.push(['storeContext', {'blog_id':'52270418','blog_tz':'0','user_lang':'en','blog_lang':'en','user_id':'0'}]);
+_stq.push(['view', {'blog':'52270418','v':'wpcom','tz':'0','user_id':'0','post':'114','subd':'triangleinequality'}]);
+_stq.push(['extra', {'crypt':'UE5XaGUuOTlwaD85flAmcm1mcmZsaDhkV11YdTdvUG14Q2VDQTR4LlUsLi82dU1mai9BMmlCVVM1U0h6VG1VbVhmVDhlL0olVnhjTE9zUjdwaT1aNVNuU0sxazJyUnNjUmosZT9ScWotZllQNEI4dFJVeCVZQ10laFtLVmFdaTAyaVpocEtidXdHajMvMHQxc20ucitkST9Eem5qT3E3NEdVYXMyOS5sPXotdFoyem84fHVdYXFJU3RobEJWT3R4S0U1dCsyJjBXQk5+d0NFWVlMSStTPWxHPWN4Ty40aDJpeVc0dn5pNFs4RjJrQmJYPXEvTnNiLHRicG9fK1tNTWZJQlsrbj0uanRsMTNnWW85P11EODR4VC9MK21EOTFlallOfl1RPWssZURMdWVTb1FXQ1lQMA=='}]);
+_stq.push([ 'clickTrackerInit', '52270418', '114' ]);
+	</script>
+<noscript>&lt;img src="https://pixel.wp.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /&gt;</noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//pixel.wp.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>	
+<img src="./Special Graphs and Dynamic Inheritance « triangleinequality_files/g.gif" id="wpstats" scale="0"></body></html>

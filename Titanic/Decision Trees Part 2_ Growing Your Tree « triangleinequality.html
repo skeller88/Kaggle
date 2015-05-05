@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<!-- saved from url=(0092)https://triangleinequality.wordpress.com/2013/08/26/decision-trees-part-2-growing-your-tree/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<title>Decision Trees Part 2: Growing Your Tree « triangleinequality</title>
+
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://triangleinequality.wordpress.com/xmlrpc.php">
+
+<link rel="alternate" type="application/rss+xml" title="triangleinequality » Feed" href="https://triangleinequality.wordpress.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="triangleinequality » Comments Feed" href="https://triangleinequality.wordpress.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="triangleinequality » Decision Trees Part 2: Growing Your Tree Comments Feed" href="https://triangleinequality.wordpress.com/2013/08/26/decision-trees-part-2-growing-your-tree/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel="stylesheet" id="all-css-0" href="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/saved_resource" type="text/css" media="all">
+<script type="text/javascript">
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/saved_resource(1)"></script>
+<link rel="stylesheet" id="all-css-0" href="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/style.css" type="text/css" media="all">
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='https://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://triangleinequality.wordpress.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://s1.wp.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Decision Trees Part 1: Representation" href="https://triangleinequality.wordpress.com/2013/08/24/decision-trees-part-1-representation/">
+<link rel="next" title="Decision Trees Part 3: Pruning your Tree" href="https://triangleinequality.wordpress.com/2013/09/01/decision-trees-part-3-pruning-your-tree/">
+<meta name="generator" content="WordPress.com">
+<link rel="canonical" href="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/Decision Trees Part 2_ Growing Your Tree « triangleinequality.html">
+<link rel="shortlink" href="http://wp.me/p3xjVg-2r">
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=json&url=https%3A%2F%2Ftriangleinequality.wordpress.com%2F2013%2F08%2F26%2Fdecision-trees-part-2-growing-your-tree%2F&for=wpcom-auto-discovery"><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=xml&url=https%3A%2F%2Ftriangleinequality.wordpress.com%2F2013%2F08%2F26%2Fdecision-trees-part-2-growing-your-tree%2F&for=wpcom-auto-discovery">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Decision Trees Part 2: Growing Your Tree">
+<meta property="og:url" content="https://triangleinequality.wordpress.com/2013/08/26/decision-trees-part-2-growing-your-tree/">
+<meta property="og:description" content="Ok so last time we looked at what a Decision Tree was, and how to represent one in Python using our DecisionNode, DecisionTree, PivotDecisionNode and PivotDecisionTree classes. We also built a very...">
+<meta property="article:published_time" content="2013-08-26T19:28:10+00:00">
+<meta property="article:modified_time" content="2013-09-06T11:10:09+00:00">
+<meta property="article:author" content="https://triangleinequality.wordpress.com/author/triangleinequality/">
+<meta property="og:site_name" content="triangleinequality">
+<meta property="og:image" content="https://triangleinequality.files.wordpress.com/2013/08/titanic_decision_tree1.png">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:site" content="@wordpressdotcom">
+<meta name="twitter:image:src" content="https://triangleinequality.files.wordpress.com/2013/08/titanic_decision_tree1.png?w=640">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="fb:app_id" content="249643311490">
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom">
+<link rel="shortcut icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="apple-touch-icon-precomposed" href="https://s0.wp.com/i/webclip.png">
+<link rel="openid.server" href="https://triangleinequality.wordpress.com/?openidserver=1">
+<link rel="openid.delegate" href="https://triangleinequality.wordpress.com/">
+<link rel="search" type="application/opensearchdescription+xml" href="https://triangleinequality.wordpress.com/osd.xml" title="triangleinequality">
+<link rel="search" type="application/opensearchdescription+xml" href="https://wordpress.com/opensearch.xml" title="WordPress.com">
+<meta name="application-name" content="triangleinequality"><meta name="msapplication-window" content="width=device-width;height=device-height"><meta name="msapplication-tooltip" content="for matters mathematical"><meta name="msapplication-task" content="name=Subscribe;action-uri=https://triangleinequality.wordpress.com/feed/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="title" content="Decision Trees Part 2: Growing Your Tree | triangleinequality on WordPress.com">
+<meta name="description" content="Ok so last time we looked at what a Decision Tree was, and how to represent one in Python using our DecisionNode, DecisionTree, PivotDecisionNode and PivotDecisionTree classes. We also built a very basic one for the Titanic Kaggle data with a single split on &#39;sex&#39;. As might have been apparent even in that single example,…">
+	<style type="text/css">
+			#site-title a,
+		#site-description {
+			color: #545454 !important;
+		}
+		</style>
+	<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #999999; }
+</style>
+<link rel="stylesheet" type="text/css" href="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/shCore.css"><link rel="stylesheet" type="text/css" href="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/shThemeDefault.css"><style type="text/css" id="syntaxhighlighteranchor"></style>
+<link rel="stylesheet" type="text/css" id="gravatar-card-css" href="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/services.css"></head>
+<body class="single single-post postid-151 single-format-standard custom-background mp6 customizer-styles-applied column-full column-right highlander-enabled highlander-light">
+	<div id="wrap">
+		<div id="header" class="clearfix">
+
+			<div id="main-nav">
+				<div class="menu"><ul><li><a href="https://triangleinequality.wordpress.com/">Home</a></li><li class="page_item page-item-1"><a href="https://triangleinequality.wordpress.com/about/">About</a></li><li class="page_item page-item-233"><a href="https://triangleinequality.wordpress.com/contents/">Contents</a></li></ul></div>
+			</div><!-- end #main-nav -->
+
+			<div id="logo">
+				<h1 id="site-title">
+					<a href="https://triangleinequality.wordpress.com/" title="triangleinequality - for matters mathematical" rel="home">
+						triangleinequality					</a>
+				</h1>
+				<p id="site-description">for matters mathematical</p>
+			</div><!-- end #logo -->
+
+			<div id="search">
+				<form method="get" id="searchform" action="https://triangleinequality.wordpress.com/">
+	<label for="s" class="assistive-text hidden">Search</label>
+	<input id="s" type="text" name="s" placeholder="Search">
+	<button id="searchsubmit" name="submit" type="submit">Search</button>
+</form>			</div><!-- end #search -->
+
+			
+<div id="social">
+	<ul>
+			</ul>
+</div>
+		</div><!-- end #header -->
+
+		<hr class="sepinside">
+<div id="content" class="clearfix">
+
+	
+	<div class="column column-title">
+		<div id="crumbs">
+	<p><a href="https://triangleinequality.wordpress.com/">Home</a> » <a href="https://triangleinequality.wordpress.com/category/machine-learning/">machine learning</a> » <a href="https://triangleinequality.wordpress.com/category/machine-learning/decision-trees/">decision trees</a> » <span class="current">Decision Trees Part 2: Growing Your&nbsp;Tree</span></p>
+</div><!-- end #crumbs -->		<h1 class="title-header">Decision Trees Part 2: Growing Your&nbsp;Tree</h1>	</div><!-- end .column-title -->
+
+	
+	<div class="column column-content single">
+
+		
+<div id="post-151" class="post-151 post type-post status-publish format-standard has-post-thumbnail hentry category-decision-trees category-graph-theory category-kaggle category-machine-learning category-maths category-python category-titanic tag-decision-tree tag-gini-coefficient tag-kaggle tag-python tag-rss tag-titanic tag-trees">
+
+	<div class="entry-content clearfix">
+		<p>Ok so <a title="Decision Trees Part 1: Representation" href="https://triangleinequality.wordpress.com/2013/08/24/decision-trees-part-1-representation/">last time</a> we looked at what a Decision Tree was, and how to represent one in Python using our DecisionNode, DecisionTree, PivotDecisionNode and PivotDecisionTree classes. We also built a very basic one for the Titanic Kaggle data with a single split on ‘sex’.</p>
+<p>As might have been apparent even in that single example, building decision trees by hand is tedious, and what’s worse is that you have to guess what attributes and pivots to use. What we need is some automation.</p>
+<p>Thinking aloud (so to speak) we want a new method for PivotDecisionTree that grows a particular node. Let’s just try and write such a method and fill it out as we go along.</p>
+<div><div id="highlighter_178043" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">def</code> <code class="python plain">grow_node(</code><code class="python color1">self</code><code class="python plain">, node):</code></div><div class="line number2 index1 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python plain">node.parent</code><code class="python keyword">=</code><code class="python keyword">=</code><code class="python color1">None</code><code class="python plain">:</code></div><div class="line number3 index2 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">node.local_data</code><code class="python keyword">=</code><code class="python plain">node.local_filter(data</code><code class="python keyword">=</code><code class="python color1">self</code><code class="python plain">.data)</code></div><div class="line number4 index3 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python color1">self</code><code class="python plain">.stopping_condition(node):</code></div><div class="line number5 index4 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code></div><div class="line number6 index5 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">else</code><code class="python plain">:</code></div><div class="line number7 index6 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">try</code><code class="python plain">:</code></div><div class="line number8 index7 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">best_split</code><code class="python keyword">=</code><code class="python color1">self</code><code class="python plain">.get_best_split(node)</code></div><div class="line number9 index8 alt2">&nbsp;</div><div class="line number10 index9 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">except</code> <code class="python plain">StopIteration:</code></div><div class="line number11 index10 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code></div><div class="line number12 index11 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.split_vertex(node, split_attribute</code><code class="python keyword">=</code><code class="python plain">best_split[</code><code class="python value">1</code><code class="python plain">],</code></div><div class="line number13 index12 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">pivot</code><code class="python keyword">=</code><code class="python plain">best_split[</code><code class="python value">2</code><code class="python plain">])</code></div><div class="line number14 index13 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">for</code> <code class="python plain">child </code><code class="python keyword">in</code> <code class="python plain">node.children:</code></div><div class="line number15 index14 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">child.local_data</code><code class="python keyword">=</code><code class="python plain">child.local_filter(data</code><code class="python keyword">=</code><code class="python plain">node.local_data)</code></div><div class="line number16 index15 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.grow_node(node</code><code class="python keyword">=</code><code class="python plain">child)</code></div></div></td></tr></tbody></table></div></div>
+<p>The idea is simple, start with a node, if some stopping condition is achieved, do nothing, else find the best attribute to split on, and the best pivot for that attribute, and split on it. This is a greedy algorithm idea.&nbsp; Then repeat the process with each of the children.</p>
+<p>Now how to find the best split.</p>
+<div><div id="highlighter_234233" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">def</code> <code class="python plain">get_best_split(</code><code class="python color1">self</code><code class="python plain">, node):</code></div><div class="line number2 index1 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">gen </code><code class="python keyword">=</code> <code class="python color1">self</code><code class="python plain">.iter_split_eval(node)</code></div><div class="line number3 index2 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">first</code><code class="python keyword">=</code><code class="python functions">next</code><code class="python plain">(gen)</code></div><div class="line number4 index3 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">best_split</code><code class="python keyword">=</code><code class="python plain">first</code></div><div class="line number5 index4 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">for</code> <code class="python plain">split </code><code class="python keyword">in</code> <code class="python plain">gen:</code></div><div class="line number6 index5 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python plain">split[</code><code class="python value">0</code><code class="python plain">] &lt; best_split[</code><code class="python value">0</code><code class="python plain">]:</code></div><div class="line number7 index6 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">best_split </code><code class="python keyword">=</code> <code class="python plain">split</code></div><div class="line number8 index7 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python plain">best_split</code></div></div></td></tr></tbody></table></div></div>
+<p>So this method iterates through the evaluations of the possible splits, and returns the lowest one, assuming lowest is what we want. Now we fill in the next function we haven’t defined.</p>
+<div><div id="highlighter_79084" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">def</code> <code class="python plain">iter_split_eval(</code><code class="python color1">self</code><code class="python plain">, node):</code></div><div class="line number2 index1 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">for</code> <code class="python plain">split </code><code class="python keyword">in</code> <code class="python color1">self</code><code class="python plain">.iter_split(node):</code></div><div class="line number3 index2 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python plain">node.children</code><code class="python keyword">=</code><code class="python keyword">=</code><code class="python color1">None</code><code class="python plain">:</code></div><div class="line number4 index3 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">pass</code></div><div class="line number5 index4 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">else</code><code class="python plain">:</code></div><div class="line number6 index5 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">for</code> <code class="python plain">child </code><code class="python keyword">in</code> <code class="python plain">node.children:</code></div><div class="line number7 index6 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">child.local_data</code><code class="python keyword">=</code><code class="python plain">child.local_filter(node.local_data)</code></div><div class="line number8 index7 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">ret </code><code class="python keyword">=</code> <code class="python plain">[</code><code class="python color1">self</code><code class="python plain">.node_purity(node),</code></div><div class="line number9 index8 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">node.split_attribute, node.pivot]</code></div><div class="line number10 index9 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">yield</code> <code class="python plain">ret</code></div><div class="line number11 index10 alt2">&nbsp;</div><div class="line number12 index11 alt1"><code class="python keyword">def</code> <code class="python plain">iter_split(</code><code class="python color1">self</code><code class="python plain">, node):</code></div><div class="line number13 index12 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">for</code> <code class="python plain">attribute </code><code class="python keyword">in</code> <code class="python color1">self</code><code class="python plain">.data.columns:</code></div><div class="line number14 index13 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python plain">attribute !</code><code class="python keyword">=</code> <code class="python color1">self</code><code class="python plain">.response:</code></div><div class="line number15 index14 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">for</code> <code class="python plain">pivot </code><code class="python keyword">in</code> <code class="python color1">self</code><code class="python plain">.get_pivots(node.local_data, attribute):</code></div><div class="line number16 index15 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.fuse_vertex(node)</code></div><div class="line number17 index16 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.split_vertex(vertex</code><code class="python keyword">=</code><code class="python plain">node, pivot</code><code class="python keyword">=</code><code class="python plain">pivot,</code></div><div class="line number18 index17 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">split_attribute</code><code class="python keyword">=</code><code class="python plain">attribute)</code></div><div class="line number19 index18 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">yield</code></div></div></td></tr></tbody></table></div></div>
+<p>This is a generator object since we use the keyword yield, this allows to iterate over it, without creating the whole list all at once.</p>
+<p>We try each attribute, and each pivot, split on it, and report our evaluation of that split using something called ‘node_purity’ which takes a metric as an argument. The metric will be what controls how we evaluate a split.</p>
+<p>First we need a way of iterating over all possible splits. Observe that there are two cases: nominal data where there are <img src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/latex.php" alt="2^{k-1}-1" title="2^{k-1}-1" class="latex" width="58" height="15" srcset="https://s0.wp.com/latex.php?latex=2%5E%7Bk-1%7D-1&amp;bg=ffffff&amp;fg=333333&amp;s=0&amp;zoom=2 2x" scale="2"> possible binary splits if there are k labels; ordinal data where there are k-1 splits. In the first case the pivot is a set, in the second its a number.</p>
+<p>So let’s try something like:</p>
+<div><div id="highlighter_715391" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">def</code> <code class="python plain">get_pivots(</code><code class="python color1">self</code><code class="python plain">, data, attribute):</code></div><div class="line number2 index1 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python color1">self</code><code class="python plain">.data_type_dict[attribute]</code><code class="python keyword">=</code><code class="python keyword">=</code><code class="python string">'ordinal'</code><code class="python plain">:</code></div><div class="line number3 index2 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">max_pivot </code><code class="python keyword">=</code> <code class="python functions">max</code><code class="python plain">(data[attribute].unique())</code></div><div class="line number4 index3 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">for</code> <code class="python plain">pivot </code><code class="python keyword">in</code> <code class="python plain">data[attribute].unique():</code></div><div class="line number5 index4 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python plain">pivot &lt; max_pivot:</code></div><div class="line number6 index5 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">yield</code> <code class="python plain">pivot</code></div><div class="line number7 index6 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">elif</code> <code class="python color1">self</code><code class="python plain">.data_type_dict[attribute]</code><code class="python keyword">=</code><code class="python keyword">=</code><code class="python string">'nominal'</code><code class="python plain">:</code></div><div class="line number8 index7 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">values </code><code class="python keyword">=</code> <code class="python plain">data[attribute].unique()</code></div><div class="line number9 index8 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">n</code><code class="python keyword">=</code><code class="python functions">len</code><code class="python plain">(values)</code></div><div class="line number10 index9 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python plain">n&lt;</code><code class="python keyword">=</code><code class="python value">1</code><code class="python plain">:</code></div><div class="line number11 index10 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code></div><div class="line number12 index11 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">n</code><code class="python keyword">=</code><code class="python plain">floor(</code><code class="python functions">float</code><code class="python plain">(n)</code><code class="python keyword">/</code><code class="python value">2</code><code class="python plain">)</code></div><div class="line number13 index12 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">n</code><code class="python keyword">=</code><code class="python functions">int</code><code class="python plain">(n)</code></div><div class="line number14 index13 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">for</code> <code class="python plain">r </code><code class="python keyword">in</code> <code class="python functions">range</code><code class="python plain">(</code><code class="python value">1</code><code class="python plain">,n</code><code class="python keyword">+</code><code class="python value">1</code><code class="python plain">):</code></div><div class="line number15 index14 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">for</code> <code class="python plain">pivot </code><code class="python keyword">in</code> <code class="python plain">combinations(values, r):</code></div><div class="line number16 index15 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">yield</code> <code class="python functions">set</code><code class="python plain">(pivot) </code><code class="python comments">#we find all subsets of a certain size, but we only need to go</code></div><div class="line number17 index16 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python comments">#up to about half way, otherwise we duplicate.</code></div></div></td></tr></tbody></table></div></div>
+<p>This is another generator object which separates the two cases we discussed above. In the ‘nominal’ case it makes use of a handy method in the itertools module to produce all subsets of a given size.</p>
+<p>Also notice that we need to tag our data columns with ‘ordinal’ or ‘nominal’ at some point.</p>
+<p>Ok so now we’ve sorted out the outline of the logistics, we need to say how we want to evaluate splits. What we want in a split is for the data to be less mixed up with respect to the response.</p>
+<p>In the classification case there are two main metrics we can use: Gini and Entropy.<br>
+Suppose our response can take k values: <img src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/latex(1).php" alt="v_1, \dots , v_k " title="v_1, \dots , v_k " class="latex" width="65" height="11" srcset="https://s0.wp.com/latex.php?latex=v_1%2C+%5Cdots+%2C+v_k+&amp;bg=ffffff&amp;fg=333333&amp;s=0&amp;zoom=2 2x" scale="2">, then we can associate to our data a probability vector <img src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/latex(2).php" alt="p=(p_1, \dots ,p_k)" title="p=(p_1, \dots ,p_k)" class="latex" width="109" height="18" srcset="https://s0.wp.com/latex.php?latex=p%3D%28p_1%2C+%5Cdots+%2Cp_k%29&amp;bg=ffffff&amp;fg=333333&amp;s=0&amp;zoom=2 2x" scale="2"> that is the proportions of each response in the dataset.</p>
+<p>The Gini metric tells us the probability of a random datum being mislabelled if we assign labels according to the probability vector : <img src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/latex(3).php" alt="G(p) = \sum \limits _{i=1}^k p_i(1-p_i)" title="G(p) = \sum \limits _{i=1}^k p_i(1-p_i)" class="latex" width="143" height="39" srcset="https://s0.wp.com/latex.php?latex=G%28p%29+%3D+%5Csum+%5Climits+_%7Bi%3D1%7D%5Ek+p_i%281-p_i%29&amp;bg=ffffff&amp;fg=333333&amp;s=0&amp;zoom=2 2x" scale="2">.</p>
+<p>Entropy tells us, given that we know a data point is in the node, what is our expected information gain (in bits) of finding out what its response is:<br>
+<img src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/latex(4).php" alt="E(p) = - \sum \limits _{i=1}^k p_i \log_2 p_i " title="E(p) = - \sum \limits _{i=1}^k p_i \log_2 p_i " class="latex" width="151" height="39" srcset="https://s0.wp.com/latex.php?latex=E%28p%29+%3D+-+%5Csum+%5Climits+_%7Bi%3D1%7D%5Ek+p_i+%5Clog_2+p_i+&amp;bg=ffffff&amp;fg=333333&amp;s=0&amp;zoom=2 2x" scale="2">.</p>
+<p>By convention we write <img src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/latex(5).php" alt="0 \log _2(0) = 0" title="0 \log _2(0) = 0" class="latex" width="89" height="18" srcset="https://s0.wp.com/latex.php?latex=0+%5Clog+_2%280%29+%3D+0&amp;bg=ffffff&amp;fg=333333&amp;s=0&amp;zoom=2 2x" scale="2">.</p>
+<p>Notice that both of these metrics are maximised when the data is perfectly mixed up (or <em>impure</em>, that is <img src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/latex(6).php" alt="p_i=p_j \ \forall i,j" title="p_i=p_j \ \forall i,j" class="latex" width="84" height="17" srcset="https://s0.wp.com/latex.php?latex=p_i%3Dp_j+%5C+%5Cforall+i%2Cj&amp;bg=ffffff&amp;fg=333333&amp;s=0&amp;zoom=2 2x" scale="2">, and minimised when the node not mixed at all (<em>pure</em>), that is <img src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/latex(7).php" alt="\exists i: p_i=1" title="\exists i: p_i=1" class="latex" width="70" height="15" srcset="https://s0.wp.com/latex.php?latex=%5Cexists+i%3A+p_i%3D1&amp;bg=ffffff&amp;fg=333333&amp;s=0&amp;zoom=2 2x" scale="2">.</p>
+<p>So we are seeking the former case, we want the data to be mostly in a single class.</p>
+<p>These are very easy to implement:</p>
+<div><div id="highlighter_283630" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">def</code> <code class="python plain">Gini(</code><code class="python color1">self</code><code class="python plain">,prob_vector):</code></div><div class="line number2 index1 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python functions">sum</code><code class="python plain">(p</code><code class="python keyword">*</code><code class="python plain">(</code><code class="python value">1</code><code class="python keyword">-</code><code class="python plain">p) </code><code class="python keyword">for</code> <code class="python plain">p </code><code class="python keyword">in</code> <code class="python plain">prob_vector)</code></div><div class="line number3 index2 alt2">&nbsp;</div><div class="line number4 index3 alt1"><code class="python keyword">def</code> <code class="python plain">Entropy(</code><code class="python color1">self</code><code class="python plain">,prob_vector):</code></div><div class="line number5 index4 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">def</code> <code class="python plain">entropy_summand(p):</code></div><div class="line number6 index5 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python plain">p</code><code class="python keyword">=</code><code class="python keyword">=</code><code class="python value">0</code><code class="python plain">:</code></div><div class="line number7 index6 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python value">0</code></div><div class="line number8 index7 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">else</code><code class="python plain">:</code></div><div class="line number9 index8 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python keyword">-</code><code class="python plain">p</code><code class="python keyword">*</code><code class="python plain">log(p,</code><code class="python value">2</code><code class="python plain">)</code></div><div class="line number10 index9 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python functions">sum</code><code class="python plain">(entropy_summand(p) </code><code class="python keyword">for</code> <code class="python plain">p </code><code class="python keyword">in</code> <code class="python plain">prob_vector)</code></div></div></td></tr></tbody></table></div></div>
+<p>Now in the regression case we can measure mixed-upness using the residual some of squares (RSS), this is the sum of the squared errors at a leaf based on our prediction, the mean.</p>
+<p>If <img src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/latex(8).php" alt="m_l" title="m_l" class="latex" width="17" height="10" srcset="https://s0.wp.com/latex.php?latex=m_l&amp;bg=ffffff&amp;fg=333333&amp;s=0&amp;zoom=2 2x" scale="2"> is the average response at a leaf, and <img src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/latex(9).php" alt="y_i" title="y_i" class="latex" width="12" height="10" srcset="https://s0.wp.com/latex.php?latex=y_i&amp;bg=ffffff&amp;fg=333333&amp;s=0&amp;zoom=2 2x" scale="2"> the response of the <img src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/latex(10).php" alt="i^{th}" title="i^{th}" class="latex" width="17" height="14" srcset="https://s0.wp.com/latex.php?latex=i%5E%7Bth%7D&amp;bg=ffffff&amp;fg=333333&amp;s=0&amp;zoom=2 2x" scale="2"> data point at the node, then <img src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/latex(11).php" alt="RSS(l)=\sum \limits _{i}(y_i-m_l)^2" title="RSS(l)=\sum \limits _{i}(y_i-m_l)^2" class="latex" width="161" height="29" srcset="https://s0.wp.com/latex.php?latex=RSS%28l%29%3D%5Csum+%5Climits+_%7Bi%7D%28y_i-m_l%29%5E2&amp;bg=ffffff&amp;fg=333333&amp;s=0&amp;zoom=2 2x" scale="2">.</p>
+<div><div id="highlighter_777284" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">def</code> <code class="python plain">RSS(</code><code class="python color1">self</code><code class="python plain">, filtered_data):</code></div><div class="line number2 index1 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">prediction </code><code class="python keyword">=</code> <code class="python plain">np.mean(filtered_data[</code><code class="python color1">self</code><code class="python plain">.response])</code></div><div class="line number3 index2 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">dev </code><code class="python keyword">=</code> <code class="python functions">sum</code><code class="python plain">((y</code><code class="python keyword">-</code><code class="python plain">prediction)</code><code class="python keyword">*</code><code class="python keyword">*</code><code class="python value">2</code> <code class="python keyword">for</code> <code class="python plain">y </code><code class="python keyword">in</code> <code class="python plain">filtered_data[</code><code class="python color1">self</code><code class="python plain">.response])</code></div><div class="line number4 index3 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python plain">dev</code></div></div></td></tr></tbody></table></div></div>
+<p>We also make some helper functions for the metrics.</p>
+<div><div id="highlighter_485380" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">def</code> <code class="python plain">metric(</code><code class="python color1">self</code><code class="python plain">, filtered_data, kind</code><code class="python keyword">=</code><code class="python string">'Entropy'</code><code class="python plain">):</code></div><div class="line number2 index1 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python plain">kind</code><code class="python keyword">=</code><code class="python keyword">=</code><code class="python string">'RSS'</code><code class="python plain">:</code></div><div class="line number3 index2 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python color1">self</code><code class="python plain">.RSS(filtered_data</code><code class="python keyword">=</code><code class="python plain">filtered_data)</code></div><div class="line number4 index3 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">else</code><code class="python plain">:</code></div><div class="line number5 index4 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">prob_vector</code><code class="python keyword">=</code><code class="python color1">self</code><code class="python plain">.get_prob_vector(filtered_data)</code></div><div class="line number6 index5 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python plain">kind</code><code class="python keyword">=</code><code class="python keyword">=</code><code class="python string">'Entropy'</code><code class="python plain">:</code></div><div class="line number7 index6 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python color1">self</code><code class="python plain">.Entropy(prob_vector)</code></div><div class="line number8 index7 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">elif</code> <code class="python plain">kind</code><code class="python keyword">=</code><code class="python keyword">=</code><code class="python string">'Gini'</code><code class="python plain">:</code></div><div class="line number9 index8 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python color1">self</code><code class="python plain">.Entropy(prob_vector)</code></div><div class="line number10 index9 alt1">&nbsp;</div><div class="line number11 index10 alt2"><code class="python keyword">def</code> <code class="python plain">get_prob_vector(</code><code class="python color1">self</code><code class="python plain">, data):</code></div><div class="line number12 index11 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">size </code><code class="python keyword">=</code> <code class="python functions">float</code><code class="python plain">(</code><code class="python functions">len</code><code class="python plain">(data))</code></div><div class="line number13 index12 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">value_count</code><code class="python keyword">=</code><code class="python plain">data[</code><code class="python color1">self</code><code class="python plain">.response].value_counts()</code></div><div class="line number14 index13 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">prob_vector </code><code class="python keyword">=</code> <code class="python plain">[value_count[key]</code><code class="python keyword">/</code><code class="python plain">size </code><code class="python keyword">for</code> <code class="python plain">key </code><code class="python keyword">in</code> <code class="python plain">value_count.keys()]</code></div><div class="line number15 index14 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python plain">prob_vector</code></div></div></td></tr></tbody></table></div></div>
+<p>Now we have the metrics sorted, we can make a function to handle calculating node purity. The idea is that if a node is a leaf, it simply returns the metric evaluated on the subset of the data corresponding to its filter, if it is a parent, it returns the weighted sum of the node purities of its children.</p>
+<div><div id="highlighter_377633" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">def</code> <code class="python plain">node_purity(</code><code class="python color1">self</code><code class="python plain">, node):</code></div><div class="line number2 index1 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python plain">node.children</code><code class="python keyword">=</code><code class="python keyword">=</code><code class="python color1">None</code><code class="python plain">:</code></div><div class="line number3 index2 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python color1">self</code><code class="python plain">.metric(node.local_data, kind</code><code class="python keyword">=</code><code class="python color1">self</code><code class="python plain">.metric_kind)</code></div><div class="line number4 index3 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">else</code><code class="python plain">:</code></div><div class="line number5 index4 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">left_raw_purity</code><code class="python keyword">=</code><code class="python color1">self</code><code class="python plain">.node_purity(node</code><code class="python keyword">=</code><code class="python plain">node.left)</code></div><div class="line number6 index5 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">right_raw_purity</code><code class="python keyword">=</code><code class="python color1">self</code><code class="python plain">.node_purity(node</code><code class="python keyword">=</code><code class="python plain">node.right)</code></div><div class="line number7 index6 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">left_size</code><code class="python keyword">=</code> <code class="python functions">float</code><code class="python plain">(node.left.size)</code></div><div class="line number8 index7 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">right_size </code><code class="python keyword">=</code> <code class="python functions">float</code><code class="python plain">(node.right.size)</code></div><div class="line number9 index8 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">left_purity</code><code class="python keyword">=</code> <code class="python plain">(left_size</code><code class="python keyword">/</code><code class="python plain">node.size)</code><code class="python keyword">*</code><code class="python plain">left_raw_purity</code></div><div class="line number10 index9 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">right_purity </code><code class="python keyword">=</code> <code class="python plain">(right_size</code><code class="python keyword">/</code><code class="python plain">node.size)</code><code class="python keyword">*</code><code class="python plain">right_raw_purity</code></div><div class="line number11 index10 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python plain">left_purity</code><code class="python keyword">+</code><code class="python plain">right_purity</code></div></div></td></tr></tbody></table></div></div>
+<p>And since it makes to reference to pivots and the like, it can go in DecisionTree.</p>
+<p>Now we are pretty much there, we just need to say something about stopping conditions. Some natural candidates are node depth (how many levels down from the root it is), node size, total number of leaves,or a threshold for the metric.<br>
+The last one won’t work because we can’t know in advance how well the data can be partitioned by the attributes, but this is quite a general problem in machine learning, parameter-tuning.</p>
+<p>Node depth sounds reasonable, so we could add that into the DecisionNode and have it be updated when splitting a node.</p>
+<p>Node size is also something we already keeping track of, but it has the disadvantage that we don’t know in advance how small the nodes can become.</p>
+<div><div id="highlighter_703488" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">def</code> <code class="python plain">stopping_condition(</code><code class="python color1">self</code><code class="python plain">, node):</code></div><div class="line number2 index1 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python color1">self</code><code class="python plain">.max_node_depth &lt;</code><code class="python keyword">=</code> <code class="python plain">node.depth:</code></div><div class="line number3 index2 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python color1">True</code></div><div class="line number4 index3 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">elif</code> <code class="python plain">node.size &lt;</code><code class="python keyword">=</code> <code class="python color1">self</code><code class="python plain">.min_node_size:</code></div><div class="line number5 index4 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python color1">True</code></div><div class="line number6 index5 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">else</code><code class="python plain">:</code></div><div class="line number7 index6 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python color1">False</code></div></div></td></tr></tbody></table></div></div>
+<p>Now we put it together.</p>
+<div><div id="highlighter_775306" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">def</code> <code class="python plain">grow_tree(</code><code class="python color1">self</code><code class="python plain">):</code></div><div class="line number2 index1 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.create_vertex()</code></div><div class="line number3 index2 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.set_root(</code><code class="python color1">self</code><code class="python plain">.vertices[</code><code class="python value">0</code><code class="python plain">])</code></div><div class="line number4 index3 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.leaves.add(</code><code class="python color1">self</code><code class="python plain">.vertices[</code><code class="python value">0</code><code class="python plain">])</code></div><div class="line number5 index4 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.grow_node(node</code><code class="python keyword">=</code><code class="python color1">self</code><code class="python plain">.get_root())</code></div><div class="line number6 index5 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python color1">self</code><code class="python plain">.set_predictions</code></div></div></td></tr></tbody></table></div></div>
+<p>One other thing I want to do is interface to igraphs a bit better on the plotting front, but I will hide the details from you guys for now as it’s not so interesting, but once I put the code up you can examine it at leisure.</p>
+<p>Now we are ready to grow our tree.</p>
+<div><div id="highlighter_835802" class="syntaxhighlighter nogutter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">import</code> <code class="python plain">cleantitanic as ct</code></div><div class="line number2 index1 alt1"><code class="python plain">df</code><code class="python keyword">=</code><code class="python plain">ct.cleaneddf()[</code><code class="python value">0</code><code class="python plain">]</code></div><div class="line number3 index2 alt2"><code class="python plain">df</code><code class="python keyword">=</code><code class="python plain">df[[</code><code class="python string">'survived'</code><code class="python plain">, </code><code class="python string">'pclass'</code><code class="python plain">, </code><code class="python string">'sex'</code><code class="python plain">, </code><code class="python string">'age'</code><code class="python plain">, </code><code class="python string">'sibsp'</code><code class="python plain">, </code><code class="python string">'parch'</code><code class="python plain">,</code></div><div class="line number4 index3 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python string">'fare'</code><code class="python plain">, </code><code class="python string">'embarked'</code><code class="python plain">]]</code></div><div class="line number5 index4 alt2"><code class="python plain">data_type_dict</code><code class="python keyword">=</code><code class="python plain">{</code><code class="python string">'survived'</code><code class="python plain">:</code><code class="python string">'nominal'</code><code class="python plain">, </code><code class="python string">'pclass'</code><code class="python plain">:</code><code class="python string">'ordinal'</code><code class="python plain">, </code><code class="python string">'sex'</code><code class="python plain">:</code><code class="python string">'nominal'</code><code class="python plain">,</code></div><div class="line number6 index5 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python string">'age'</code><code class="python plain">:</code><code class="python string">'ordinal'</code><code class="python plain">, </code><code class="python string">'sibsp'</code><code class="python plain">:</code><code class="python string">'ordinal'</code><code class="python plain">, </code><code class="python string">'parch'</code><code class="python plain">:</code><code class="python string">'ordinal'</code><code class="python plain">,</code></div><div class="line number7 index6 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python string">'fare'</code><code class="python plain">:</code><code class="python string">'ordinal'</code><code class="python plain">, </code><code class="python string">'embarked'</code><code class="python plain">:</code><code class="python string">'nominal'</code><code class="python plain">}</code></div><div class="line number8 index7 alt1">&nbsp;</div><div class="line number9 index8 alt2"><code class="python plain">t</code><code class="python keyword">=</code><code class="python plain">PivotDecisionTree(data_type_dict</code><code class="python keyword">=</code><code class="python plain">data_type_dict,</code></div><div class="line number10 index9 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">metric_kind</code><code class="python keyword">=</code><code class="python string">'Gini'</code><code class="python plain">, max_node_depth</code><code class="python keyword">=</code><code class="python value">3</code><code class="python plain">, data</code><code class="python keyword">=</code><code class="python plain">df)</code></div><div class="line number11 index10 alt2"><code class="python plain">t.response</code><code class="python keyword">=</code><code class="python string">'survived'</code></div><div class="line number12 index11 alt1"><code class="python plain">t.grow_tree()</code></div><div class="line number13 index12 alt2"><code class="python plain">g</code><code class="python keyword">=</code><code class="python plain">t.plot()</code></div></div></td></tr></tbody></table></div></div>
+<p>And it looks like:<br>
+<a href="https://triangleinequality.files.wordpress.com/2013/08/titanic_decision_tree1.png"><img class="alignnone size-full wp-image-166" alt="titanic_decision_tree1" src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/titanic_decision_tree1.png" originalw="960" width="600" height="592" scale="2"></a><br>
+Where left corresponds to the vertex test being True. So this is starting to look good, but next we need to<br>
+learn how to prune it because we don’t yet have very informed criteria for stopping, but it is better to<br>
+ask forgiveness than permission, as the Pythonistas say!</p>
+<p>The code will be up soon when it is all put together.</p>
+<div id="jp-post-flair" class="sharedaddy sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow" class="share-twitter sd-button share-icon" href="https://triangleinequality.wordpress.com/2013/08/26/decision-trees-part-2-growing-your-tree/?share=twitter&nb=1" title="Click to share on Twitter" id="sharing-twitter-151"><span>Twitter</span></a></li><li class="share-facebook"><a rel="nofollow" class="share-facebook sd-button share-icon" href="https://triangleinequality.wordpress.com/2013/08/26/decision-trees-part-2-growing-your-tree/?share=facebook&nb=1" title="Share on Facebook" id="sharing-facebook-151"><span>Facebook</span></a></li><li class="share-google-plus-1"><a rel="nofollow" class="share-google-plus-1 sd-button share-icon" href="https://triangleinequality.wordpress.com/2013/08/26/decision-trees-part-2-growing-your-tree/?share=google-plus-1&nb=1" title="Click to share on Google+" id="sharing-google-151"><span>Google</span></a></li><li class="share-end"></li></ul></div></div></div><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-loaded" id="like-post-wrapper-52270418-151-5548641a114e2" data-src="//widgets.wp.com/likes/#blog_id=52270418&amp;post_id=151&amp;origin=triangleinequality.wordpress.com&amp;obj_id=52270418-151-5548641a114e2" data-name="like-post-frame-52270418-151-5548641a114e2"><h3 class="sd-title">Like this:</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height: 55px; display: none;"><span class="button"><span>Like</span></span> <span class="loading">Loading...</span></div><iframe class="post-likes-widget jetpack-likes-widget" name="like-post-frame-52270418-151-5548641a114e2" height="55px" width="100%" frameborder="0" src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/saved_resource(7).html"></iframe><span class="sd-text-color"></span><a class="sd-link-color"></a></div>
+<div id="jp-relatedposts" class="jp-relatedposts" style="display: block;">
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+<div class="jp-relatedposts-items jp-relatedposts-items-minimal"><p class="jp-relatedposts-post jp-relatedposts-post0" data-post-id="175" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://triangleinequality.wordpress.com/2013/09/01/decision-trees-part-3-pruning-your-tree/" title="Decision Trees Part 3: Pruning your Tree
+
+Ok last time we learned how to automatically grow a tree, using a greedy algorithm to choose splits that maximise a given &#39;metric&#39;. The problem is that the trees become huge and undoubtedly overfit to our data, meaning that it will generalize to unseen data poorly. This is the age…" rel="nofollow" data-origin="151" data-position="0">Decision Trees Part 3: Pruning your Tree</a></span><span class="jp-relatedposts-post-context">In "decision trees"</span></p><p class="jp-relatedposts-post jp-relatedposts-post1" data-post-id="224" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://triangleinequality.wordpress.com/2013/09/05/a-complete-guide-to-getting-0-79903-in-kaggles-titanic-competition-with-python/" title="A complete guide to getting 0.79903 in Kaggle&#39;s Titanic Competition with Python
+
+Ok so this is going to be a quick recap of all the work we have done so far in this blog, but it should be accessible to first time readers also. Quickstart: to get underway immediately just download the following python scripts: -Data Cleaning -Graph Theory -Decision Trees -Final…" rel="nofollow" data-origin="151" data-position="1">A complete guide to getting 0.79903 in Kaggle's Titanic Competition with Python</a></span><span class="jp-relatedposts-post-context">In "decision trees"</span></p><p class="jp-relatedposts-post jp-relatedposts-post2" data-post-id="138" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://triangleinequality.wordpress.com/2013/08/24/decision-trees-part-1-representation/" title="Decision Trees Part 1: Representation
+
+Now that we have data structures describing graphs, we can put them to work and do some machine learning! We&#39;re going to be looking at decision trees. The wikipedia page on Decison Tree learning has an example from our favourite data set, the Titanic survivors, so let&#39;s steal their picture…" rel="nofollow" data-origin="151" data-position="2">Decision Trees Part 1: Representation</a></span><span class="jp-relatedposts-post-context">In "graph theory"</span></p></div></div></div>	</div><!-- end .entry-content -->
+
+	<div class="entry-meta">
+		<p class="tags"><strong>Tags:</strong> <a href="https://triangleinequality.wordpress.com/tag/decision-tree/" rel="tag">decision tree</a>, <a href="https://triangleinequality.wordpress.com/tag/gini-coefficient/" rel="tag">Gini coefficient</a>, <a href="https://triangleinequality.wordpress.com/tag/kaggle/" rel="tag">Kaggle</a>, <a href="https://triangleinequality.wordpress.com/tag/python/" rel="tag">python</a>, <a href="https://triangleinequality.wordpress.com/tag/rss/" rel="tag">RSS</a>, <a href="https://triangleinequality.wordpress.com/tag/titanic/" rel="tag">Titanic</a>, <a href="https://triangleinequality.wordpress.com/tag/trees/" rel="tag">Trees</a></p><span class="by-author">By <span class="author vcard"><a class="url fn n" href="https://triangleinequality.wordpress.com/author/triangleinequality/" title="View all posts by triangleinequality" rel="author">triangleinequality</a></span> </span>in <span class="category"><a href="https://triangleinequality.wordpress.com/category/machine-learning/decision-trees/" rel="category tag">decision trees</a>, <a href="https://triangleinequality.wordpress.com/category/maths/graph-theory/" rel="category tag">graph theory</a>, <a href="https://triangleinequality.wordpress.com/category/kaggle/" rel="category tag">Kaggle</a>, <a href="https://triangleinequality.wordpress.com/category/machine-learning/" rel="category tag">machine learning</a>, <a href="https://triangleinequality.wordpress.com/category/maths/" rel="category tag">maths</a>, <a href="https://triangleinequality.wordpress.com/category/python/" rel="category tag">python</a>, <a href="https://triangleinequality.wordpress.com/category/kaggle/titanic/" rel="category tag">Titanic</a></span> on <span class="datetime"><a href="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/Decision Trees Part 2_ Growing Your Tree « triangleinequality.html" title="7:28 pm" rel="bookmark"><time class="entry-date" datetime="2013-08-26T19:28:10+00:00" pubdate="">August 26, 2013</time></a></span>.	</div><!-- end .entry-meta -->
+
+</div><!-- end #post-## -->
+		<div class="navigation clearfix">
+			<span class="alignleft"><a href="https://triangleinequality.wordpress.com/2013/08/24/decision-trees-part-1-representation/" rel="prev"><span class="meta-nav">←</span> Decision Trees Part 1:&nbsp;Representation</a></span>			<span class="alignright"><a href="https://triangleinequality.wordpress.com/2013/09/01/decision-trees-part-3-pruning-your-tree/" rel="next">Decision Trees Part 3: Pruning your&nbsp;Tree <span class="meta-nav">→</span></a></span>		</div><!-- end .navigation -->
+
+		
+<div id="comments">
+
+	
+		<hr>
+		<h2>2 Comments</h2>
+
+		<ol class="commentlist">
+					<li class="pingback even thread-even depth-1 highlander-comment" id="comment-18">
+				<div id="div-comment-18" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href="https://triangleinequality.wordpress.com/2013/09/01/decision-trees-part-3-pruning-your-tree/" rel="external nofollow" class="url">Decision Trees Part 3: Pruning your Tree | triangleinequality</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://triangleinequality.wordpress.com/2013/08/26/decision-trees-part-2-growing-your-tree/comment-page-1/#comment-18">
+			September 1, 2013 at 8:55 am</a>		</div>
+
+		<p>[…] last time we learned how to automatically grow a tree, using a greedy algorithm to choose splits that maximise […]</p>
+
+		<div class="reply"><a class="comment-reply-link" href="https://triangleinequality.wordpress.com/2013/08/26/decision-trees-part-2-growing-your-tree/?replytocom=18#respond" onclick="return addComment.moveForm( &quot;div-comment-18&quot;, &quot;18&quot;, &quot;respond&quot;, &quot;151&quot; )" aria-label="Reply to Decision Trees Part 3: Pruning your Tree | triangleinequality">Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-30">
+				<div id="div-comment-30" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href="https://triangleinequality.wordpress.com/2013/09/05/a-complete-guide-to-getting-0-79903-in-kaggles-titanic-competition-with-python/" rel="external nofollow" class="url">A complete guide to getting 0.79903 in Kaggle’s Titanic Competition with Python « triangleinequality</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://triangleinequality.wordpress.com/2013/08/26/decision-trees-part-2-growing-your-tree/comment-page-1/#comment-30">
+			September 5, 2013 at 12:16 pm</a>		</div>
+
+		<p>[…] learn about how they were created you can start here with representation, then here for growing the tree, here for pruning the […]</p>
+
+		<div class="reply"><a class="comment-reply-link" href="https://triangleinequality.wordpress.com/2013/08/26/decision-trees-part-2-growing-your-tree/?replytocom=30#respond" onclick="return addComment.moveForm( &quot;div-comment-30&quot;, &quot;30&quot;, &quot;respond&quot;, &quot;151&quot; )" aria-label="Reply to A complete guide to getting 0.79903 in Kaggle’s Titanic Competition with Python « triangleinequality">Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		</ol>
+
+								<div id="respond" class="comment-respond js">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="https://triangleinequality.wordpress.com/2013/08/26/decision-trees-part-2-growing-your-tree/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="https://triangleinequality.wordpress.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																										
+
+
+												<input type="hidden" id="highlander_comment_nonce" name="highlander_comment_nonce" value="9b3f4ae146"><input type="hidden" name="_wp_http_referer" value="/2013/08/26/decision-trees-part-2-growing-your-tree/">
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest">
+
+<div class="comment-form-field comment-textarea">
+	
+	<div id="comment-form-comment"><textarea tabindex="-1" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px; padding: 0px; box-sizing: content-box; word-wrap: break-word; overflow: hidden; -webkit-transition: none; transition: none; height: 0px !important; min-height: 0px !important; font-family: Helvetica, Arial, Tahoma, sans-serif; font-size: 14px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; text-decoration: none; word-spacing: 0px; text-indent: 0px; line-height: normal; width: 938px;" class="autosizejs "></textarea><textarea id="comment" name="comment" title="Enter your comment here..." placeholder="Enter your comment here..." style="height: 36px; overflow: hidden; word-wrap: break-word; resize: none;"></textarea></div>
+</div>
+
+<div id="comment-form-identity" style="display: none;">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="https://triangleinequality.wordpress.com/2013/08/26/decision-trees-part-2-growing-your-tree/#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://triangleinequality.wordpress.com/2013/08/26/decision-trees-part-2-growing-your-tree/#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://triangleinequality.wordpress.com/2013/08/26/decision-trees-part-2-growing-your-tree/#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://triangleinequality.wordpress.com/2013/08/26/decision-trees-part-2-growing-your-tree/#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+			<li>
+			<iframe id="googleplus-sign-in" name="googleplus-sign-in" src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/saved_resource.html" width="24" height="24" scrolling="no" allowtransparency="true" seamless="seamless" frameborder="0"></iframe>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank">				<img src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/ad516503a11cd5ca435acc9bb6523536" alt="Gravatar" width="25" class="no-grav" originals="25" scale="2">
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text" value=""></div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/wplogo.png" alt="WordPress.com Logo" width="25" class="no-grav" scale="0">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="">
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your WordPress.com account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'wordpress' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://triangleinequality.wordpress.com/2013/08/26/decision-trees-part-2-growing-your-tree/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/ad516503a11cd5ca435acc9bb6523536" alt="Twitter picture" width="25" class="no-grav" originals="25" scale="2">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="">
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'twitter' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://triangleinequality.wordpress.com/2013/08/26/decision-trees-part-2-growing-your-tree/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/ad516503a11cd5ca435acc9bb6523536" alt="Facebook photo" width="25" class="no-grav" originals="25" scale="2">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="">
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'facebook' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://triangleinequality.wordpress.com/2013/08/26/decision-trees-part-2-growing-your-tree/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/ad516503a11cd5ca435acc9bb6523536" alt="Google+ photo" width="25" class="no-grav" originals="25" scale="2">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="">
+				<p class="comment-form-posting-as pa-googleplus"><strong></strong> You are commenting using your Google+ account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'googleplus' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://triangleinequality.wordpress.com/2013/08/26/decision-trees-part-2-growing-your-tree/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div id="comment-form-subscribe" style="display: none;">
+	<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6"> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of new comments via email.</label></p></div>
+
+												<p class="form-submit" style="display: none;">
+							<input name="submit" type="submit" id="comment-submit" class="submit" value="Post Comment">
+							<input type="hidden" name="comment_post_ID" value="151" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+						</p>
+						<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="3bdcbd8399"></p>
+<input type="hidden" name="genseq" value="1430807578">
+<p style="display: none;"></p>					<input type="hidden" id="ak_js" name="ak_js" value="1430808080778"></form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>
+</div><!-- #comments -->
+	</div><!-- end .column-content -->
+
+	
+	
+</div><!-- end #content -->
+
+			<div id="footer" class="clearfix">
+				
+								<p class="copy">
+					<a href="https://wordpress.com/?ref=footer_website">Create a free website or blog at WordPress.com</a>.<span class="sep"> / </span>
+					<a href="https://wordpress.com/themes/academica/" title="Learn more about this theme">The Academica Theme</a>.				</p>
+			</div><!-- end #footer -->
+		</div><!-- end #wrap -->
+
+		<!-- wpcom_wp_footer -->
+<script type="text/javascript" src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/wpgroho.js"></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+
+			if (typeof Gravatar === "undefined"){
+				return;
+			}
+
+			if ( typeof Gravatar.init !== "function" ) {
+				return;
+			}			
+
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"https:\/\/triangleinequality.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"https:\/\/triangleinequality.wordpress.com\/wp-login.php?action=logout&_wpnonce=4327dc2202","homeURL":"https:\/\/triangleinequality.wordpress.com\/","postID":"151","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"0","userIsLoggedIn":"","isJetpack":"0","text_direction":"ltr"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/saved_resource(2)"></script>
+
+	<div id="bit" class="loggedout-follow-normal" style="bottom: -260px;">
+		<a class="bsub" href="javascript:void(0)"><span id="bsub-text">Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow “triangleinequality”</label></h3>
+
+			<form action="https://subscribe.wordpress.com/" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+						<p class="bit-follow-count">Join 38 other followers</p>
+			<p><input type="email" name="email" value="Enter your email address" onfocus="this.value=(this.value==&quot;Enter your email address&quot;) ? &quot;&quot; : this.value;" onblur="this.value=(this.value==&quot;&quot;) ? &quot;Enter your email address&quot; : this.value;" id="loggedout-follow-field"></p>
+
+			<input type="hidden" name="action" value="subscribe">
+			<input type="hidden" name="blog_id" value="52270418">
+			<input type="hidden" name="source" value="https://triangleinequality.wordpress.com/2013/08/26/decision-trees-part-2-growing-your-tree/">
+			<input type="hidden" name="sub-type" value="loggedout-follow">
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="9692dc94a5"><input type="hidden" name="_wp_http_referer" value="/2013/08/26/decision-trees-part-2-growing-your-tree/">
+			<p id="bsub-subscribe-button"><input type="submit" value="Sign me up"></p>
+			</form>
+					<div id="bsub-credit"><a href="https://wordpress.com/?ref=lof">Build a website with WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"https:\/\/triangleinequality.wordpress.com\/2013\/08\/26\/decision-trees-part-2-growing-your-tree\/":151};
+		window.WPCOM_site_ID = 52270418;
+	</script>
+		<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-google-plus-1' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=480,height=550' );
+				return false;
+			});
+		});
+		</script>
+				<iframe src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/master.html" scrolling="no" id="likes-master" name="likes-master" style="display:none;"></iframe>
+		<div id="likes-other-gravatars"><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type="text/javascript">
+		//<![CDATA[
+			var jetpackLikesWidgetQueue = [];
+			var jetpackLikesWidgetBatch = [];
+			var jetpackLikesMasterReady = false;
+
+			function JetpackLikespostMessage( message, target ) {
+				if ( "string" === typeof message ){
+					try{
+						message = JSON.parse( message );
+					}
+					catch(e) {
+						return;
+					}
+				}
+
+				pm( {
+					target: target,
+					type: 'likesMessage',
+					data: message,
+					origin: '*'
+				} );
+			}
+
+			function JetpackLikesBatchHandler() {
+				var requests = [];
+				jQuery( 'div.jetpack-likes-widget-unloaded' ).each( function( i ) {
+					if ( jetpackLikesWidgetBatch.indexOf( this.id ) > -1 )
+						return;
+					jetpackLikesWidgetBatch.push( this.id );
+					var regex = /like-(post|comment)-wrapper-(\d+)-(\d+)-(\w+)/;
+					var match = regex.exec( this.id );
+					if ( ! match || match.length != 5 )
+						return;
+
+					var info = {
+						blog_id: match[2],
+						width:   this.width
+					};
+
+					if ( 'post' == match[1] ) {
+						info.post_id = match[3];
+					} else if ( 'comment' == match[1] ) {
+						info.comment_id = match[3];
+					}
+
+					info.obj_id = match[4];
+
+					requests.push( info );
+				});
+
+				if ( requests.length > 0 ) {
+					JetpackLikespostMessage( { event: 'initialBatch', requests: requests }, window.frames['likes-master'] );
+				}
+			}
+
+			function JetpackLikesMessageListener( event ) {
+				if ( "undefined" == typeof event.event )
+					return;
+
+				if ( 'masterReady' == event.event ) {
+					jQuery( document ).ready( function() {
+						jetpackLikesMasterReady = true;
+
+						var stylesData = {
+								event: 'injectStyles'
+						};
+
+						if ( jQuery( 'iframe.admin-bar-likes-widget' ).length > 0 ) {
+							JetpackLikespostMessage( { event: 'adminBarEnabled' }, window.frames[ 'likes-master' ] );
+
+							stylesData.adminBarStyles = {
+								background: jQuery( '#wpadminbar .quicklinks li#wp-admin-bar-wpl-like > a' ).css( 'background' ),
+								isRtl: ( 'rtl' == jQuery( '#wpadminbar' ).css( 'direction' ) )
+							};
+						}
+
+						if ( !window.addEventListener )
+							jQuery( '#wp-admin-bar-admin-bar-likes-widget' ).hide();
+
+						stylesData.textStyles = {
+							color: jQuery( '.sd-text-color').css( 'color' ),
+							fontFamily: jQuery( '.sd-text-color' ).css( 'font-family' ),
+							fontSize: jQuery( '.sd-text-color' ).css( 'font-size' ),
+							direction: jQuery( '.sd-text-color' ).css( 'direction' ),
+							fontWeight: jQuery( '.sd-text-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-text-color' ).css( 'font-style' ),
+							textDecoration: jQuery( '.sd-text-color' ).css('text-decoration')
+						};
+
+						stylesData.linkStyles = {
+							color: jQuery( '.sd-link-color' ).css('color'),
+							fontFamily: jQuery( '.sd-link-color' ).css('font-family'),
+							fontSize: jQuery( '.sd-link-color' ).css('font-size'),
+							textDecoration: jQuery( '.sd-link-color' ).css('text-decoration'),
+							fontWeight: jQuery( '.sd-link-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-link-color' ).css( 'font-style' )
+						};
+
+						JetpackLikespostMessage( stylesData, window.frames[ 'likes-master' ] );
+
+						JetpackLikesBatchHandler();
+
+						jQuery( document ).on( 'inview', 'div.jetpack-likes-widget-unloaded', function() {
+							jetpackLikesWidgetQueue.push( this.id );
+						});
+					});
+				}
+
+				if ( 'showLikeWidget' == event.event ) {
+					jQuery( '#' + event.id + ' .post-likes-widget-placeholder'  ).fadeOut( 'fast', function() {
+						jQuery( '#' + event.id + ' .post-likes-widget' ).fadeIn( 'fast', function() {
+							JetpackLikespostMessage( { event: 'likeWidgetDisplayed', blog_id: event.blog_id, post_id: event.post_id, obj_id: event.obj_id }, window.frames['likes-master'] );
+						});
+					});
+				}
+
+				if ( 'clickReblogFlair' == event.event ) {
+					wpcom_reblog.toggle_reblog_box_flair( event.obj_id );
+				}
+
+				if ( 'showOtherGravatars' == event.event ) {
+					var $container = jQuery( '#likes-other-gravatars' );
+					var $list = $container.find( 'ul' );
+
+					$container.hide();
+					$list.html( '' );
+
+					$container.find( '.likes-text span' ).text( event.total );
+
+					jQuery.each( event.likers, function( i, liker ) {
+						$list.append( '<li class="' + liker.css_class + '"><a href="' + liker.profile_URL + '" class="wpl-liker" rel="nofollow" target="_parent"><img src="' + liker.avatar_URL + '" alt="' + liker.name + '" width="30" height="30" style="padding-right: 3px;" /></a></li>');
+					} );
+
+					var offset = jQuery( "[name='" + event.parent + "']" ).offset();
+
+					$container.css( 'left', offset.left + event.position.left - 10 + 'px' );
+					$container.css( 'top', offset.top + event.position.top - 33 + 'px' );
+
+					var rowLength = Math.floor( event.width / 37 );
+					var height = ( Math.ceil( event.likers.length / rowLength ) * 37 ) + 13;
+					if ( height > 204 ) {
+						height = 204;
+					}
+
+					$container.css( 'height', height + 'px' );
+					$container.css( 'width', rowLength * 37 - 7 + 'px' );
+
+					$list.css( 'width', rowLength * 37 + 'px' );
+
+					$container.fadeIn( 'slow' );
+
+					var scrollbarWidth = $list[0].offsetWidth - $list[0].clientWidth;
+					if ( scrollbarWidth > 0 ) {
+						$container.width( $container.width() + scrollbarWidth );
+						$list.width( $list.width() + scrollbarWidth );
+					}
+				}
+			}
+
+			pm.bind( 'likesMessage', function(e) { JetpackLikesMessageListener(e); } );
+
+			jQuery( document ).click( function( e ) {
+				var $container = jQuery( '#likes-other-gravatars' );
+
+				if ( $container.has( e.target ).length === 0 ) {
+					$container.fadeOut( 'slow' );
+				}
+			});
+
+			function JetpackLikesWidgetQueueHandler() {
+				var wrapperID;
+				if ( ! jetpackLikesMasterReady ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				if ( jetpackLikesWidgetQueue.length > 0 ) {
+					// We may have a widget that needs creating now
+					var found = false;
+					while( jetpackLikesWidgetQueue.length > 0 ) {
+						// Grab the first member of the queue that isn't already loading.
+						wrapperID = jetpackLikesWidgetQueue.splice( 0, 1 )[0];
+						if ( jQuery( '#' + wrapperID ).hasClass( 'jetpack-likes-widget-unloaded' ) ) {
+							found = true;
+							break;
+						}
+					}
+					if ( ! found ) {
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				} else if ( jQuery( 'div.jetpack-likes-widget-unloaded' ).length > 0 ) {
+					// Grab any unloaded widgets for a batch request
+					JetpackLikesBatchHandler();
+
+					// Get the next unloaded widget
+					wrapperID = jQuery( 'div.jetpack-likes-widget-unloaded' ).first()[0].id;
+					if ( ! wrapperID ) {
+						// Everything is currently loaded
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				}
+
+				if ( 'undefined' === typeof wrapperID ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				var $wrapper = jQuery( '#' + wrapperID );
+				$wrapper.find( 'iframe' ).remove();
+
+				if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='22px' width='68px' frameBorder='0' scrolling='no' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				} else {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='55px' width='100%' frameBorder='0' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				}
+
+				$wrapper.removeClass( 'jetpack-likes-widget-unloaded' ).addClass( 'jetpack-likes-widget-loading' );
+
+				$wrapper.find( 'iframe' ).load( function( e ) {
+					var $iframe = jQuery( e.target );
+					$wrapper.removeClass( 'jetpack-likes-widget-loading' ).addClass( 'jetpack-likes-widget-loaded' );
+
+					JetpackLikespostMessage( { event: 'loadLikeWidget', name: $iframe.attr( 'name' ), width: $iframe.width() }, window.frames[ 'likes-master' ] );
+
+					if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+						$wrapper.find( 'iframe' ).Jetpack( 'resizeable' );
+					}
+				});
+				setTimeout( JetpackLikesWidgetQueueHandler, 250 );
+			}
+			JetpackLikesWidgetQueueHandler();
+		//]]>
+		</script>
+<script type="text/javascript" src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/form.js"></script>
+<script type="text/javascript" src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/saved_resource(3)"></script>
+<script type="text/javascript">
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "https://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.9b";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "https://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?m=1363304414g&amp;ver=3.0.9b";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var JetpackEmojiSettings = {"base_url":"https:\/\/s0.wp.com\/wp-content\/mu-plugins\/emoji\/twemoji\/"};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/saved_resource(4)"></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/w.js" type="text/javascript" async="" defer=""></script>
+<script type="text/javascript">
+_tkq = window._tkq || [];
+_stq = window._stq || [];
+_tkq.push(['storeContext', {'blog_id':'52270418','blog_tz':'0','user_lang':'en','blog_lang':'en','user_id':'0'}]);
+_stq.push(['view', {'blog':'52270418','v':'wpcom','tz':'0','user_id':'0','post':'151','subd':'triangleinequality'}]);
+_stq.push(['extra', {'crypt':'UE40eW5QN0p8M2Y/RE1oOHBqWkJdYy5wL35xRnR4SVtWLmluVHQrZ3JBRDNRaV9yeU4rX041RXBzU1FiayxfJjYsMDgzbnJVcVJxJW5CRj9vLlMmeXZKTFpPaXdEMnR4bT1OJiV3cjFUY240UG9VWSV3blslLHMxRmZZd1B5X1tQSkw/QkRVViZ1RVVMdjZmUVIrNm1kUDkrUkNJRStZeGJVbjkvfEpzS1pzWSVVeG5oX3AuPX42aHJJdGtJUVtVUTNqMzR4SkVrT3lFcUtKN3BNXVt0RmhXfl1VaXx1ZS8mRzBSLVdxTytEYW9JOSZMcGdkLW5vbVJdbDlyL2QyfE56XThfYTN+dlpwVzB2UTB+VFs/cHIzbWlKT2xZS1RTYTZ2d01lUkJfMHNMc1UsZGpdUyxk'}]);
+_stq.push([ 'clickTrackerInit', '52270418', '151' ]);
+	</script>
+<noscript>&lt;img src="https://pixel.wp.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /&gt;</noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//pixel.wp.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>	
+<img src="./Decision Trees Part 2_ Growing Your Tree « triangleinequality_files/g.gif" id="wpstats" scale="0"></body></html>

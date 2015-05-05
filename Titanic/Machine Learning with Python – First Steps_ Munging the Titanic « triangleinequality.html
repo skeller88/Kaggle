@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<!-- saved from url=(0101)https://triangleinequality.wordpress.com/2013/05/19/machine-learning-with-python-first-steps-munging/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+
+<title>Machine Learning with Python – First Steps: Munging the Titanic « triangleinequality</title>
+
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://triangleinequality.wordpress.com/xmlrpc.php">
+
+<link rel="alternate" type="application/rss+xml" title="triangleinequality » Feed" href="https://triangleinequality.wordpress.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="triangleinequality » Comments Feed" href="https://triangleinequality.wordpress.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="triangleinequality » Machine Learning with Python – First Steps: Munging the Titanic Comments Feed" href="https://triangleinequality.wordpress.com/2013/05/19/machine-learning-with-python-first-steps-munging/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel="stylesheet" id="all-css-0" href="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/saved_resource" type="text/css" media="all">
+<script type="text/javascript">
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/saved_resource(1)"></script>
+<link rel="stylesheet" id="all-css-0" href="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/style.css" type="text/css" media="all">
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='https://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://triangleinequality.wordpress.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://s1.wp.com/wp-includes/wlwmanifest.xml"> 
+<link rel="next" title="Plotting With Python" href="https://triangleinequality.wordpress.com/2013/05/25/plotting-with-python/">
+<meta name="generator" content="WordPress.com">
+<link rel="canonical" href="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality.html">
+<link rel="shortlink" href="http://wp.me/p3xjVg-3">
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=json&url=https%3A%2F%2Ftriangleinequality.wordpress.com%2F2013%2F05%2F19%2Fmachine-learning-with-python-first-steps-munging%2F&for=wpcom-auto-discovery"><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=xml&url=https%3A%2F%2Ftriangleinequality.wordpress.com%2F2013%2F05%2F19%2Fmachine-learning-with-python-first-steps-munging%2F&for=wpcom-auto-discovery">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Machine Learning with Python - First Steps: Munging the Titanic">
+<meta property="og:url" content="https://triangleinequality.wordpress.com/2013/05/19/machine-learning-with-python-first-steps-munging/">
+<meta property="og:description" content="So in this series I want to learn about Python and Machine Learning, implementing many of the algorithms &#39;from scratch&#39; to really get a feel for how they work. The data set I intend to examine in g...">
+<meta property="article:published_time" content="2013-05-19T21:00:01+00:00">
+<meta property="article:modified_time" content="2013-09-06T11:11:00+00:00">
+<meta property="article:author" content="https://triangleinequality.wordpress.com/author/triangleinequality/">
+<meta property="og:site_name" content="triangleinequality">
+<meta property="og:image" content="https://triangleinequality.files.wordpress.com/2013/05/titanic.jpg">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:site" content="@wordpressdotcom">
+<meta name="twitter:image:src" content="https://triangleinequality.files.wordpress.com/2013/05/titanic.jpg?w=640">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="fb:app_id" content="249643311490">
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom">
+<link rel="shortcut icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="apple-touch-icon-precomposed" href="https://s0.wp.com/i/webclip.png">
+<link rel="openid.server" href="https://triangleinequality.wordpress.com/?openidserver=1">
+<link rel="openid.delegate" href="https://triangleinequality.wordpress.com/">
+<link rel="search" type="application/opensearchdescription+xml" href="https://triangleinequality.wordpress.com/osd.xml" title="triangleinequality">
+<link rel="search" type="application/opensearchdescription+xml" href="https://wordpress.com/opensearch.xml" title="WordPress.com">
+<meta name="application-name" content="triangleinequality"><meta name="msapplication-window" content="width=device-width;height=device-height"><meta name="msapplication-tooltip" content="for matters mathematical"><meta name="msapplication-task" content="name=Subscribe;action-uri=https://triangleinequality.wordpress.com/feed/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="title" content="Machine Learning with Python – First Steps: Munging the Titanic | triangleinequality on WordPress.com">
+<meta name="description" content="So in this series I want to learn about Python and Machine Learning, implementing many of the algorithms &#39;from scratch&#39; to really get a feel for how they work. The data set I intend to examine in great detail is from Kaggle, concerning the survivors of the titanic, you can find the data here. In…">
+	<style type="text/css">
+			#site-title a,
+		#site-description {
+			color: #545454 !important;
+		}
+		</style>
+	<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #999999; }
+</style>
+
+<script type="text/javascript" src="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/google_service.js">
+</script>
+<script type="text/javascript">
+if ( typeof GS_googleAddAdSenseService == 'function' ) { GS_googleAddAdSenseService("ca-pub-3443918307802676"); }
+if ( typeof GS_googleEnableAllServices == 'function' ) { GS_googleEnableAllServices() };
+</script><script src="https://securepubads.g.doubleclick.net/gampad/google_ads.js"></script>
+<script type="text/javascript" src="https://c.amazon-adsystem.com/aax2/amzn_ads.js"></script>
+<script type="text/javascript">
+try { amznads.getAds("3033","300x250"); } catch(e) { /* ignore */ }
+</script>
+<script type="text/javascript">
+var amznKeys = amznads.getKeys();
+if (typeof amznKeys != "undefined" && amznKeys != "") { for (var i =0; i < amznKeys.length; i++) { var key = amznKeys[i]; GA_googleAddAttr("amzn", key);} }
+document.close();
+</script>
+<script type="text/javascript">
+if ( typeof GA_googleAddSlot == 'function' ) { GA_googleAddSlot("ca-pub-3443918307802676", "wpcom_below_post"); }
+</script>
+<script type="text/javascript">
+if ( typeof GA_googleFetchAds == 'function' ) { GA_googleFetchAds(); }
+</script>
+
+<script type="text/javascript">
+var wpcom_ads = { bid: 52270418, pt: 'permalink', wa: 0, as: 0, domain: 'triangleinequality.wordpress.com', url: 'https://triangleinequality.wordpress.com/2013/05/19/machine-learning-with-python-first-steps-munging/', gid: '', };
+</script>
+<link rel="stylesheet" type="text/css" href="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/shCore.css"><link rel="stylesheet" type="text/css" href="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/shThemeDefault.css"><style type="text/css" id="syntaxhighlighteranchor"></style>
+<script type="text/javascript">
+	window.google_analytics_uacct = "UA-52447-2";
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_setDomainName', 'wordpress.com']);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script><script type="text/javascript" async="" src="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/ga.js"></script>
+<link rel="stylesheet" type="text/css" id="gravatar-card-css" href="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/services.css"></head>
+<body class="single single-post postid-3 single-format-standard custom-background mp6 customizer-styles-applied column-full column-right highlander-enabled highlander-light">
+	<div id="wrap">
+		<div id="header" class="clearfix">
+
+			<div id="main-nav">
+				<div class="menu"><ul><li><a href="https://triangleinequality.wordpress.com/">Home</a></li><li class="page_item page-item-1"><a href="https://triangleinequality.wordpress.com/about/">About</a></li><li class="page_item page-item-233"><a href="https://triangleinequality.wordpress.com/contents/">Contents</a></li></ul></div>
+			</div><!-- end #main-nav -->
+
+			<div id="logo">
+				<h1 id="site-title">
+					<a href="https://triangleinequality.wordpress.com/" title="triangleinequality - for matters mathematical" rel="home">
+						triangleinequality					</a>
+				</h1>
+				<p id="site-description">for matters mathematical</p>
+			</div><!-- end #logo -->
+
+			<div id="search">
+				<form method="get" id="searchform" action="https://triangleinequality.wordpress.com/">
+	<label for="s" class="assistive-text hidden">Search</label>
+	<input id="s" type="text" name="s" placeholder="Search">
+	<button id="searchsubmit" name="submit" type="submit">Search</button>
+</form>			</div><!-- end #search -->
+
+			
+<div id="social">
+	<ul>
+			</ul>
+</div>
+		</div><!-- end #header -->
+
+		<hr class="sepinside">
+<div id="content" class="clearfix">
+
+	
+	<div class="column column-title">
+		<div id="crumbs">
+	<p><a href="https://triangleinequality.wordpress.com/">Home</a> » <a href="https://triangleinequality.wordpress.com/category/kaggle/">Kaggle</a> » <span class="current">Machine Learning with Python – First Steps: Munging the&nbsp;Titanic</span></p>
+</div><!-- end #crumbs -->		<h1 class="title-header">Machine Learning with Python – First Steps: Munging the&nbsp;Titanic</h1>	</div><!-- end .column-title -->
+
+	
+	<div class="column column-content single">
+
+		
+<div id="post-3" class="post-3 post type-post status-publish format-standard has-post-thumbnail hentry category-kaggle category-machine-learning category-python category-titanic tag-datamining tag-ipython tag-kaggle tag-machine-learning tag-programming tag-python tag-titanic">
+
+	<div class="entry-content clearfix">
+		<p>So in this series I want to learn about Python and Machine Learning, implementing many of the algorithms ‘from scratch’ to really get a feel for how they work.</p>
+<p>The data set I intend to examine in great detail is from <a href="http://www.kaggle.com/">Kaggle</a>, concerning the survivors of the titanic, you can find the data <a href="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/data">here</a>.</p>
+<p><a href="https://triangleinequality.files.wordpress.com/2013/05/titanic.jpg"><img class="aligncenter size-medium wp-image-202" alt="titanic" src="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/titanic.jpg" width="300" height="168" originalw="300" originalh="168" src-orig="https://triangleinequality.files.wordpress.com/2013/05/titanic.jpg?w=300&amp;h=168" scale="2"></a></p>
+<p>In this first post I am going to go through the basics of loading a data set into something Python can work with and general data ‘munging’.</p>
+<p>I am using the <a href="https://code.google.com/p/spyderlib/">Spyder</a> IDE with <a href="http://ipython.org/">IPython </a>, and learning from the book “<a href="http://www.amazon.com/Python-Data-Analysis-Wes-McKinney/dp/1449319793/ref=sr_1_1?ie=UTF8&qid=1368971428&sr=8-1&keywords=python+for+data+analysis">Python for Data Analysis”</a> by Wes McKinney.</p>
+<p>Some of the packages you ought to have are numpy, pandas, scipy and matplotlib. Pandas is especially useful if you’ve ever used <a href="http://www.r-project.org/">R</a>, because it allows us to create dataframes.</p>
+<p>Our goals are to: load the data in, understand what the variables mean, deal with missing or obviously erroneous entries and do some visualisations to get a feel for what’s going on.</p>
+<p>First I will copy and paste here the descriptions of the variables given:</p>
+<blockquote cite="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/data"><p>VARIABLE DESCRIPTIONS:<br>
+survival Survival<br>
+(0 = No; 1 = Yes)<br>
+pclass Passenger Class<br>
+(1 = 1st; 2 = 2nd; 3 = 3rd)<br>
+name Name<br>
+sex Sex<br>
+age Age<br>
+sibsp Number of Siblings/Spouses Aboard<br>
+parch Number of Parents/Children Aboard<br>
+ticket Ticket Number<br>
+fare Passenger Fare<br>
+cabin Cabin<br>
+embarked Port of Embarkation<br>
+(C = Cherbourg; Q = Queenstown; S = Southampton)</p>
+<p>SPECIAL NOTES:<br>
+Pclass is a proxy for socio-economic status (SES)<br>
+1st ~ Upper; 2nd ~ Middle; 3rd ~ Lower</p>
+<p>Age is in Years; Fractional if Age less than One (1)<br>
+If the Age is Estimated, it is in the form xx.5</p>
+<p>With respect to the family relation variables (i.e. sibsp and parch)<br>
+some relations were ignored. The following are the definitions used<br>
+for sibsp and parch.</p>
+<p>Sibling: Brother, Sister, Stepbrother, or Stepsister of Passenger Aboard Titanic<br>
+Spouse: Husband or Wife of Passenger Aboard Titanic (Mistresses and Fiances Ignored)<br>
+Parent: Mother or Father of Passenger Aboard Titanic<br>
+Child: Son, Daughter, Stepson, or Stepdaughter of Passenger Aboard Titanic</p>
+<p>Other family relatives excluded from this study include cousins,<br>
+nephews/nieces, aunts/uncles, and in-laws. Some children travelled<br>
+only with a nanny, therefore parch=0 for them. As well, some<br>
+travelled with very close friends or neighbors in a village, however,<br>
+the definitions do not support such relations.</p></blockquote>
+<p>Let’s get started.</p>
+<div><div id="highlighter_741090" class="syntaxhighlighter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div><div class="line number30 index29 alt1">30</div><div class="line number31 index30 alt2">31</div><div class="line number32 index31 alt1">32</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python plain">In [</code><code class="python value">2</code><code class="python plain">]: </code><code class="python keyword">import</code> <code class="python plain">pandas as pd</code></div><div class="line number2 index1 alt1"><code class="python plain">In [</code><code class="python value">3</code><code class="python plain">]: path </code><code class="python keyword">=</code> <code class="python string">'E:/Datamining/Titanic/rawtrain.csv'</code></div><div class="line number3 index2 alt2"><code class="python plain">In [</code><code class="python value">4</code><code class="python plain">]: traindf </code><code class="python keyword">=</code> <code class="python plain">pd.read_csv(path)</code></div><div class="line number4 index3 alt1"><code class="python plain">In [</code><code class="python value">5</code><code class="python plain">]: traindf</code></div><div class="line number5 index4 alt2"><code class="python plain">Out[</code><code class="python value">5</code><code class="python plain">]:</code></div><div class="line number6 index5 alt1"><code class="python plain">&lt;</code><code class="python keyword">class</code> <code class="python string">'pandas.core.frame.DataFrame'</code><code class="python plain">&gt;</code></div><div class="line number7 index6 alt2"><code class="python plain">Int64Index: </code><code class="python value">891</code> <code class="python plain">entries, </code><code class="python value">0</code> <code class="python plain">to </code><code class="python value">890</code></div><div class="line number8 index7 alt1"><code class="python plain">Data columns:</code></div><div class="line number9 index8 alt2"><code class="python plain">survived&nbsp;&nbsp;&nbsp; </code><code class="python value">891</code>&nbsp; <code class="python plain">non</code><code class="python keyword">-</code><code class="python plain">null values</code></div><div class="line number10 index9 alt1"><code class="python plain">pclass&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="python value">891</code>&nbsp; <code class="python plain">non</code><code class="python keyword">-</code><code class="python plain">null values</code></div><div class="line number11 index10 alt2"><code class="python plain">name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="python value">891</code>&nbsp; <code class="python plain">non</code><code class="python keyword">-</code><code class="python plain">null values</code></div><div class="line number12 index11 alt1"><code class="python plain">sex&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="python value">891</code>&nbsp; <code class="python plain">non</code><code class="python keyword">-</code><code class="python plain">null values</code></div><div class="line number13 index12 alt2"><code class="python plain">age&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="python value">714</code>&nbsp; <code class="python plain">non</code><code class="python keyword">-</code><code class="python plain">null values</code></div><div class="line number14 index13 alt1"><code class="python plain">sibsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="python value">891</code>&nbsp; <code class="python plain">non</code><code class="python keyword">-</code><code class="python plain">null values</code></div><div class="line number15 index14 alt2"><code class="python plain">parch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="python value">891</code>&nbsp; <code class="python plain">non</code><code class="python keyword">-</code><code class="python plain">null values</code></div><div class="line number16 index15 alt1"><code class="python plain">ticket&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="python value">891</code>&nbsp; <code class="python plain">non</code><code class="python keyword">-</code><code class="python plain">null values</code></div><div class="line number17 index16 alt2"><code class="python plain">fare&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="python value">891</code>&nbsp; <code class="python plain">non</code><code class="python keyword">-</code><code class="python plain">null values</code></div><div class="line number18 index17 alt1"><code class="python plain">cabin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="python value">204</code>&nbsp; <code class="python plain">non</code><code class="python keyword">-</code><code class="python plain">null values</code></div><div class="line number19 index18 alt2"><code class="python plain">embarked&nbsp;&nbsp;&nbsp; </code><code class="python value">889</code>&nbsp; <code class="python plain">non</code><code class="python keyword">-</code><code class="python plain">null values</code></div><div class="line number20 index19 alt1"><code class="python plain">dtypes: float64(</code><code class="python value">2</code><code class="python plain">), int64(</code><code class="python value">4</code><code class="python plain">), </code><code class="python functions">object</code><code class="python plain">(</code><code class="python value">5</code><code class="python plain">)</code></div><div class="line number21 index20 alt2">&nbsp;</div><div class="line number22 index21 alt1"><code class="python plain">In [</code><code class="python value">6</code><code class="python plain">]: traindf.describe()</code></div><div class="line number23 index22 alt2"><code class="python plain">Out[</code><code class="python value">6</code><code class="python plain">]:</code></div><div class="line number24 index23 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">survived&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pclass&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; age&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sibsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; parch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fare</code></div><div class="line number25 index24 alt2"><code class="python plain">count&nbsp; </code><code class="python value">891.000000</code>&nbsp; <code class="python value">891.000000</code>&nbsp; <code class="python value">714.000000</code>&nbsp; <code class="python value">891.000000</code>&nbsp; <code class="python value">891.000000</code>&nbsp; <code class="python value">891.000000</code></div><div class="line number26 index25 alt1"><code class="python plain">mean&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="python value">0.383838</code>&nbsp;&nbsp;&nbsp; <code class="python value">2.308642</code>&nbsp;&nbsp; <code class="python value">29.699118</code>&nbsp;&nbsp;&nbsp; <code class="python value">0.523008</code>&nbsp;&nbsp;&nbsp; <code class="python value">0.381594</code>&nbsp;&nbsp; <code class="python value">32.204208</code></div><div class="line number27 index26 alt2"><code class="python plain">std&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="python value">0.486592</code>&nbsp;&nbsp;&nbsp; <code class="python value">0.836071</code>&nbsp;&nbsp; <code class="python value">14.526497</code>&nbsp;&nbsp;&nbsp; <code class="python value">1.102743</code>&nbsp;&nbsp;&nbsp; <code class="python value">0.806057</code>&nbsp;&nbsp; <code class="python value">49.693429</code></div><div class="line number28 index27 alt1"><code class="python functions">min</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code class="python value">0.000000</code>&nbsp;&nbsp;&nbsp; <code class="python value">1.000000</code>&nbsp;&nbsp;&nbsp; <code class="python value">0.420000</code>&nbsp;&nbsp;&nbsp; <code class="python value">0.000000</code>&nbsp;&nbsp;&nbsp; <code class="python value">0.000000</code>&nbsp;&nbsp;&nbsp; <code class="python value">0.000000</code></div><div class="line number29 index28 alt2"><code class="python value">25</code><code class="python keyword">%</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code class="python value">0.000000</code>&nbsp;&nbsp;&nbsp; <code class="python value">2.000000</code>&nbsp;&nbsp; <code class="python value">20.125000</code>&nbsp;&nbsp;&nbsp; <code class="python value">0.000000</code>&nbsp;&nbsp;&nbsp; <code class="python value">0.000000</code>&nbsp;&nbsp;&nbsp; <code class="python value">7.910400</code></div><div class="line number30 index29 alt1"><code class="python value">50</code><code class="python keyword">%</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code class="python value">0.000000</code>&nbsp;&nbsp;&nbsp; <code class="python value">3.000000</code>&nbsp;&nbsp; <code class="python value">28.000000</code>&nbsp;&nbsp;&nbsp; <code class="python value">0.000000</code>&nbsp;&nbsp;&nbsp; <code class="python value">0.000000</code>&nbsp;&nbsp; <code class="python value">14.454200</code></div><div class="line number31 index30 alt2"><code class="python value">75</code><code class="python keyword">%</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code class="python value">1.000000</code>&nbsp;&nbsp;&nbsp; <code class="python value">3.000000</code>&nbsp;&nbsp; <code class="python value">38.000000</code>&nbsp;&nbsp;&nbsp; <code class="python value">1.000000</code>&nbsp;&nbsp;&nbsp; <code class="python value">0.000000</code>&nbsp;&nbsp; <code class="python value">31.000000</code></div><div class="line number32 index31 alt1"><code class="python functions">max</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code class="python value">1.000000</code>&nbsp;&nbsp;&nbsp; <code class="python value">3.000000</code>&nbsp;&nbsp; <code class="python value">80.000000</code>&nbsp;&nbsp;&nbsp; <code class="python value">8.000000</code>&nbsp;&nbsp;&nbsp; <code class="python value">6.000000</code>&nbsp; <code class="python value">512.329200</code></div></div></td></tr></tbody></table></div></div>
+<p>So we use read_csv since that is the form (comma separated values), the data is in. Pandas automatically gave the columns names from the header and inferred the data types. For large data sets it is recommended that you specify the data types manually.</p>
+<p>Notice that the age, cabin and embarked columns have null values. Also we apparently have some free-loaders because the minimum fare is 0. We might think that these are babies, so let’s check that:</p>
+<div><div id="highlighter_885641" class="syntaxhighlighter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python plain">&gt;&gt;&gt; In [</code><code class="python value">7</code><code class="python plain">]: traindf[[</code><code class="python string">'age'</code><code class="python plain">,</code><code class="python string">'fare'</code><code class="python plain">]][traindf.fare&lt;</code><code class="python value">5</code><code class="python plain">]</code></div><div class="line number2 index1 alt1"><code class="python plain">Out[</code><code class="python value">7</code><code class="python plain">]:</code></div><div class="line number3 index2 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">age&nbsp;&nbsp;&nbsp; fare</code></div><div class="line number4 index3 alt1"><code class="python value">179</code>&nbsp;&nbsp; <code class="python value">36</code>&nbsp; <code class="python value">0.0000</code></div><div class="line number5 index4 alt2"><code class="python value">263</code>&nbsp;&nbsp; <code class="python value">40</code>&nbsp; <code class="python value">0.0000</code></div><div class="line number6 index5 alt1"><code class="python value">271</code>&nbsp;&nbsp; <code class="python value">25</code>&nbsp; <code class="python value">0.0000</code></div><div class="line number7 index6 alt2"><code class="python value">277</code>&nbsp; <code class="python plain">NaN&nbsp; </code><code class="python value">0.0000</code></div><div class="line number8 index7 alt1"><code class="python value">302</code>&nbsp;&nbsp; <code class="python value">19</code>&nbsp; <code class="python value">0.0000</code></div><div class="line number9 index8 alt2"><code class="python value">378</code>&nbsp;&nbsp; <code class="python value">20</code>&nbsp; <code class="python value">4.0125</code></div><div class="line number10 index9 alt1"><code class="python value">413</code>&nbsp; <code class="python plain">NaN&nbsp; </code><code class="python value">0.0000</code></div><div class="line number11 index10 alt2"><code class="python value">466</code>&nbsp; <code class="python plain">NaN&nbsp; </code><code class="python value">0.0000</code></div><div class="line number12 index11 alt1"><code class="python value">481</code>&nbsp; <code class="python plain">NaN&nbsp; </code><code class="python value">0.0000</code></div><div class="line number13 index12 alt2"><code class="python value">597</code>&nbsp;&nbsp; <code class="python value">49</code>&nbsp; <code class="python value">0.0000</code></div><div class="line number14 index13 alt1"><code class="python value">633</code>&nbsp; <code class="python plain">NaN&nbsp; </code><code class="python value">0.0000</code></div><div class="line number15 index14 alt2"><code class="python value">674</code>&nbsp; <code class="python plain">NaN&nbsp; </code><code class="python value">0.0000</code></div><div class="line number16 index15 alt1"><code class="python value">732</code>&nbsp; <code class="python plain">NaN&nbsp; </code><code class="python value">0.0000</code></div><div class="line number17 index16 alt2"><code class="python value">806</code>&nbsp;&nbsp; <code class="python value">39</code>&nbsp; <code class="python value">0.0000</code></div><div class="line number18 index17 alt1"><code class="python value">815</code>&nbsp; <code class="python plain">NaN&nbsp; </code><code class="python value">0.0000</code></div><div class="line number19 index18 alt2"><code class="python value">822</code>&nbsp;&nbsp; <code class="python value">38</code>&nbsp; <code class="python value">0.0000</code></div></div></td></tr></tbody></table></div></div>
+<p>These guys are surely old enough to know better! But notice that there is a jump from a fare of 0 to 4, so there is something going on here, most likely these are errors, so let’s replace them by the mean fare for their class, and do the same for null values.</p>
+<div><div id="highlighter_209703" class="syntaxhighlighter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python comments">#first we set those fares of 0 to nan</code></div><div class="line number2 index1 alt1"><code class="python plain">In [</code><code class="python value">8</code><code class="python plain">]: traindf.fare </code><code class="python keyword">=</code> <code class="python plain">traindf.fare.</code><code class="python functions">map</code><code class="python plain">(</code><code class="python keyword">lambda</code> <code class="python plain">x: np.nan </code><code class="python keyword">if</code> <code class="python plain">x</code><code class="python keyword">=</code><code class="python keyword">=</code><code class="python value">0</code> <code class="python keyword">else</code> <code class="python plain">x)</code></div><div class="line number3 index2 alt2"><code class="python comments">#not that lambda just means a function we make on the fly</code></div><div class="line number4 index3 alt1"><code class="python comments">#calculate the mean fare for each class</code></div><div class="line number5 index4 alt2"><code class="python plain">In [</code><code class="python value">9</code><code class="python plain">]:classmeans </code><code class="python keyword">=</code> <code class="python plain">traindf.pivot_table(</code><code class="python string">'fare'</code><code class="python plain">, rows</code><code class="python keyword">=</code><code class="python string">'pclass'</code><code class="python plain">, aggfunc</code><code class="python keyword">=</code><code class="python string">'mean'</code><code class="python plain">)</code></div><div class="line number6 index5 alt1"><code class="python plain">In [</code><code class="python value">11</code><code class="python plain">]: classmeans</code></div><div class="line number7 index6 alt2"><code class="python plain">Out[</code><code class="python value">11</code><code class="python plain">]:</code></div><div class="line number8 index7 alt1"><code class="python plain">pclass</code></div><div class="line number9 index8 alt2"><code class="python value">1</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code class="python value">86.148874</code></div><div class="line number10 index9 alt1"><code class="python value">2</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code class="python value">21.358661</code></div><div class="line number11 index10 alt2"><code class="python value">3</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code class="python value">13.787875</code></div><div class="line number12 index11 alt1"><code class="python plain">Name: fare</code></div><div class="line number13 index12 alt2">&nbsp;</div><div class="line number14 index13 alt1"><code class="python plain">In [</code><code class="python value">12</code><code class="python plain">]: traindf.fare </code><code class="python keyword">=</code> <code class="python plain">traindf[[</code><code class="python string">'fare'</code><code class="python plain">, </code><code class="python string">'pclass'</code><code class="python plain">]].</code><code class="python functions">apply</code><code class="python plain">(</code><code class="python keyword">lambda</code> <code class="python plain">x: classmeans[x[</code><code class="python string">'pclass'</code><code class="python plain">]] </code><code class="python keyword">if</code> <code class="python plain">pd.isnull(x[</code><code class="python string">'fare'</code><code class="python plain">]) </code><code class="python keyword">else</code> <code class="python plain">x[</code><code class="python string">'fare'</code><code class="python plain">], axis</code><code class="python keyword">=</code><code class="python value">1</code> <code class="python plain">)</code></div><div class="line number15 index14 alt2"><code class="python comments">#so apply acts on dataframes, either row-wise or column-wise, axis=1 means rows</code></div></div></td></tr></tbody></table></div></div>
+<p>Now let’s do a similar thing for age, replacing missing values with the overall mean. Later we’ll learn about more sophisticated techniques for replacing missing values and improve upon this.</p>
+<div><div id="highlighter_162396" class="syntaxhighlighter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python plain">In [</code><code class="python value">14</code><code class="python plain">]: meanAge</code><code class="python keyword">=</code><code class="python plain">np.mean(traindf.age)</code></div><div class="line number2 index1 alt1"><code class="python plain">In [</code><code class="python value">15</code><code class="python plain">]: traindf.age</code><code class="python keyword">=</code><code class="python plain">traindf.age.fillna(meanAge)</code></div></div></td></tr></tbody></table></div></div>
+<p>Now for the cabin, since the majority of values are missing, it might be best to treat that<br>
+as a piece of information itself, so we’ll set these to be ‘Unknown’, also we’ll set the missing values<br>
+in embarked to be the mode.</p>
+<div><div id="highlighter_841823" class="syntaxhighlighter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python plain">In [</code><code class="python value">16</code><code class="python plain">]: traindf.cabin </code><code class="python keyword">=</code> <code class="python plain">traindf.cabin.fillna(</code><code class="python string">'Unknown'</code><code class="python plain">)</code></div><div class="line number2 index1 alt1"><code class="python plain">In [</code><code class="python value">17</code><code class="python plain">]: </code><code class="python keyword">from</code> <code class="python plain">scipy.stats </code><code class="python keyword">import</code> <code class="python plain">mode</code></div><div class="line number3 index2 alt2"><code class="python plain">In [</code><code class="python value">18</code><code class="python plain">]: modeEmbarked </code><code class="python keyword">=</code> <code class="python plain">mode(traindf.embarked)[</code><code class="python value">0</code><code class="python plain">][</code><code class="python value">0</code><code class="python plain">]</code></div><div class="line number4 index3 alt1"><code class="python plain">In [</code><code class="python value">19</code><code class="python plain">]: traindf.embarked </code><code class="python keyword">=</code> <code class="python plain">traindf.embarked.fillna(modeEmbarked)</code></div></div></td></tr></tbody></table></div></div>
+<p>And now we have sorted out the null values and the obvious outliers. Rather than saving the cleaned data set as a csv, I would prefer to have a workflow where we always start from the raw data, this means that we never lose anything. I include the script for doing the whole thing. You can download the script for the process, which also cleans the test data, <a href="http://sourceforge.net/projects/triangleinequal/files/Titanic/cleantitanic.py/download">here</a>.</p>
+<p>Next time we will have some fun with plotting.</p>
+
+<div class="wpcnt">
+<div class="wpa">
+<a class="wpa-about" href="http://wordpress.com/about-these-ads/" rel="nofollow">About these ads</a>
+<script type="text/javascript">
+		var wpcom_adclk_hovering = false;
+		var wpcom_adclk_recorded = false;
+		var wpcom_adclk_theme = "Academica";
+		var wpcom_adclk_slot = "wpcom_below_post";
+		var wpcom_adclk_network = ( typeof wpcom_adclk_network === "undefined" ) ? "" : wpcom_adclk_network ;
+
+		jQuery(document).ready( function() {
+			function wpcom_adclk_hover_yes() { wpcom_adclk_hovering = true; }
+			function wpcom_adclk_hover_no() { wpcom_adclk_hovering = false; }
+			jQuery(".wpa").click(wpcom_adclk_click);
+			jQuery(".wpa iframe").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+			jQuery(".wpa object").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+
+			jQuery(window).blur( function() {
+				if ( wpcom_adclk_hovering ) { wpcom_adclk_click(); }
+			});
+		});
+
+		function wpcom_adclk_impression() {
+			var stat_gif = document.location.protocol + "//pixel.wp.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_imp_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_imp_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_imp_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_imp_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			return true;
+		}
+
+		function wpcom_adclk_click() {
+			if (wpcom_adclk_recorded) { return true; } // no double counting
+			var stat_gif = document.location.protocol + "//pixel.wp.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_click_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_click_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_click_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_click_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			wpcom_adclk_recorded = true;
+			var now=new Date(); var end=now.getTime()+250;
+			while(true){now=new Date();if(now.getTime()>end){break;}}
+			return true;
+		}
+	
+if ( typeof GA_googleAddAttr == 'function' ) {
+GA_googleAddAttr("AdOpt", "1");
+GA_googleAddAttr("Origin", "other");
+GA_googleAddAttr("LangId", "1");
+GA_googleAddAttr("Domain", "triangleinequality.wordpress.com");
+GA_googleAddAttr("BlogId", "52270418");
+GA_googleAddAttr("PageURL", "https://triangleinequality.wordpress.com/2013/05/19/machine-learning-with-python-first-steps-munging/");
+GA_googleAddAttr("Autotag", "technology");
+GA_googleAddAttr("Autotag", "science");
+GA_googleAddAttr("Tag", "kaggle");
+GA_googleAddAttr("Tag", "machine-learning");
+GA_googleAddAttr("Tag", "python");
+GA_googleAddAttr("Tag", "titanic");
+GA_googleAddAttr("Tag", "datamining");
+GA_googleAddAttr("Tag", "ipython");
+GA_googleAddAttr("Tag", "kaggle");
+GA_googleAddAttr("Tag", "machine-learning");
+GA_googleAddAttr("Tag", "programming");
+GA_googleAddAttr("Tag", "python");
+GA_googleAddAttr("Tag", "titanic");
+GA_googleAddAttr("theme_bg", "ffffff");
+GA_googleAddAttr("theme_text", "333333");
+GA_googleAddAttr("theme_link", "0c5390");
+GA_googleAddAttr("theme_border", "f99734");
+GA_googleAddAttr("theme_url", "f99734");
+GA_googleAddAdSensePageAttr("google_page_url", "https://triangleinequality.wordpress.com/2013/05/19/machine-learning-with-python-first-steps-munging/");
+GA_googleFillSlot("wpcom_below_post");
+}
+</script>
+</div>
+</div>
+
+<script type="text/javascript">
+jQuery( window ).load( function() {
+    if ( jQuery(".wpa script[src*='virool.com']").length > 0 || jQuery(".wpa script[src*='shareth.ru']").length > 0 || jQuery(".wpa iframe[src*='boomvideo.tv']").length > 0 || jQuery(".wpa iframe[src*='viewablemedia.net']").length > 0 || jQuery(".wpa .sharethrough-placement").length > 0 ) {
+        jQuery( '.wpa' ).css( 'width', '400px' );
+    }
+setTimeout(function(){if(typeof GS_googleAddAdSenseService !== 'function'){new Image().src=document.location.protocol+"//pixel.wp.com/g.gif?v=wpcom-no-pv&x_noads=adblock&baba="+Math.random()}},100);
+} );
+</script>
+
+<div id="jp-post-flair" class="sharedaddy sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow" class="share-twitter sd-button share-icon" href="https://triangleinequality.wordpress.com/2013/05/19/machine-learning-with-python-first-steps-munging/?share=twitter&nb=1" title="Click to share on Twitter" id="sharing-twitter-3"><span>Twitter<span class="share-count">1</span></span></a></li><li class="share-facebook"><a rel="nofollow" class="share-facebook sd-button share-icon" href="https://triangleinequality.wordpress.com/2013/05/19/machine-learning-with-python-first-steps-munging/?share=facebook&nb=1" title="Share on Facebook" id="sharing-facebook-3"><span>Facebook</span></a></li><li class="share-google-plus-1"><a rel="nofollow" class="share-google-plus-1 sd-button share-icon" href="https://triangleinequality.wordpress.com/2013/05/19/machine-learning-with-python-first-steps-munging/?share=google-plus-1&nb=1" title="Click to share on Google+" id="sharing-google-3"><span>Google</span></a></li><li class="share-end"></li></ul></div></div></div><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-loaded" id="like-post-wrapper-52270418-3-554863c5edd55" data-src="//widgets.wp.com/likes/#blog_id=52270418&amp;post_id=3&amp;origin=triangleinequality.wordpress.com&amp;obj_id=52270418-3-554863c5edd55" data-name="like-post-frame-52270418-3-554863c5edd55"><h3 class="sd-title">Like this:</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height: 55px; display: none;"><span class="button"><span>Like</span></span> <span class="loading">Loading...</span></div><iframe class="post-likes-widget jetpack-likes-widget" name="like-post-frame-52270418-3-554863c5edd55" height="55px" width="100%" frameborder="0" src="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/saved_resource(7).html"></iframe><span class="sd-text-color"></span><a class="sd-link-color"></a></div>
+<div id="jp-relatedposts" class="jp-relatedposts" style="display: block;">
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+<div class="jp-relatedposts-items jp-relatedposts-items-minimal"><p class="jp-relatedposts-post jp-relatedposts-post0" data-post-id="224" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://triangleinequality.wordpress.com/2013/09/05/a-complete-guide-to-getting-0-79903-in-kaggles-titanic-competition-with-python/" title="A complete guide to getting 0.79903 in Kaggle&#39;s Titanic Competition with Python
+
+Ok so this is going to be a quick recap of all the work we have done so far in this blog, but it should be accessible to first time readers also. Quickstart: to get underway immediately just download the following python scripts: -Data Cleaning -Graph Theory -Decision Trees -Final…" rel="nofollow" data-origin="3" data-position="0">A complete guide to getting 0.79903 in Kaggle's Titanic Competition with Python</a></span><span class="jp-relatedposts-post-context">In "decision trees"</span></p><p class="jp-relatedposts-post jp-relatedposts-post1" data-post-id="138" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://triangleinequality.wordpress.com/2013/08/24/decision-trees-part-1-representation/" title="Decision Trees Part 1: Representation
+
+Now that we have data structures describing graphs, we can put them to work and do some machine learning! We&#39;re going to be looking at decision trees. The wikipedia page on Decison Tree learning has an example from our favourite data set, the Titanic survivors, so let&#39;s steal their picture…" rel="nofollow" data-origin="3" data-position="1">Decision Trees Part 1: Representation</a></span><span class="jp-relatedposts-post-context">In "graph theory"</span></p><p class="jp-relatedposts-post jp-relatedposts-post2" data-post-id="728" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://triangleinequality.wordpress.com/2013/12/04/creating-dummy-variables-in-pandas/" title="Creating Dummy Variables in Pandas
+
+Last time we implemented logistic regression, where the data is in the form of a numpy array. But what if your data is not of that form? What if it is a pandas dataframe like the Kaggle Titanic data? Specifically the problem is variables like &#39;Title&#39; where we have four…" rel="nofollow" data-origin="3" data-position="2">Creating Dummy Variables in Pandas</a></span><span class="jp-relatedposts-post-context">In "data cleaning"</span></p></div></div></div>	</div><!-- end .entry-content -->
+
+	<div class="entry-meta">
+		<p class="tags"><strong>Tags:</strong> <a href="https://triangleinequality.wordpress.com/tag/datamining/" rel="tag">datamining</a>, <a href="https://triangleinequality.wordpress.com/tag/ipython/" rel="tag">IPython</a>, <a href="https://triangleinequality.wordpress.com/tag/kaggle/" rel="tag">Kaggle</a>, <a href="https://triangleinequality.wordpress.com/tag/machine-learning/" rel="tag">machine learning</a>, <a href="https://triangleinequality.wordpress.com/tag/programming/" rel="tag">Programming</a>, <a href="https://triangleinequality.wordpress.com/tag/python/" rel="tag">python</a>, <a href="https://triangleinequality.wordpress.com/tag/titanic/" rel="tag">Titanic</a></p><span class="by-author">By <span class="author vcard"><a class="url fn n" href="https://triangleinequality.wordpress.com/author/triangleinequality/" title="View all posts by triangleinequality" rel="author">triangleinequality</a></span> </span>in <span class="category"><a href="https://triangleinequality.wordpress.com/category/kaggle/" rel="category tag">Kaggle</a>, <a href="https://triangleinequality.wordpress.com/category/machine-learning/" rel="category tag">machine learning</a>, <a href="https://triangleinequality.wordpress.com/category/python/" rel="category tag">python</a>, <a href="https://triangleinequality.wordpress.com/category/kaggle/titanic/" rel="category tag">Titanic</a></span> on <span class="datetime"><a href="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality.html" title="9:00 pm" rel="bookmark"><time class="entry-date" datetime="2013-05-19T21:00:01+00:00" pubdate="">May 19, 2013</time></a></span>.	</div><!-- end .entry-meta -->
+
+</div><!-- end #post-## -->
+		<div class="navigation clearfix">
+						<span class="alignright"><a href="https://triangleinequality.wordpress.com/2013/05/25/plotting-with-python/" rel="next">Plotting With Python <span class="meta-nav">→</span></a></span>		</div><!-- end .navigation -->
+
+		
+<div id="comments">
+
+	
+		<hr>
+		<h2>4 Comments</h2>
+
+		<ol class="commentlist">
+					<li class="pingback even thread-even depth-1 highlander-comment" id="comment-2">
+				<div id="div-comment-2" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href="https://triangleinequality.wordpress.com/2013/05/25/plotting-with-python/" rel="external nofollow" class="url">Plotting With Python | triangleinequality</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://triangleinequality.wordpress.com/2013/05/19/machine-learning-with-python-first-steps-munging/comment-page-1/#comment-2">
+			May 25, 2013 at 12:57 pm</a>		</div>
+
+		<p>[…] we are continuing from last time, with the titanic data set. Since our ‘response’ the survived column is categorical or […]</p>
+
+		<div class="reply"><a class="comment-reply-link" href="https://triangleinequality.wordpress.com/2013/05/19/machine-learning-with-python-first-steps-munging/?replytocom=2#respond" onclick="return addComment.moveForm( &quot;div-comment-2&quot;, &quot;2&quot;, &quot;respond&quot;, &quot;3&quot; )" aria-label="Reply to Plotting With Python | triangleinequality">Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-4">
+				<div id="div-comment-4" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href="https://triangleinequality.wordpress.com/2013/06/01/a-first-taste-of-graph-theory/" rel="external nofollow" class="url">A First Taste of Graph Theory | triangleinequality</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://triangleinequality.wordpress.com/2013/05/19/machine-learning-with-python-first-steps-munging/comment-page-1/#comment-4">
+			June 1, 2013 at 4:59 pm</a>		</div>
+
+		<p>[…] back. So far we’ve learnt how to clean data, and do some basic plotting. Now we really want to move on to some machine learning proper and make […]</p>
+
+		<div class="reply"><a class="comment-reply-link" href="https://triangleinequality.wordpress.com/2013/05/19/machine-learning-with-python-first-steps-munging/?replytocom=4#respond" onclick="return addComment.moveForm( &quot;div-comment-4&quot;, &quot;4&quot;, &quot;respond&quot;, &quot;3&quot; )" aria-label="Reply to A First Taste of Graph Theory | triangleinequality">Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback even thread-even depth-1 highlander-comment" id="comment-22">
+				<div id="div-comment-22" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href="https://triangleinequality.wordpress.com/2013/09/05/a-complete-guide-to-getting-0-79903-in-kaggles-titanic-competition-with-python/" rel="external nofollow" class="url">A complete guide to getting 0.79903 in Kaggle’s Titanic Competition with Python « triangleinequality</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://triangleinequality.wordpress.com/2013/05/19/machine-learning-with-python-first-steps-munging/comment-page-1/#comment-22">
+			September 5, 2013 at 12:16 pm</a>		</div>
+
+		<p>[…] To read a guide to cleaning the data and producing that code, click here. […]</p>
+
+		<div class="reply"><a class="comment-reply-link" href="https://triangleinequality.wordpress.com/2013/05/19/machine-learning-with-python-first-steps-munging/?replytocom=22#respond" onclick="return addComment.moveForm( &quot;div-comment-22&quot;, &quot;22&quot;, &quot;respond&quot;, &quot;3&quot; )" aria-label="Reply to A complete guide to getting 0.79903 in Kaggle’s Titanic Competition with Python « triangleinequality">Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-60">
+				<div id="div-comment-60" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href="https://triangleinequality.wordpress.com/2013/12/04/creating-dummy-variables-in-pandas/" rel="external nofollow" class="url">Creating Dummy Variables in Pandas « triangleinequality</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://triangleinequality.wordpress.com/2013/05/19/machine-learning-with-python-first-steps-munging/comment-page-1/#comment-60">
+			December 4, 2013 at 2:20 pm</a>		</div>
+
+		<p>[…] Last time we implemented logistic regression, where the data is in the form of a numpy array. But what if your data is not of that form? What if it is a pandas dataframe like the Kaggle Titanic data? […]</p>
+
+		<div class="reply"><a class="comment-reply-link" href="https://triangleinequality.wordpress.com/2013/05/19/machine-learning-with-python-first-steps-munging/?replytocom=60#respond" onclick="return addComment.moveForm( &quot;div-comment-60&quot;, &quot;60&quot;, &quot;respond&quot;, &quot;3&quot; )" aria-label="Reply to Creating Dummy Variables in Pandas « triangleinequality">Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		</ol>
+
+								<div id="respond" class="comment-respond js">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="https://triangleinequality.wordpress.com/2013/05/19/machine-learning-with-python-first-steps-munging/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="https://triangleinequality.wordpress.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																										
+
+
+												<input type="hidden" id="highlander_comment_nonce" name="highlander_comment_nonce" value="9b3f4ae146"><input type="hidden" name="_wp_http_referer" value="/2013/05/19/machine-learning-with-python-first-steps-munging/">
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest">
+
+<div class="comment-form-field comment-textarea">
+	
+	<div id="comment-form-comment"><textarea tabindex="-1" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px; padding: 0px; box-sizing: content-box; word-wrap: break-word; overflow: hidden; -webkit-transition: none; transition: none; height: 0px !important; min-height: 0px !important; font-family: Helvetica, Arial, Tahoma, sans-serif; font-size: 14px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; text-decoration: none; word-spacing: 0px; text-indent: 0px; line-height: normal; width: 938px;" class="autosizejs "></textarea><textarea id="comment" name="comment" title="Enter your comment here..." placeholder="Enter your comment here..." style="height: 36px; overflow: hidden; word-wrap: break-word; resize: none;"></textarea></div>
+</div>
+
+<div id="comment-form-identity" style="display: none;">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="https://triangleinequality.wordpress.com/2013/05/19/machine-learning-with-python-first-steps-munging/#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://triangleinequality.wordpress.com/2013/05/19/machine-learning-with-python-first-steps-munging/#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://triangleinequality.wordpress.com/2013/05/19/machine-learning-with-python-first-steps-munging/#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://triangleinequality.wordpress.com/2013/05/19/machine-learning-with-python-first-steps-munging/#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+			<li>
+			<iframe id="googleplus-sign-in" name="googleplus-sign-in" src="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/saved_resource.html" width="24" height="24" scrolling="no" allowtransparency="true" seamless="seamless" frameborder="0"></iframe>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank">				<img src="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/ad516503a11cd5ca435acc9bb6523536" alt="Gravatar" width="25" class="no-grav" originals="25" src-orig="https://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" scale="2">
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text" value=""></div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/wplogo.png" alt="WordPress.com Logo" width="25" class="no-grav" scale="0">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="">
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your WordPress.com account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'wordpress' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://triangleinequality.wordpress.com/2013/05/19/machine-learning-with-python-first-steps-munging/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/ad516503a11cd5ca435acc9bb6523536(1)" alt="Twitter picture" width="25" class="no-grav" originals="25" scale="2">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="">
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'twitter' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://triangleinequality.wordpress.com/2013/05/19/machine-learning-with-python-first-steps-munging/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/ad516503a11cd5ca435acc9bb6523536(1)" alt="Facebook photo" width="25" class="no-grav" originals="25" scale="2">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="">
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'facebook' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://triangleinequality.wordpress.com/2013/05/19/machine-learning-with-python-first-steps-munging/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/ad516503a11cd5ca435acc9bb6523536(1)" alt="Google+ photo" width="25" class="no-grav" originals="25" scale="2">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="">
+				<p class="comment-form-posting-as pa-googleplus"><strong></strong> You are commenting using your Google+ account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'googleplus' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://triangleinequality.wordpress.com/2013/05/19/machine-learning-with-python-first-steps-munging/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div id="comment-form-subscribe" style="display: none;">
+	<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6"> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of new comments via email.</label></p></div>
+
+												<p class="form-submit" style="display: none;">
+							<input name="submit" type="submit" id="comment-submit" class="submit" value="Post Comment">
+							<input type="hidden" name="comment_post_ID" value="3" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+						</p>
+						<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="fe39b5917e"></p>
+<input type="hidden" name="genseq" value="1430807494">
+<p style="display: none;"></p>					<input type="hidden" id="ak_js" name="ak_js" value="1430807996609"></form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>
+</div><!-- #comments -->
+	</div><!-- end .column-content -->
+
+	
+	
+</div><!-- end #content -->
+
+			<div id="footer" class="clearfix">
+				
+								<p class="copy">
+					<a href="https://wordpress.com/?ref=footer_blog">Blog at WordPress.com</a>.<span class="sep"> / </span>
+					<a href="https://wordpress.com/themes/academica/" title="Learn more about this theme">The Academica Theme</a>.				</p>
+			</div><!-- end #footer -->
+		</div><!-- end #wrap -->
+
+		<!-- wpcom_wp_footer -->
+<script type="text/javascript" src="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/wpgroho.js"></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+
+			if (typeof Gravatar === "undefined"){
+				return;
+			}
+
+			if ( typeof Gravatar.init !== "function" ) {
+				return;
+			}			
+
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"https:\/\/triangleinequality.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"https:\/\/triangleinequality.wordpress.com\/wp-login.php?action=logout&_wpnonce=4327dc2202","homeURL":"https:\/\/triangleinequality.wordpress.com\/","postID":"3","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"0","userIsLoggedIn":"","isJetpack":"0","text_direction":"ltr"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/saved_resource(2)"></script>
+
+	<div id="bit" class="loggedout-follow-normal" style="bottom: -260px;">
+		<a class="bsub" href="javascript:void(0)"><span id="bsub-text">Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow “triangleinequality”</label></h3>
+
+			<form action="https://subscribe.wordpress.com/" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+						<p class="bit-follow-count">Join 38 other followers</p>
+			<p><input type="email" name="email" value="Enter your email address" onfocus="this.value=(this.value==&quot;Enter your email address&quot;) ? &quot;&quot; : this.value;" onblur="this.value=(this.value==&quot;&quot;) ? &quot;Enter your email address&quot; : this.value;" id="loggedout-follow-field"></p>
+
+			<input type="hidden" name="action" value="subscribe">
+			<input type="hidden" name="blog_id" value="52270418">
+			<input type="hidden" name="source" value="https://triangleinequality.wordpress.com/2013/05/19/machine-learning-with-python-first-steps-munging/">
+			<input type="hidden" name="sub-type" value="loggedout-follow">
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="9692dc94a5"><input type="hidden" name="_wp_http_referer" value="/2013/05/19/machine-learning-with-python-first-steps-munging/">
+			<p id="bsub-subscribe-button"><input type="submit" value="Sign me up"></p>
+			</form>
+					<div id="bsub-credit"><a href="https://wordpress.com/?ref=lof">Build a website with WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"https:\/\/triangleinequality.wordpress.com\/2013\/05\/19\/machine-learning-with-python-first-steps-munging\/":3};
+		window.WPCOM_site_ID = 52270418;
+	</script>
+		<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-google-plus-1' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=480,height=550' );
+				return false;
+			});
+		});
+		</script>
+				<iframe src="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/master.html" scrolling="no" id="likes-master" name="likes-master" style="display:none;"></iframe>
+		<div id="likes-other-gravatars"><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type="text/javascript">
+		//<![CDATA[
+			var jetpackLikesWidgetQueue = [];
+			var jetpackLikesWidgetBatch = [];
+			var jetpackLikesMasterReady = false;
+
+			function JetpackLikespostMessage( message, target ) {
+				if ( "string" === typeof message ){
+					try{
+						message = JSON.parse( message );
+					}
+					catch(e) {
+						return;
+					}
+				}
+
+				pm( {
+					target: target,
+					type: 'likesMessage',
+					data: message,
+					origin: '*'
+				} );
+			}
+
+			function JetpackLikesBatchHandler() {
+				var requests = [];
+				jQuery( 'div.jetpack-likes-widget-unloaded' ).each( function( i ) {
+					if ( jetpackLikesWidgetBatch.indexOf( this.id ) > -1 )
+						return;
+					jetpackLikesWidgetBatch.push( this.id );
+					var regex = /like-(post|comment)-wrapper-(\d+)-(\d+)-(\w+)/;
+					var match = regex.exec( this.id );
+					if ( ! match || match.length != 5 )
+						return;
+
+					var info = {
+						blog_id: match[2],
+						width:   this.width
+					};
+
+					if ( 'post' == match[1] ) {
+						info.post_id = match[3];
+					} else if ( 'comment' == match[1] ) {
+						info.comment_id = match[3];
+					}
+
+					info.obj_id = match[4];
+
+					requests.push( info );
+				});
+
+				if ( requests.length > 0 ) {
+					JetpackLikespostMessage( { event: 'initialBatch', requests: requests }, window.frames['likes-master'] );
+				}
+			}
+
+			function JetpackLikesMessageListener( event ) {
+				if ( "undefined" == typeof event.event )
+					return;
+
+				if ( 'masterReady' == event.event ) {
+					jQuery( document ).ready( function() {
+						jetpackLikesMasterReady = true;
+
+						var stylesData = {
+								event: 'injectStyles'
+						};
+
+						if ( jQuery( 'iframe.admin-bar-likes-widget' ).length > 0 ) {
+							JetpackLikespostMessage( { event: 'adminBarEnabled' }, window.frames[ 'likes-master' ] );
+
+							stylesData.adminBarStyles = {
+								background: jQuery( '#wpadminbar .quicklinks li#wp-admin-bar-wpl-like > a' ).css( 'background' ),
+								isRtl: ( 'rtl' == jQuery( '#wpadminbar' ).css( 'direction' ) )
+							};
+						}
+
+						if ( !window.addEventListener )
+							jQuery( '#wp-admin-bar-admin-bar-likes-widget' ).hide();
+
+						stylesData.textStyles = {
+							color: jQuery( '.sd-text-color').css( 'color' ),
+							fontFamily: jQuery( '.sd-text-color' ).css( 'font-family' ),
+							fontSize: jQuery( '.sd-text-color' ).css( 'font-size' ),
+							direction: jQuery( '.sd-text-color' ).css( 'direction' ),
+							fontWeight: jQuery( '.sd-text-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-text-color' ).css( 'font-style' ),
+							textDecoration: jQuery( '.sd-text-color' ).css('text-decoration')
+						};
+
+						stylesData.linkStyles = {
+							color: jQuery( '.sd-link-color' ).css('color'),
+							fontFamily: jQuery( '.sd-link-color' ).css('font-family'),
+							fontSize: jQuery( '.sd-link-color' ).css('font-size'),
+							textDecoration: jQuery( '.sd-link-color' ).css('text-decoration'),
+							fontWeight: jQuery( '.sd-link-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-link-color' ).css( 'font-style' )
+						};
+
+						JetpackLikespostMessage( stylesData, window.frames[ 'likes-master' ] );
+
+						JetpackLikesBatchHandler();
+
+						jQuery( document ).on( 'inview', 'div.jetpack-likes-widget-unloaded', function() {
+							jetpackLikesWidgetQueue.push( this.id );
+						});
+					});
+				}
+
+				if ( 'showLikeWidget' == event.event ) {
+					jQuery( '#' + event.id + ' .post-likes-widget-placeholder'  ).fadeOut( 'fast', function() {
+						jQuery( '#' + event.id + ' .post-likes-widget' ).fadeIn( 'fast', function() {
+							JetpackLikespostMessage( { event: 'likeWidgetDisplayed', blog_id: event.blog_id, post_id: event.post_id, obj_id: event.obj_id }, window.frames['likes-master'] );
+						});
+					});
+				}
+
+				if ( 'clickReblogFlair' == event.event ) {
+					wpcom_reblog.toggle_reblog_box_flair( event.obj_id );
+				}
+
+				if ( 'showOtherGravatars' == event.event ) {
+					var $container = jQuery( '#likes-other-gravatars' );
+					var $list = $container.find( 'ul' );
+
+					$container.hide();
+					$list.html( '' );
+
+					$container.find( '.likes-text span' ).text( event.total );
+
+					jQuery.each( event.likers, function( i, liker ) {
+						$list.append( '<li class="' + liker.css_class + '"><a href="' + liker.profile_URL + '" class="wpl-liker" rel="nofollow" target="_parent"><img src="' + liker.avatar_URL + '" alt="' + liker.name + '" width="30" height="30" style="padding-right: 3px;" /></a></li>');
+					} );
+
+					var offset = jQuery( "[name='" + event.parent + "']" ).offset();
+
+					$container.css( 'left', offset.left + event.position.left - 10 + 'px' );
+					$container.css( 'top', offset.top + event.position.top - 33 + 'px' );
+
+					var rowLength = Math.floor( event.width / 37 );
+					var height = ( Math.ceil( event.likers.length / rowLength ) * 37 ) + 13;
+					if ( height > 204 ) {
+						height = 204;
+					}
+
+					$container.css( 'height', height + 'px' );
+					$container.css( 'width', rowLength * 37 - 7 + 'px' );
+
+					$list.css( 'width', rowLength * 37 + 'px' );
+
+					$container.fadeIn( 'slow' );
+
+					var scrollbarWidth = $list[0].offsetWidth - $list[0].clientWidth;
+					if ( scrollbarWidth > 0 ) {
+						$container.width( $container.width() + scrollbarWidth );
+						$list.width( $list.width() + scrollbarWidth );
+					}
+				}
+			}
+
+			pm.bind( 'likesMessage', function(e) { JetpackLikesMessageListener(e); } );
+
+			jQuery( document ).click( function( e ) {
+				var $container = jQuery( '#likes-other-gravatars' );
+
+				if ( $container.has( e.target ).length === 0 ) {
+					$container.fadeOut( 'slow' );
+				}
+			});
+
+			function JetpackLikesWidgetQueueHandler() {
+				var wrapperID;
+				if ( ! jetpackLikesMasterReady ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				if ( jetpackLikesWidgetQueue.length > 0 ) {
+					// We may have a widget that needs creating now
+					var found = false;
+					while( jetpackLikesWidgetQueue.length > 0 ) {
+						// Grab the first member of the queue that isn't already loading.
+						wrapperID = jetpackLikesWidgetQueue.splice( 0, 1 )[0];
+						if ( jQuery( '#' + wrapperID ).hasClass( 'jetpack-likes-widget-unloaded' ) ) {
+							found = true;
+							break;
+						}
+					}
+					if ( ! found ) {
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				} else if ( jQuery( 'div.jetpack-likes-widget-unloaded' ).length > 0 ) {
+					// Grab any unloaded widgets for a batch request
+					JetpackLikesBatchHandler();
+
+					// Get the next unloaded widget
+					wrapperID = jQuery( 'div.jetpack-likes-widget-unloaded' ).first()[0].id;
+					if ( ! wrapperID ) {
+						// Everything is currently loaded
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				}
+
+				if ( 'undefined' === typeof wrapperID ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				var $wrapper = jQuery( '#' + wrapperID );
+				$wrapper.find( 'iframe' ).remove();
+
+				if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='22px' width='68px' frameBorder='0' scrolling='no' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				} else {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='55px' width='100%' frameBorder='0' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				}
+
+				$wrapper.removeClass( 'jetpack-likes-widget-unloaded' ).addClass( 'jetpack-likes-widget-loading' );
+
+				$wrapper.find( 'iframe' ).load( function( e ) {
+					var $iframe = jQuery( e.target );
+					$wrapper.removeClass( 'jetpack-likes-widget-loading' ).addClass( 'jetpack-likes-widget-loaded' );
+
+					JetpackLikespostMessage( { event: 'loadLikeWidget', name: $iframe.attr( 'name' ), width: $iframe.width() }, window.frames[ 'likes-master' ] );
+
+					if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+						$wrapper.find( 'iframe' ).Jetpack( 'resizeable' );
+					}
+				});
+				setTimeout( JetpackLikesWidgetQueueHandler, 250 );
+			}
+			JetpackLikesWidgetQueueHandler();
+		//]]>
+		</script>
+<script type="text/javascript" src="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/form.js"></script>
+<script type="text/javascript" src="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/saved_resource(3)"></script>
+<script type="text/javascript">
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "https://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.9b";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "https://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?m=1363304414g&amp;ver=3.0.9b";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var JetpackEmojiSettings = {"base_url":"https:\/\/s0.wp.com\/wp-content\/mu-plugins\/emoji\/twemoji\/"};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/saved_resource(4)"></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/w.js" type="text/javascript" async="" defer=""></script>
+<script type="text/javascript">
+_tkq = window._tkq || [];
+_stq = window._stq || [];
+_tkq.push(['storeContext', {'blog_id':'52270418','blog_tz':'0','user_lang':'en','blog_lang':'en','user_id':'0'}]);
+_stq.push(['view', {'blog':'52270418','v':'wpcom','tz':'0','user_id':'0','post':'3','subd':'triangleinequality'}]);
+_stq.push(['extra', {'crypt':'UE5XaGUuOTlwaD85flAmcm1mcmZsaDhkV11YdTdvUG14Q2VDQTR4LlUsLi82dU1mai9BMmlCVVM1U0h6VG1VbVhmVDhlL0olVnhjTE9zUjdwaT1aNVNuU0sxazJyUnNjUmosZT9ScWotZllQNEI4dFJVeCVZQ10laG5LcE91Z29Xb1t0em1GQkc3PVVjLSxyVWRWOFp8cHBkcyV5YXVVfm93aEZFc1pOL3czYmEmLy1KOVYzeWxFVzZnSE0lcThtMzVrLUJ8TUxwODUuNjZ+Wmx3RjFyRzE5US8zV3FFfHdPYT9uRUtYSnJRY3dPSjlDRWQwZUFYZ1d5YTcwfnpfVVZ6S016Y3hJSj9KJVtfMltVZGNIWU1VVF0zRXNCKzFGRmZmTVhTSmkmOH5ZSFJPOThPRWEyVmIs'}]);
+_stq.push([ 'clickTrackerInit', '52270418', '3' ]);
+	</script>
+<noscript>&lt;img src="https://pixel.wp.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /&gt;</noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//pixel.wp.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>	
+<img src="./Machine Learning with Python – First Steps_ Munging the Titanic « triangleinequality_files/g.gif" id="wpstats" scale="0"></body></html>
